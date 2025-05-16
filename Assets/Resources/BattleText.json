@@ -1,0 +1,72 @@
+{
+    "BattleTexts":[
+        {
+            "id": "DamageAttacker",
+            "text": "アタッカーが攻撃をくらった!"
+        },
+        {
+            "id": "DamageBuffer",
+            "text": "バッファーが攻撃をくらった!"
+        },
+        {
+            "id": "DamageHealer",
+            "text": "ヒーラーが攻撃をくらった!"
+        },
+        {
+            "id": "AttackerOnDebuff",
+            "text": "アタッカーにデバフが付与された！"
+        },
+        {
+            "id": "BufferOnDebuff",
+            "text": "バッファーにデバフが付与された！"
+        },
+        {
+            "id": "HealerOnDebuff",
+            "text": "ヒーラーにデバフが付与された！"
+        },
+        {
+            "id": "AttackerOnSpecialDebuff",
+            "text": "アタッカーに特殊デバフが付与された！"
+        },
+        {
+            "id": "BufferOnSpecialDebuff",
+            "text": "バッファーに特殊デバフが付与された！"
+        },
+        {
+            "id": "HealerOnSpecialDebuff",
+            "text": "ヒーラーに特殊デバフが付与された！"
+        },
+        {
+            "id": "AttackerOffDebuff",
+            "text": "アタッカーのデバフが解除"
+        },
+        {
+            "id": "BufferOffDebuff",
+            "text": "バッファーのデバフが解除"
+        },
+        {
+            "id": "HealerOffDebuff",
+            "text": "ヒーラーのデバフが解除"
+        },
+        {
+            "id": "Can't_UseSkill",
+            "text": "スキルはつかえません！！"
+        },
+        {
+            "id": "Can't_UseSpecial",
+            "text": "必殺はつかえません！！"
+        },
+        {
+            "id": "AttackerTurnText",
+            "text": "アタッカーのターン"
+        },
+        {
+            "id": "BufferTurnText",
+            "text": "バッファーのターン"
+        },
+        {
+            "id": "HealerTurnText",
+            "text": "ヒーラーのターン"
+        }
+    ]
+}
