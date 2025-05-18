@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -494,6 +492,11 @@ public class Stage3BattleSystem : BaseBattleManager
 
             cts.Cancel();
             cts.Dispose();
+
+
+
+            //ステージ3を解放したデータをセーブする
+            SaveManager.SaveStage();
 
             SceneManager.LoadScene("GameClear");
 

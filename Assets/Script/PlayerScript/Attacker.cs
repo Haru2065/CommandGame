@@ -41,10 +41,10 @@ public class Attacker : BasePlayerStatus
     private Transform specialAttackEffect_SpawnPoint3;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         //パラメータを設定
-        SetPlayerParameters();
+        base.Start();
 
         IsUseSkill = false;
 
@@ -80,12 +80,14 @@ public class Attacker : BasePlayerStatus
 
             //最大体力のデータを読み込み
             PlayerMaxHP = playerData.PlayerMaxHPData;
-            PlayerHPBar.maxValue = playerData.PlayerMaxHPData;
 
-            //バッファーの現在のHPを最大に設定してHPバーも最大に設定
+            //アタッカーの現在のHPを最大に設定してHPバーも最大に設定
             PlayerCurrentHP = PlayerMaxHP;
-            PlayerHPBar.value = PlayerCurrentHP;
 
+            Debug.Log($"PlayerCuurentHP:{PlayerCurrentHP},PlayerMaxHP:{PlayerMaxHP}");
+            
+            PlayerHPBar.maxValue = PlayerCurrentHP;
+            PlayerHPBar.value = PlayerCurrentHP;
             PlayerHPBar.minValue = 0;
 
             //攻撃力をアタッカーのデータの攻撃力を読み込む

@@ -1,4 +1,7 @@
+using Newtonsoft.Json;
 using System.Collections;
+using System.Diagnostics;
+using System.IO;
 using UnityEditor.Timeline;
 using UnityEngine;
 using UnityEngine.UI;
@@ -257,9 +260,6 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => level = value;
     }
 
-    //レベルアップしたか？
-    public bool IsLevelUP;
-
     /// <summary>
     /// 状況テキストを非表示にするコールチン
     /// </summary>
@@ -277,6 +277,47 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     /// <summary>
+    /// 
+    /// </summary>
+    protected virtual void Start()
+    {
+        string path = Application.persistentDataPath + $"/{PlayerID}_save.Json";
+
+        if(File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            PlayerSaveData saveData = JsonConvert.DeserializeObject<PlayerSaveData>(json);
+            ApplySaveData(saveData);
+            
+            
+
+        }
+        else
+        {
+            SetPlayerParameters();
+        }
+    }
+
+    /// <summary>
+    /// Jsonで保存されたパラメータをロード
+    /// </summary>
+    /// <param name="data">パラメータの保存データ</param>
+    private void ApplySaveData(PlayerSaveData data)
+    {
+        level = data.level_SaveData;
+        AttackPower = data.attackPower_SaveData;
+        playerMaxHP = data.playerMaxHP_SaveData;
+        playerCurrentHP = playerMaxHP;
+
+        playerHPBar.maxValue = playerCurrentHP;
+        playerHPBar.value = playerCurrentHP;
+        playerHPBar.minValue = 0;
+
+        playerResetAttackPower = data.attackPower_SaveData;
+    }
+
+
+    /// <summary>
     /// プレイヤーのレベルアップし、パラメータを上げるメソッド
     /// </summary>
     public virtual void LevelUP()
@@ -288,11 +329,6 @@ public abstract class BasePlayerStatus : MonoBehaviour
         //レベルをプラスする
         level++;;
 
-        //レベルが0の時のみフラグをtrueにする
-        if(level == 0)
-        {
-            IsLevelUP = true;
-        }
     }
 
     /// <summary>
@@ -320,4 +356,10 @@ public abstract class BasePlayerStatus : MonoBehaviour
     /// スクリプタブルオブジェクトからパラメータを設定するメソッド
     /// </summary>
     protected abstract void SetPlayerParameters();
+
+    //Jsonの保存データがあった場合にJsonからパラメータを設定するメソッド
+    protected virtual void JsonLoadPlayerParameters()
+    {
+
+    }
 }

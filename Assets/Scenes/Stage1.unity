@@ -224,7 +224,6 @@ MonoBehaviour:
   specialLimitCount: 0
   playerHPBar: {fileID: 1635390853}
   playerEffect_SpawnPoint: {fileID: 2038686396}
-  specialEffect_SpawnPoint: {fileID: 1289640236}
   playerTextEfferct_SpawnPoint: {fileID: 299556217}
   bufferTargetWindow: {fileID: 1132798454}
   attacker: {fileID: 44762002}
@@ -235,6 +234,7 @@ MonoBehaviour:
   attacker_BuffEffect_SpawnPoint: {fileID: 44762001}
   buffer_BuffEffect_SpawnPoint: {fileID: 6048672}
   healer_BuffEffect_SpawnPoint: {fileID: 1090882259}
+  buffPower: 0
   IsBufferAction: 0
 --- !u!1 &36075169
 GameObject:
@@ -487,7 +487,6 @@ MonoBehaviour:
   specialLimitCount: 0
   playerHPBar: {fileID: 1190314248}
   playerEffect_SpawnPoint: {fileID: 2038686396}
-  specialEffect_SpawnPoint: {fileID: 2038686396}
   playerTextEfferct_SpawnPoint: {fileID: 299556217}
   IsAttackerAction: 0
   targetEnemys:
@@ -7424,7 +7423,6 @@ MonoBehaviour:
   specialLimitCount: 0
   playerHPBar: {fileID: 1228554856}
   playerEffect_SpawnPoint: {fileID: 2038686396}
-  specialEffect_SpawnPoint: {fileID: 322705288}
   playerTextEfferct_SpawnPoint: {fileID: 299556217}
   healTargetWindow: {fileID: 1579622169}
   attacker: {fileID: 44762002}
@@ -7435,6 +7433,7 @@ MonoBehaviour:
   attacker_HeelEffect_SpawnPoint: {fileID: 44762001}
   buffer_HeelEffect_SpawnPoint: {fileID: 6048672}
   healer_HeelEffect_SpawnPoint: {fileID: 1090882259}
+  healPower: 0
 --- !u!1 &1116948373
 GameObject:
   m_ObjectHideFlags: 0
@@ -13639,11 +13638,16 @@ MonoBehaviour:
   - {fileID: 730760724}
   - {fileID: 1391727082}
   - {fileID: 749763770}
+  LevelUPPlayerList:
+  - {fileID: 44762002}
+  - {fileID: 6048673}
+  - {fileID: 1090882260}
   startTurnEffect: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   firstTurnEffect_SpawnPoint: {fileID: 44762001}
   secondTurnEffect_SpawnPoint: {fileID: 6048672}
   thirdTurnEffect_SpawnPoint: {fileID: 1090882259}
   IsPlayerTurn: 0
+  IsUnlockStage3: 0
   slime1: {fileID: 730760724}
   slime2: {fileID: 1391727082}
   slime3: {fileID: 749763770}

@@ -67,6 +67,10 @@
         {
             "id": "HealerTurnText",
             "text": "ヒーラーのターン"
+        },
+        {
+            "id": "LevelUPText",
+            "text": "プレイヤーのレベルが上がりました。"
         }
     ]
 }

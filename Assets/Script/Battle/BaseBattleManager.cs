@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 /// <summary>
@@ -112,7 +113,8 @@ public abstract class BaseBattleManager : MonoBehaviour
     //ポーズモードにできるか
     protected bool canPoseMode;
 
-    
+    //ステージ3が解放されたか
+    public bool IsUnlockStage3;
 
     /// <summary>
     /// ベースのバトルマネージャーをインスタンス化
@@ -133,22 +135,6 @@ public abstract class BaseBattleManager : MonoBehaviour
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        foreach (var player in LevelUPPlayerList)
-        {
-            if (player.IsLevelUP == false)
-            {
-                attacker.Level = 0;
-                buffer.Level = 0;
-                healer.Level = 0;
-            }
-            else
-            {
-
-            }
-        }
-
-        
-
         //UIマネージャーから一度UIを全て非表示
         UIManager.Instance.StartUI();
 
@@ -188,27 +174,49 @@ public abstract class BaseBattleManager : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 遅れてクリアUIを表示するメソッド
+    /// </summary>
+    protected virtual void DelayGameClearUI()
+    {
+        //UIマネージャーからゲームクリアUIを表示
+        UIManager.Instance.GameClearUI();
+
+        //プレイヤーのレベルアップ処理を行う
+        StartCoroutine(PlayerLevelUP());
+    }
 
     /// <summary>
     /// ゲームクリアしたかの確認するメソッド
     /// </summary>
     /// <returns>バトル終了フラグ</returns>
-    protected virtual bool GameClearCheck()
+    protected abstract bool GameClearCheck();
+
+
+    protected virtual IEnumerator PlayerLevelUP()
     {
-        //もし敵が全滅したらクリア
-        if(aliveEnemies.Count == 0)
+        BattleActionTextManager.Instance.ShowBattleActionText("LevelUPText");
+
+        yield return new WaitForSeconds(2f);
+
+        StartCoroutine(HidePlayerActionText());
+
+        Debug.Log($"アタッカー{attacker.AttackPower},{attacker.PlayerMaxHP}");
+        Debug.Log($"バッファー{buffer.AttackPower},{buffer.PlayerMaxHP},{buffer.buffPower}");
+        Debug.Log($"ヒーラー{healer.AttackPower},{healer.PlayerMaxHP},{healer.healPower}");
+
+        foreach (var player in LevelUPPlayerList)
         {
-            //ゲームクリアフラグをtrue
-            isGameClear = true;
-
-            //UIマネージャーからゲームクリアを表示
-            UIManager.Instance.GameClearUI();
-
-            //クリアしたのでtrueを返す
-            return true;
+            player.LevelUP();
         }
-        //敵が生きているのでfalseを返す
-        return false;
+
+        Debug.Log($"アタッカー{attacker.AttackPower},{attacker.PlayerMaxHP}");
+        Debug.Log($"バッファー{buffer.AttackPower},{buffer.PlayerMaxHP},{buffer.buffPower}");
+        Debug.Log($"ヒーラー{healer.AttackPower},{healer.PlayerMaxHP},{healer.healPower}");
+
+        SaveManager.SavePlayers(LevelUPPlayerList);
+
+        Debug.Log("保存パス：" + Application.persistentDataPath);
     }
 
     /// <summary>

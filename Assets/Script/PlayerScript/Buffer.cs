@@ -49,17 +49,17 @@ public class Buffer : BasePlayerStatus
     private Transform healer_BuffEffect_SpawnPoint;
 
     //実際のバフ力
-    private int BuffPower;
+    public int buffPower;
 
     //バッファーの行動が終了したか
     public bool IsBufferAction;
 
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         //パラメータを設定
-        SetPlayerParameters();
+        base.Start();
 
         IsBufferAction = false;
 
@@ -90,11 +90,12 @@ public class Buffer : BasePlayerStatus
         {
             //最大体力のデータを読み込み
             PlayerMaxHP = playerData.PlayerMaxHPData;
-            PlayerHPBar.maxValue = playerData.PlayerMaxHPData;
 
             //バッファーの現在のHPを最大に設定してHPバーも最大に設定
             PlayerCurrentHP = PlayerMaxHP;
+            PlayerHPBar.maxValue = PlayerCurrentHP;
             PlayerHPBar.value = PlayerCurrentHP;
+            PlayerHPBar.minValue = 0;
 
             //HPBarの最小は０
             PlayerHPBar.minValue = 0;
@@ -106,7 +107,7 @@ public class Buffer : BasePlayerStatus
             PlayerResetAttackPower = AttackPower;
 
             //バフデータを読み込み
-            BuffPower = playerData.BuffPowerData;
+            buffPower = playerData.BuffPowerData;
 
             //生存状態にする
             IsAlive = true;
@@ -278,9 +279,9 @@ public class Buffer : BasePlayerStatus
 
 
         //全キャラバフする
-        attacker.AttackPower += BuffPower;
-        AttackPower += BuffPower;
-        healer.AttackPower += BuffPower;
+        attacker.AttackPower += buffPower;
+        AttackPower += buffPower;
+        healer.AttackPower += buffPower;
 
         if (IsDebuff)
         {
@@ -339,7 +340,7 @@ public class Buffer : BasePlayerStatus
         GameObject effectInstance = Instantiate(bufferSkillEffect, target.transform.position,Quaternion.identity);
 
         //バフ力をターゲットの攻撃力を加算
-        target.AttackPower += BuffPower;
+        target.AttackPower += buffPower;
 
         Debug.LogWarning(target.PlayerID + "の攻撃力" + target.AttackPower);
 
@@ -391,6 +392,6 @@ public class Buffer : BasePlayerStatus
         base.LevelUP();
 
         //バフパワーを100プラスしてレベルアップ
-        BuffPower += 100;
+        buffPower += 100;
     }
 }

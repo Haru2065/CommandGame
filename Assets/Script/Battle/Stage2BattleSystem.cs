@@ -1,10 +1,10 @@
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Threading;
 using TMPro;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+using System.IO;
 
 public class Stage2BattleSystem : BaseBattleManager
 {
@@ -27,20 +27,32 @@ public class Stage2BattleSystem : BaseBattleManager
     [Tooltip("終了ボタンスクリプト")]
     protected PushExitButton pushExitButton;
 
-    public bool IsReleaseStage3;
-
-
-
     // Start is called before the first frame update
     protected override async void Start()
     {
         //ベースのバトルシステムから初期設定を行う
         base.Start();
 
+        //
+        string path = Application.persistentDataPath + $"/StageSaveData.Json";
+
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            StageSaveData saveData = JsonConvert.DeserializeObject<StageSaveData>(json);
+            LoadStageData(saveData);
+        }
+        else
+        {
+            IsUnlockStage3 = false;
+        }
+
         //UNiTaskをキャンセルするトークンを生成
         cts = new CancellationTokenSource();
 
         canPoseMode = false;
+
+        
 
         //バトルループ開始
         //キャンセルトークンを渡す
@@ -576,12 +588,18 @@ public class Stage2BattleSystem : BaseBattleManager
             //ゲームクリアフラグをtrue
             isGameClear = true;
 
+            //
             cts.Cancel();
             cts.Dispose();
 
-            IsReleaseStage3 = true;
+            //ステージ3を解放
+            IsUnlockStage3 = true;
 
-            SceneManager.LoadScene("GameClear");
+            //ステージデータを保存
+            SaveManager.SaveStage();
+
+            //2秒遅れてクリアUIを表示
+            Invoke("DelayGameClearUI", 2);
 
             //クリアしたのでtrueを返す
             return true;
@@ -657,5 +675,15 @@ public class Stage2BattleSystem : BaseBattleManager
 
         //1フレーム待つ
         await UniTask.Yield();
+    }
+
+    /// <summary>
+    /// ステージデータをロードするメソッド
+    /// </summary>
+    /// <param name="data">Jsonに保存されているステージデータ</param>
+    private void LoadStageData(StageSaveData data)
+    {
+        //ステージ3解放のフラグデータをステージセーブデータからロード
+        IsUnlockStage3 = data.Stage3UnLock_SaveData;
     }
 }

@@ -41,7 +41,7 @@ public class Healer : BasePlayerStatus
     private Transform healer_HeelEffect_SpawnPoint;
 
     //回復力
-    private int healPower;
+    public int healPower;
 
     //ヒーラーが行動したか
     private bool isHealerAction;
@@ -56,10 +56,10 @@ public class Healer : BasePlayerStatus
     }
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         //パラメータを設定
-        SetPlayerParameters();
+        base.Start();
 
         //ヒーラーの行動フラグをfalseに
         isHealerAction = false;
@@ -92,12 +92,11 @@ public class Healer : BasePlayerStatus
 
             //最大体力のデータを読み込み
             PlayerMaxHP = playerData.PlayerMaxHPData;
-            PlayerHPBar.maxValue = playerData.PlayerMaxHPData;
 
-            //バッファーの現在のHPを最大に設定してHPバーも最大に設定
+            //ヒーラーの現在のHPを最大に設定してHPバーも最大に設定
             PlayerCurrentHP = PlayerMaxHP;
+            PlayerHPBar.maxValue = PlayerCurrentHP;
             PlayerHPBar.value = PlayerCurrentHP;
-
             PlayerHPBar.minValue = 0;
 
             //攻撃力をヒーラーのデータの攻撃力を読み込む

@@ -326,25 +326,12 @@ public class Stage1BattleSystem : BaseBattleManager
         {
             isGameClear = true;
 
-            foreach (var player in LevelUPPlayerList)
-            {
-                player.LevelUP();
-            }
-
             //2秒遅れてクリアUIを表示
             Invoke("DelayGameClearUI", 2);
             return true;
         }
         //敵が生きているのでfalseを返す
         return false;
-    }
-
-    /// <summary>
-    /// 遅れてクリアUIを表示するメソッド
-    /// </summary>
-    void DelayGameClearUI()
-    {
-        UIManager.Instance.GameClearUI();
     }
 
     /// <summary>

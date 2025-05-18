@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EnemyParameters:
   - EnemyNameData: "\u30B9\u30E9\u30A4\u30E0"
-    EnemyMaxHPData: 1500
+    EnemyMaxHPData: 100
     EnemyAttackPowerData: 100
     DebuffPowerData: 0
   - EnemyNameData: "\u30B9\u30B1\u30EB\u30C8\u30F3"
-    EnemyMaxHPData: 2500
+    EnemyMaxHPData: 100
     EnemyAttackPowerData: 200
     DebuffPowerData: 100
   - EnemyNameData: "\u30C9\u30E9\u30B4\u30F3"
