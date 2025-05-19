@@ -27,21 +27,26 @@ public class Stage2BattleSystem : BaseBattleManager
     [Tooltip("終了ボタンスクリプト")]
     protected PushExitButton pushExitButton;
 
+    
+
     // Start is called before the first frame update
     protected override async void Start()
     {
         //ベースのバトルシステムから初期設定を行う
         base.Start();
 
-        //
+        //ステージのセーブデータを読み込む
         string path = Application.persistentDataPath + $"/StageSaveData.Json";
 
+        //セーブデータが存在するならステージデータをロード
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             StageSaveData saveData = JsonConvert.DeserializeObject<StageSaveData>(json);
-            LoadStageData(saveData);
+            StageSelectManager.LoadStageData(saveData);
         }
+
+        //セーブデータが存在しないならステージデータを初期化
         else
         {
             IsUnlockStage3 = false;
@@ -592,11 +597,14 @@ public class Stage2BattleSystem : BaseBattleManager
             cts.Cancel();
             cts.Dispose();
 
-            //ステージ3を解放
-            IsUnlockStage3 = true;
+            if(!IsUnlockStage3)
+            {
+                //ステージ3を解放
+                IsUnlockStage3 = true;
 
-            //ステージデータを保存
-            SaveManager.SaveStage();
+                //ステージデータを保存
+                SaveManager.SaveStage();
+            }
 
             //2秒遅れてクリアUIを表示
             Invoke("DelayGameClearUI", 2);
@@ -675,15 +683,5 @@ public class Stage2BattleSystem : BaseBattleManager
 
         //1フレーム待つ
         await UniTask.Yield();
-    }
-
-    /// <summary>
-    /// ステージデータをロードするメソッド
-    /// </summary>
-    /// <param name="data">Jsonに保存されているステージデータ</param>
-    private void LoadStageData(StageSaveData data)
-    {
-        //ステージ3解放のフラグデータをステージセーブデータからロード
-        IsUnlockStage3 = data.Stage3UnLock_SaveData;
     }
 }

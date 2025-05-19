@@ -48,6 +48,7 @@ public static class SaveManager
                 Stage3UnLock_SaveData = BaseBattleManager.Instance.IsUnlockStage3
             };
 
+            //Jsonのデータがあるかを確認し、保存
             try
             {
                 string json = JsonConvert.SerializeObject(data, Formatting.Indented);
@@ -55,6 +56,7 @@ public static class SaveManager
                 File.WriteAllText(path, json);
                 Debug.Log("保存成功: " + path);
             }
+            //なければ失敗
             catch (Exception ex)
             {
                 Debug.LogError("保存失敗: " + ex.Message);

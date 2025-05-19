@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// ステージの解放状況を保存するスクリプト
+/// ステージの解放状況を保存するデータ
 /// </summary>
 [Serializable]
 public class StageSaveData

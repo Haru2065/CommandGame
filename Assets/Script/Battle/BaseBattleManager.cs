@@ -1,7 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Timeline;
 using UnityEngine;
 
 /// <summary>
@@ -193,18 +191,27 @@ public abstract class BaseBattleManager : MonoBehaviour
     protected abstract bool GameClearCheck();
 
 
+    /// <summary>
+    /// プレイヤーのレベルアップとパラメータを保存するコールチン
+    /// </summary>
+    /// <returns></returns>
     protected virtual IEnumerator PlayerLevelUP()
     {
+        //レベルアップしたことをウィンドウ表示
         BattleActionTextManager.Instance.ShowBattleActionText("LevelUPText");
+        
 
+        //2フレーム待つ
         yield return new WaitForSeconds(2f);
 
+        //レベルアップしたことを通知するウィンドウを非表示
         StartCoroutine(HidePlayerActionText());
 
         Debug.Log($"アタッカー{attacker.AttackPower},{attacker.PlayerMaxHP}");
         Debug.Log($"バッファー{buffer.AttackPower},{buffer.PlayerMaxHP},{buffer.buffPower}");
         Debug.Log($"ヒーラー{healer.AttackPower},{healer.PlayerMaxHP},{healer.healPower}");
 
+        //レベルアップするプレイヤーのリストのキャラをレベルアップ
         foreach (var player in LevelUPPlayerList)
         {
             player.LevelUP();
@@ -214,8 +221,10 @@ public abstract class BaseBattleManager : MonoBehaviour
         Debug.Log($"バッファー{buffer.AttackPower},{buffer.PlayerMaxHP},{buffer.buffPower}");
         Debug.Log($"ヒーラー{healer.AttackPower},{healer.PlayerMaxHP},{healer.healPower}");
 
+        //レベルアップしたキャラのパラメータを保存
         SaveManager.SavePlayers(LevelUPPlayerList);
 
+        //保存パスを表示
         Debug.Log("保存パス：" + Application.persistentDataPath);
     }
 

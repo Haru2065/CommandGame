@@ -1,5 +1,8 @@
 using System;
 
+/// <summary>
+/// プレイヤーのパラメータの保存データ
+/// </summary>
 [Serializable]
 public class PlayerSaveData
 {
