@@ -1,7 +1,5 @@
 using Newtonsoft.Json;
 using System.IO;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -14,6 +12,9 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField]
     [Tooltip("ステージボタン")]
     private GameObject stage3Button;
+
+    //ステージ3が解放されたかどうか
+    private bool isStage3Unlocked;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,12 @@ public class StageSelectManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             StageSaveData saveData = JsonConvert.DeserializeObject<StageSaveData>(json);
-            LoadStageData(saveData);
+            isStage3Unlocked = saveData.Stage3UnLock_SaveData;
+        }
+        else
+        {
+            //セーブデータが存在しない場合はステージ3は解放されていない
+            isStage3Unlocked = false;
         }
     }
 
@@ -37,7 +43,7 @@ public class StageSelectManager : MonoBehaviour
     void Update()
     {
         //もしステージ3が解放されていたらボタンを表示
-        if (BaseBattleManager.Instance != null && BaseBattleManager.Instance.IsUnlockStage3)
+        if (isStage3Unlocked)
         {
             stage3Button.SetActive(true);
         }
@@ -45,15 +51,5 @@ public class StageSelectManager : MonoBehaviour
         {
             stage3Button.SetActive(false);
         }
-    }
-
-    /// <summary>
-    /// ステージデータをロードするメソッド
-    /// </summary>
-    /// <param name="data">Jsonに保存されているステージデータ</param>
-    public static void LoadStageData(StageSaveData data)
-    {
-        //ステージ3解放のフラグデータをステージセーブデータからロード
-        BaseBattleManager.Instance.IsUnlockStage3 = data.Stage3UnLock_SaveData;
     }
 }

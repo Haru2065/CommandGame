@@ -92,13 +92,14 @@
     <Compile Include="Assets\Script\SaveSystem\PlayerSaveData.cs" />
     <Compile Include="Assets\Resources\Stage2TutorialManager.cs" />
     <Compile Include="Assets\Script\SEScript\PlayerSE.cs" />
+    <Compile Include="Assets\Script\Stage\StageSelectManager.cs" />
+    <Compile Include="Assets\Script\SaveSystem\SaveUIControl.cs" />
     <Compile Include="Assets\Script\SEScript\EnemySE.cs" />
     <Compile Include="Assets\Script\ButtonScript\PushTutorial.cs" />
     <Compile Include="Assets\Script\UIScript\UIManager.cs" />
     <Compile Include="Assets\Script\ButtonScript\PushStageSelectButton.cs" />
     <Compile Include="Assets\Script\SaveSystem\StageSaveData.cs" />
     <Compile Include="Assets\Script\SaveSystem\SaveManager.cs" />
-    <Compile Include="Assets\Script\ButtonScript\StageSelectManager.cs" />
     <Compile Include="Assets\Script\UIScript\HPManager.cs" />
   </ItemGroup>
   <ItemGroup>

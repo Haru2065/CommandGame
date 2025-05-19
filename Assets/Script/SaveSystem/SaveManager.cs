@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;
-using Unity.VisualScripting;
-using UnityEditor;
+using Newtonsoft.Json;　
 using System;
 
 /// <summary>
-/// Playerのパラメータを保存するスクリプト
+/// Playerのパラメータ、ステージの状況を保存するスクリプト
 /// </summary>
 public static class SaveManager
 {
@@ -63,5 +61,57 @@ public static class SaveManager
             }
 
         }
+    }
+
+    /// <summary>
+    /// セーブデータを削除するメソッド
+    /// </summary>
+    public static void DeleteSavedata(string fileName)
+    {
+        //セーブデータのパスを指定
+        string path = Application.persistentDataPath + "/" + fileName;
+
+        //セーブデータが存在すれば消去
+        if(File.Exists(path))
+        {
+            File.Delete(path);
+            Debug.Log("セーブデータ削除成功: " + path);
+        }
+        else
+        {
+            Debug.LogWarning("セーブデータを削除できませんでした: " + path);
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーのパラメータセーブデータが存在するか
+    /// </summary>
+    /// <param name="playerID">プレイヤーのID</param>
+    /// <returns>セーブデータが存在すればセーブデータとフラグをtrueで返す</returns>
+    public static bool HasPlayerSave(string playerID)
+    {
+        //セーブデータのパスを指定
+        string path = Application.persistentDataPath + $"/{playerID}_save.json";
+        return File.Exists(path);
+    }
+
+    /// <summary>
+    /// ステージのセーブデータが存在するか
+    /// </summary>
+    /// <returns>セーブデータが存在すればセーブデータとフラグをtrueで返す</returns>
+    public static bool HasStageSave()
+    {
+        //セーブデータのパスを指定
+        string path = Application.persistentDataPath + "/StageSaveData.json";
+        return File.Exists(path);
+    }
+
+    /// <summary>
+    /// すべてのセーブデータが存在するかまとめてチェックを行う
+    /// </summary>
+    /// <returns></returns>
+    public static bool HasAnySaveData()
+    {
+        return HasStageSave() || HasPlayerSave("Attacker") || HasPlayerSave("Buffer") || HasPlayerSave("Healer");
     }
 }

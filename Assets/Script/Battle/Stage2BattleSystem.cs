@@ -43,7 +43,7 @@ public class Stage2BattleSystem : BaseBattleManager
         {
             string json = File.ReadAllText(path);
             StageSaveData saveData = JsonConvert.DeserializeObject<StageSaveData>(json);
-            StageSelectManager.LoadStageData(saveData);
+            LoadStageData(saveData);
         }
 
         //セーブデータが存在しないならステージデータを初期化
@@ -683,5 +683,15 @@ public class Stage2BattleSystem : BaseBattleManager
 
         //1フレーム待つ
         await UniTask.Yield();
+    }
+
+    /// <summary>
+    /// ステージデータをロードするメソッド
+    /// </summary>
+    /// <param name="data">Jsonに保存されているステージデータ</param>
+    public void LoadStageData(StageSaveData data)
+    {
+        //ステージ3解放のフラグデータをステージセーブデータからロード
+        IsUnlockStage3 = data.Stage3UnLock_SaveData;
     }
 }

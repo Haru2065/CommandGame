@@ -15,10 +15,18 @@ public class PushStageButton : MonoBehaviour
     }
 
     /// <summary>
-    /// ステージ2のボタンが押されたらステージ２のシーンをロード
+    /// ステージ2のボタンが押されたらステージ2のシーンをロード
     /// </summary>
     public void PushStage2Button()
     {
         SceneManager.LoadScene("Stage2");
+    }
+
+    /// <summary>
+    /// ステージ3のボタンが押されたらステージ3のシーンをロード
+    /// </summary>
+    public void PushStage3Button()
+    {
+        SceneManager.LoadScene("Stage3");
     }
 }

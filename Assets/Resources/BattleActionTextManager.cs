@@ -101,7 +101,7 @@ public class BattleActionTextManager : MonoBehaviour
 
             if (data != null && data.BattleTexts != null)
             {
-                Debug.Log($"変換完了！チュートリアルデータ数: {battleText_ConvertedList.Count}");
+                Debug.Log($"変換完了！バトルテキストデータ数: {battleText_ConvertedList.Count}");
             }
             else
             {

@@ -522,6 +522,9 @@ public class Stage3BattleSystem : BaseBattleManager
             //UIマネージャーからゲームオーバーを表示
             UIManager.Instance.GameOverUI();
 
+            //レベルアップしたことをウィンドウ表示
+            BattleActionTextManager.Instance.ShowBattleActionText("Retry");
+
             cts.Cancel();
             cts.Dispose();
 

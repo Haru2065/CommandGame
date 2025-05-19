@@ -2082,7 +2082,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1823763930}
         m_TargetAssemblyTypeName: PushStageButton, Assembly-CSharp
-        m_MethodName: PushStage2Button
+        m_MethodName: PushStage3Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

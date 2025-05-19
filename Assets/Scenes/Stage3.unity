@@ -3948,6 +3948,7 @@ MonoBehaviour:
   secondTurnEffect_SpawnPoint: {fileID: 728548676}
   thirdTurnEffect_SpawnPoint: {fileID: 1681756803}
   IsPlayerTurn: 0
+  IsUnlockStage3: 0
   specialLimitCountUGUI: {fileID: 132019727}
   pushExitButton: {fileID: 1128852651}
   dragon: {fileID: 1599965351}
@@ -4760,7 +4761,6 @@ MonoBehaviour:
   playerHPBar: {fileID: 2060252900}
   playerEffect_SpawnPoint: {fileID: 1305966732}
   playerTextEfferct_SpawnPoint: {fileID: 1189835325}
-  IsLevelUP: 0
   bufferTargetWindow: {fileID: 1886318415}
   attacker: {fileID: 1311294519}
   healer: {fileID: 1681756801}
@@ -4770,6 +4770,7 @@ MonoBehaviour:
   attacker_BuffEffect_SpawnPoint: {fileID: 1311294521}
   buffer_BuffEffect_SpawnPoint: {fileID: 728548676}
   healer_BuffEffect_SpawnPoint: {fileID: 1681756803}
+  buffPower: 0
   IsBufferAction: 0
 --- !u!212 &728548675
 SpriteRenderer:
@@ -6374,7 +6375,7 @@ GameObject:
   - component: {fileID: 1046306601}
   - component: {fileID: 1046306600}
   - component: {fileID: 1046306599}
-  - component: {fileID: 1046306598}
+  - component: {fileID: 1046306602}
   m_Layer: 5
   m_Name: StageSelectButton
   m_TagString: Untagged
@@ -6402,18 +6403,6 @@ RectTransform:
   m_AnchoredPosition: {x: -272, y: -67}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1046306598
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1046306596}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4eeaf84fad6cb2a40bc1b2058d50a332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1046306599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6458,9 +6447,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1046306598}
+      - m_Target: {fileID: 1046306602}
         m_TargetAssemblyTypeName: PushStageSelectButton, Assembly-CSharp
-        m_MethodName: PushStageSelect
+        m_MethodName: StageSelectButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6508,6 +6497,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1046306596}
   m_CullTransparentMesh: 1
+--- !u!114 &1046306602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1046306596}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e6b94d490718348ae8649b189b0ef5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1076880166
 GameObject:
   m_ObjectHideFlags: 0
@@ -8225,7 +8226,6 @@ MonoBehaviour:
   playerHPBar: {fileID: 861148373}
   playerEffect_SpawnPoint: {fileID: 1305966732}
   playerTextEfferct_SpawnPoint: {fileID: 1189835325}
-  IsLevelUP: 0
   IsAttackerAction: 0
   targetEnemys:
   - {fileID: 1599965351}
@@ -9226,7 +9226,7 @@ MonoBehaviour:
   m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: edaeeedef8f330c419f756736e78a7d6, type: 2}
-  m_sharedMaterial: {fileID: -6733305025084938138, guid: edaeeedef8f330c419f756736e78a7d6, type: 2}
+  m_sharedMaterial: {fileID: -2252431411355276968, guid: edaeeedef8f330c419f756736e78a7d6, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -10544,7 +10544,6 @@ MonoBehaviour:
   playerHPBar: {fileID: 1626747699}
   playerEffect_SpawnPoint: {fileID: 1305966732}
   playerTextEfferct_SpawnPoint: {fileID: 1189835325}
-  IsLevelUP: 0
   healTargetWindow: {fileID: 1011525504}
   attacker: {fileID: 1311294519}
   buffer: {fileID: 728548674}
@@ -10554,6 +10553,7 @@ MonoBehaviour:
   attacker_HeelEffect_SpawnPoint: {fileID: 1311294521}
   buffer_HeelEffect_SpawnPoint: {fileID: 728548676}
   healer_HeelEffect_SpawnPoint: {fileID: 1681756803}
+  healPower: 0
 --- !u!212 &1681756802
 SpriteRenderer:
   m_ObjectHideFlags: 0
