@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Newtonsoft.Json;
+using System.Resources;
 
 [Serializable]
 public class BattleText
@@ -13,12 +15,12 @@ public class BattleText
     public string id;
 }
 
-[Serializable]
-public class BattleTextData
-{
-    //バトル時の行動通知のテキストリスト
-    public List<BattleText> BattleTexts;
-}
+//[Serializable]
+//public class BattleTextData
+//{
+//    //バトル時の行動通知のテキストリスト
+//    public List<BattleText> BattleTexts;
+//}
 
 /// <summary>
 /// バトル時の行動通知のスクリプト
@@ -36,6 +38,10 @@ public class BattleActionTextManager : MonoBehaviour
     {
         get => instance;
     }
+
+    [SerializeField]
+    [Tooltip("Jsonロードするスクリプト")]
+    private JsonLoadr jsonLoadr;
 
     [SerializeField]
     [Tooltip("テキストウィンドウ")]
@@ -74,8 +80,23 @@ public class BattleActionTextManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        StartCoroutine(jsonLoadr.LoadJsonText(json =>
+        {
+            var dict = JsonConvert.DeserializeObject<Dictionary<string, List<BattleText>>>(json);
+
+            if (dict != null && dict.ContainsKey("BattleTexts"))
+            {
+                battleText_ConvertedList = dict["BattleTexts"];
+                Debug.Log($"変換完了！バトルテキストデータ数: {battleText_ConvertedList.Count}");
+            }
+            else
+            {
+                Debug.LogWarning("変換失敗！データが空かキーが間違っています");
+            }
+        }));
+
         //JSONを読み込み変換する
-        BattleText_LoadJsonText();
+        //BattleText_LoadJsonText();
 
         //テキストウィンドウを非表示
         textWindow.SetActive(false);
@@ -84,36 +105,36 @@ public class BattleActionTextManager : MonoBehaviour
     /// <summary>
     /// Jsonを読み込み変換するメソッド
     /// </summary>
-    public void BattleText_LoadJsonText()
-    {
-        //アセットフォルダのResourcesにあるBattleText.jsonを読み込む
-        TextAsset jsonFile = Resources.Load<TextAsset>("BattleText");
+    //public void BattleText_LoadJsonText()
+    //{
+    //    //アセットフォルダのResourcesにあるBattleText.jsonを読み込む
+    //    TextAsset jsonFile = Resources.Load<TextAsset>("BattleText");
 
-        if (jsonFile != null)
-        {
-            Debug.Log($"JSONの内容: {jsonFile.text}");
+    //    if (jsonFile != null)
+    //    {
+    //        Debug.Log($"JSONの内容: {jsonFile.text}");
 
-            //JSONの中身を文字列で取得
-            BattleTextData data = JsonUtility.FromJson<BattleTextData>(jsonFile.text);
+    //        //JSONの中身を文字列で取得
+    //        BattleTextData data = JsonUtility.FromJson<BattleTextData>(jsonFile.text);
 
-            //JSONから読み込んだデータをいれるリストにいれる
-            battleText_ConvertedList = data.BattleTexts;
+    //        //JSONから読み込んだデータをいれるリストにいれる
+    //        battleText_ConvertedList = data.BattleTexts;
 
-            if (data != null && data.BattleTexts != null)
-            {
-                Debug.Log($"変換完了！バトルテキストデータ数: {battleText_ConvertedList.Count}");
-            }
-            else
-            {
-                Debug.LogWarning("変換失敗！データが空かキーが間違っています");
-            }
-        }
+    //        if (data != null && data.BattleTexts != null)
+    //        {
+    //            Debug.Log($"変換完了！バトルテキストデータ数: {battleText_ConvertedList.Count}");
+    //        }
+    //        else
+    //        {
+    //            Debug.LogWarning("変換失敗！データが空かキーが間違っています");
+    //        }
+    //    }
 
-        else
-        {
-            Debug.LogError("Jsonファイルが見つかりません");
-        }
-    }
+    //    else
+    //    {
+    //        Debug.LogError("Jsonファイルが見つかりません");
+    //    }
+    //}
 
     public void ShowBattleActionText(string id)
     {
