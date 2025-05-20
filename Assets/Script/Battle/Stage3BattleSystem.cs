@@ -81,17 +81,17 @@ public class Stage3BattleSystem : BaseBattleManager
     {
         EnemySE.Instance.Play_DragonRourSE();
 
-        await UniTask.Delay(TimeSpan.FromSeconds(2f),cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(2),cancellationToken: token);
 
         LastButtleUI.SetActive(true);
 
         BGMControl.Instance.PlayStage3BGM();
 
-        await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
         LastButtleUI.SetActive(false);
 
-        await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+        await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
         IsActionExecutioned = true;
 
@@ -107,8 +107,8 @@ public class Stage3BattleSystem : BaseBattleManager
                 //UIマネージャーからプレイヤーターン表示
                 UIManager.Instance.PlayerTurnUI.SetActive(true);
 
-                //２フレーム待つ（キャンセルトークンが呼ばれたらキャンセル）
-                await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+                //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
                 //UIマネージャーからプレイヤーターン非表示
                 UIManager.Instance.PlayerTurnUI.SetActive(false);
@@ -123,8 +123,38 @@ public class Stage3BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(FirstTurnEffect_SpawnPoint));
 
+                    //1秒待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(1),cancellationToken: token);
+
                     //アタッカーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("AttackerTurnText");
+
+                    //アタッカーのターン開始通知非表示
+                    StartCoroutine(HidePlayerActionText());
+
+                    //2秒待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+                    //もしアタッカーにHPデバフが付与されていたらダメージを減らし、デバフカウントも減らす
+                    if (attacker.IsHPDebuff)
+                    {
+                        //ダメージを減らし、デバフカウントも減らす
+                        attacker.PlayerCurrentHP -= dragon.HPDebuffPower;
+                        attacker.DebuffCount--;
+
+                        //デバフカウントが0になったらHPデバフを解除、また解除したことを通知する
+                        if(attacker.DebuffCount <= 0)
+                        {
+                            attacker.IsHPDebuff = false;
+                            BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
+
+                            //デバフ解除時の状況テキストを非表示にする
+                            StartCoroutine(attacker.PlayerOffDebuffText());
+
+                            //2秒待つ
+                            await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                        }
+                    }
 
                     //アタッカーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
@@ -132,7 +162,7 @@ public class Stage3BattleSystem : BaseBattleManager
                     //アタッカーターン開始
                     await AttackerTurn(token);
 
-                    //２フレーム待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    //2フレーム待つ（キャンセルトークンが呼ばれたらキャンセル）
                     await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
@@ -147,11 +177,38 @@ public class Stage3BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(SecondTurnEffect_SpawnPoint));
 
+                    //1秒待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+
                     //バッファーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("BufferTurnText");
 
                     //バッファーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
+
+                    //2秒待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+                    //もしバッファーにHPデバフが付与されていたらダメージを減らし、デバフカウントも減らす
+                    if (buffer.IsHPDebuff)
+                    {
+                        //ダメージを減らし、デバフカウントも減らす
+                        buffer.PlayerCurrentHP -= dragon.HPDebuffPower;
+                        buffer.DebuffCount--;
+
+                        //デバフカウントが0になったらHPデバフを解除、また解除したことを通知する
+                        if (buffer.DebuffCount <= 0)
+                        {
+                            buffer.IsHPDebuff = false;
+                            BattleActionTextManager.Instance.ShowBattleActionText("BufferOffDebuff");
+
+                            //デバフ解除時の状況テキストを非表示にする
+                            StartCoroutine(buffer.PlayerOffDebuffText());
+
+                            //2秒待つ
+                            await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                        }
+                    }
 
                     //バッファーのターン開始
                     await BufferTurn(token);
@@ -170,11 +227,38 @@ public class Stage3BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(ThirdTurnEffect_SpawnPoint));
 
+                    //1秒待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+
                     //ヒーラーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("HealerTurnText");
 
                     //ヒーラーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
+
+                    //2秒待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+                    //もしヒーラーにHPデバフが付与されていたらダメージを減らし、デバフカウントも減らす
+                    if (healer.IsHPDebuff)
+                    {
+                        //ダメージを減らし、デバフカウントも減らす
+                        healer.PlayerCurrentHP -= dragon.HPDebuffPower;
+                        healer.DebuffCount--;
+
+                        //デバフカウントが0になったらHPデバフを解除、また解除したことを通知する
+                        if (healer.DebuffCount <= 0)
+                        {
+                            healer.IsHPDebuff = false;
+                            BattleActionTextManager.Instance.ShowBattleActionText("HealerOffDebuff");
+
+                            //デバフ解除時の状況テキストを非表示にする
+                            StartCoroutine(attacker.PlayerOffDebuffText());
+
+                            //2秒待つ
+                            await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                        }
+                    }
 
                     //ヒーラーのターン開始
                     await HealerTurn(token);

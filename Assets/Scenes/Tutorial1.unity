@@ -912,6 +912,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1991071976}
   - component: {fileID: 1991071977}
+  - component: {fileID: 1991071978}
   m_Layer: 0
   m_Name: TutorialManager
   m_TagString: Untagged
@@ -946,12 +947,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f88b712f6eeb054c9a88824a5700f11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage1TutorialText: {fileID: 752339419}
+  jsonLoder: {fileID: 1991071978}
+  ScenarioJsonKey: Stage1Tutorials
+  TextWindow: {fileID: 684747627}
+  TutorialTextUGUI: {fileID: 752339419}
   turnEffectImage: {fileID: 124201307}
   enemyTargetImage: {fileID: 1667249370}
   keyBordImage: {fileID: 1976280488}
   statusCharaImage: {fileID: 745512439}
   statusButtonImage: {fileID: 136598292}
+--- !u!114 &1991071978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991071974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8657dc344c712d42b5138086954629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonLoadAddress: Stage1TutorialText
 --- !u!1 &2009339407
 GameObject:
   m_ObjectHideFlags: 0

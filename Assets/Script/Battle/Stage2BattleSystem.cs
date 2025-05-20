@@ -107,8 +107,8 @@ public class Stage2BattleSystem : BaseBattleManager
                 //UIマネージャーからプレイヤーターン表示
                 UIManager.Instance.PlayerTurnUI.SetActive(true);
 
-                //２フレーム待つ（キャンセルトークンが呼ばれたらキャンセル）
-                await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+                //２秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
                 //UIマネージャーからプレイヤーターン非表示
                 UIManager.Instance.PlayerTurnUI.SetActive(false);
@@ -122,17 +122,23 @@ public class Stage2BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(FirstTurnEffect_SpawnPoint));
 
+                    //1秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+
                     //アタッカーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("AttackerTurnText");
 
                     //アタッカーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
                     //アタッカーターン開始
                     await AttackerTurn(token);
 
-                    //２フレーム待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+                    //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -145,17 +151,23 @@ public class Stage2BattleSystem : BaseBattleManager
                 {
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(SecondTurnEffect_SpawnPoint));
-                    
+
+                    //1秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+
                     //バッファーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("BufferTurnText");
 
                     //バッファーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
                     //バッファーのターン開始
                     await BufferTurn(token);
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -169,16 +181,23 @@ public class Stage2BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(ThirdTurnEffect_SpawnPoint));
 
+                    //1秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+
                     //ヒーラーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("HealerTurnText");
 
                     //ヒーラーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+
+
                     //ヒーラーのターン開始
                     await HealerTurn(token);
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())

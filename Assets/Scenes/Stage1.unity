@@ -6863,6 +6863,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1060171008}
   - component: {fileID: 1060171009}
+  - component: {fileID: 1060171010}
   m_Layer: 0
   m_Name: BattleActionManager
   m_TagString: Untagged
@@ -6897,8 +6898,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94e99c28b295c445b6010299cbe3613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jsonLoadr: {fileID: 1060171010}
   textWindow: {fileID: 382621481}
-  character_BattleActionText: {fileID: 1053495886}
+  characterBattleActionText: {fileID: 1053495886}
+--- !u!114 &1060171010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1060171007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8657dc344c712d42b5138086954629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonLoadAddress: BattleText
 --- !u!1 &1061611255
 GameObject:
   m_ObjectHideFlags: 0

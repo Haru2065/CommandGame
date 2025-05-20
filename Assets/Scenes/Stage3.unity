@@ -3182,7 +3182,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -468601484125067301, guid: be73c701dfac3f24494811ba23673e74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -7047,6 +7047,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137892290}
   - component: {fileID: 1137892291}
+  - component: {fileID: 1137892292}
   m_Layer: 0
   m_Name: BattleActionManager
   m_TagString: Untagged
@@ -7081,8 +7082,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94e99c28b295c445b6010299cbe3613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jsonLoadr: {fileID: 1137892292}
   textWindow: {fileID: 945464778}
-  character_BattleActionText: {fileID: 1534489521}
+  characterBattleActionText: {fileID: 1534489521}
+--- !u!114 &1137892292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137892289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8657dc344c712d42b5138086954629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonLoadAddress: BattleText
 --- !u!1 &1155590642
 GameObject:
   m_ObjectHideFlags: 0
@@ -9763,7 +9778,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 1528761139939823111, guid: 5f7650c11e7a26e449993fac7f8ce7f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

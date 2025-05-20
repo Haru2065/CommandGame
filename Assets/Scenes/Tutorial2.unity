@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 223644873}
   - component: {fileID: 223644872}
   m_Layer: 5
-  m_Name: MessageWindow
+  m_Name: TextWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -720,6 +720,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1629017733}
   - component: {fileID: 1629017734}
+  - component: {fileID: 1629017735}
   m_Layer: 0
   m_Name: Stage2TutorialManager
   m_TagString: Untagged
@@ -754,9 +755,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abd73eb79d63a8142aeb1ffbd8b6b63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stage2TutorialText: {fileID: 143402279}
+  jsonLoder: {fileID: 1629017735}
+  ScenarioJsonKey: Stage2Tutorials
+  TextWindow: {fileID: 223644870}
+  TutorialTextUGUI: {fileID: 143402279}
   actionCountImage: {fileID: 1587336998}
   statusWindowImage: {fileID: 1727125252}
+--- !u!114 &1629017735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1629017732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8657dc344c712d42b5138086954629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonLoadAddress: Stage2TutorialText
 --- !u!1 &1713904626
 GameObject:
   m_ObjectHideFlags: 0

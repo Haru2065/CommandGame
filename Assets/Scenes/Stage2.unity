@@ -3291,12 +3291,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 346747300}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.0099986, y: -0.0099986, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -959.99, y: -540.01, z: 0}
   m_LocalScale: {x: 0.92859775, y: 0.9419365, z: 0.8396993}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1898738351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &362312816
 GameObject:
@@ -7941,6 +7941,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137892290}
   - component: {fileID: 1137892291}
+  - component: {fileID: 1137892292}
   m_Layer: 0
   m_Name: BattleActionManager
   m_TagString: Untagged
@@ -7975,8 +7976,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94e99c28b295c445b6010299cbe3613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jsonLoadr: {fileID: 1137892292}
   textWindow: {fileID: 945464778}
-  character_BattleActionText: {fileID: 1534489521}
+  characterBattleActionText: {fileID: 1534489521}
+--- !u!114 &1137892292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137892289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8657dc344c712d42b5138086954629d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jsonLoadAddress: BattleText
 --- !u!1 &1155590642
 GameObject:
   m_ObjectHideFlags: 0
@@ -13781,6 +13796,7 @@ RectTransform:
   - {fileID: 252156589}
   - {fileID: 516443228}
   - {fileID: 945464779}
+  - {fileID: 346747302}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -14715,7 +14731,6 @@ SceneRoots:
   - {fileID: 1125606515}
   - {fileID: 839855560}
   - {fileID: 1898738351}
-  - {fileID: 346747302}
   - {fileID: 1697647233}
   - {fileID: 1000373385}
   - {fileID: 1712644685}
