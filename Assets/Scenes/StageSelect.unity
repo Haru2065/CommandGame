@@ -256,6 +256,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f0b6e322d9c36c4288d9d9ca0cbbd51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stage2Button: {fileID: 1608017678}
+  tutorial2Button: {fileID: 1629761243}
   stage3Button: {fileID: 1823763928}
 --- !u!4 &406502282
 Transform:

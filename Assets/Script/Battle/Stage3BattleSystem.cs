@@ -5,6 +5,7 @@ using System.Threading;
 using System;
 using TMPro;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 /// <summary>
 /// ステージ3のバトルシステム
@@ -25,6 +26,12 @@ public class Stage3BattleSystem : BaseBattleManager
     [Tooltip("ドラゴン")]
     private Dragon dragon;
 
+    [SerializeField]
+    [Tooltip("ラストバトルUI")]
+    private GameObject LastButtleUI;
+
+    private bool IsActionExecutioned;
+
     private List<BasePlayerStatus> playerParty;
 
     // Start is called before the first frame update
@@ -32,11 +39,15 @@ public class Stage3BattleSystem : BaseBattleManager
     {
         base.Start();
 
+        IsActionExecutioned = false;
+
+        canPoseMode = false;
+
         playerParty = alivePlayers;
 
         cts = new CancellationTokenSource();
 
-        canPoseMode = false;
+        await Action(cts.Token);
 
         await BattleLoop(cts.Token);
     }
@@ -64,6 +75,27 @@ public class Stage3BattleSystem : BaseBattleManager
             cts.Cancel();
             cts.Dispose();
         }
+    }
+
+    async UniTask Action(CancellationToken token)
+    {
+        EnemySE.Instance.Play_DragonRourSE();
+
+        await UniTask.Delay(TimeSpan.FromSeconds(2f),cancellationToken: token);
+
+        LastButtleUI.SetActive(true);
+
+        BGMControl.Instance.PlayStage3BGM();
+
+        await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+
+        LastButtleUI.SetActive(false);
+
+        await UniTask.Delay(TimeSpan.FromSeconds(2f), cancellationToken: token);
+
+        IsActionExecutioned = true;
+
+        await UniTask.WaitUntil((() => IsActionExecutioned), cancellationToken: token) ;
     }
 
     async UniTask BattleLoop(CancellationToken token)
@@ -492,11 +524,6 @@ public class Stage3BattleSystem : BaseBattleManager
 
             cts.Cancel();
             cts.Dispose();
-
-
-
-            //ステージ3を解放したデータをセーブする
-            SaveManager.SaveStage();
 
             SceneManager.LoadScene("GameClear");
 

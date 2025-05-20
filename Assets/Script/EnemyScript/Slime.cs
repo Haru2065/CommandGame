@@ -29,7 +29,7 @@ public class Slime : BaseEnemyStatus
     /// </summary>
     protected override void Update()
     {
-        enemyHPUGUI.text = $"{EnemyCurrentHP}/2000";
+        enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
     }
 
     /// <summary>
@@ -143,15 +143,17 @@ public class Slime : BaseEnemyStatus
     public override void EnemyOnDamage(int damage)
     {
         EnemyCurrentHP -= damage;
-        slimeHPBar.value = EnemyCurrentHP;
-        
 
         if (EnemyCurrentHP <= 0)
         {
             //現在のHPを０に設定してHPBarも更新
             EnemyCurrentHP = 0;
-            slimeHPBar.value = EnemyCurrentHP;
 
+            // UI更新
+            slimeHPBar.value = EnemyCurrentHP;
+            enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
+
+            //生存フラグをfalse
             EnemyIsAlive = false;
 
             //生存リストと初期ターゲットを設定するリストの消去
@@ -163,7 +165,13 @@ public class Slime : BaseEnemyStatus
 
             //自身のオブジェクトを消去するコールチンスタート
             StartCoroutine(DestroyObject());
-        }  
+        }
+        else
+        {
+            // 通常のダメージ時のUI更新
+            slimeHPBar.value = EnemyCurrentHP;
+            enemyHPUGUI.text = $"{EnemyCurrentHP}/2000";
+        }
     }
 
     /// <summary>

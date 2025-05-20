@@ -1,5 +1,7 @@
+using Newtonsoft.Json;
 using System.Collections;
 using UnityEngine;
+using System.IO;
 
 /// <summary>
 /// ステージ１のバトルシステム
@@ -22,6 +24,23 @@ public class Stage1BattleSystem : BaseBattleManager
     protected override void Start()
     {
         base.Start();
+
+        // ステージのセーブデータを読み込む
+        string path = Application.persistentDataPath + $"/StageSaveData.Json";
+
+        //セーブデータが存在するならステージデータをロード
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            StageSaveData saveData = JsonConvert.DeserializeObject<StageSaveData>(json);
+            LoadStageData(saveData);
+        }
+
+        //セーブデータが存在しないならステージデータを初期化
+        else
+        {
+            IsUnlockStage2 = false;
+        }
 
         PlayerTargetSelect.Instance.SetStartBattleTarget();
 
@@ -326,7 +345,16 @@ public class Stage1BattleSystem : BaseBattleManager
         {
             isGameClear = true;
 
-            //2秒遅れてクリアUIを表示
+            if (!IsUnlockStage2)
+            {
+                //ステージ3を解放
+                IsUnlockStage2 = true;
+
+                //ステージデータを保存
+                SaveManager.SaveStage();
+            }
+
+            //2秒遅れてクリアUIを表示し、レベルアップ処理を行う
             Invoke("DelayGameClearUI", 2);
             return true;
         }

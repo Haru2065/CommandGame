@@ -111,6 +111,8 @@ public abstract class BaseBattleManager : MonoBehaviour
     //ポーズモードにできるか
     protected bool canPoseMode;
 
+    public bool IsUnlockStage2;
+
     //ステージ3が解放されたか
     public bool IsUnlockStage3;
 
@@ -173,13 +175,10 @@ public abstract class BaseBattleManager : MonoBehaviour
         }
     }
     /// <summary>
-    /// 遅れてクリアUIを表示するメソッド
+    /// 遅れてクリアUI表示とデータ保存するメソッド
     /// </summary>
     protected virtual void DelayGameClearUI()
     {
-        //UIマネージャーからゲームクリアUIを表示
-        UIManager.Instance.GameClearUI();
-
         //プレイヤーのレベルアップ処理を行う
         StartCoroutine(PlayerLevelUP());
     }
@@ -197,16 +196,6 @@ public abstract class BaseBattleManager : MonoBehaviour
     /// <returns></returns>
     protected virtual IEnumerator PlayerLevelUP()
     {
-        //レベルアップしたことをウィンドウ表示
-        BattleActionTextManager.Instance.ShowBattleActionText("LevelUPText");
-        
-
-        //2フレーム待つ
-        yield return new WaitForSeconds(2f);
-
-        //レベルアップしたことを通知するウィンドウを非表示
-        StartCoroutine(HidePlayerActionText());
-
         Debug.Log($"アタッカー{attacker.AttackPower},{attacker.PlayerMaxHP}");
         Debug.Log($"バッファー{buffer.AttackPower},{buffer.PlayerMaxHP},{buffer.buffPower}");
         Debug.Log($"ヒーラー{healer.AttackPower},{healer.PlayerMaxHP},{healer.healPower}");
@@ -226,6 +215,18 @@ public abstract class BaseBattleManager : MonoBehaviour
 
         //保存パスを表示
         Debug.Log("保存パス：" + Application.persistentDataPath);
+
+        //レベルアップしたことをウィンドウ表示
+        BattleActionTextManager.Instance.ShowBattleActionText("LevelUPText");
+
+        //2フレーム待つ
+        yield return new WaitForSeconds(2);
+
+        //レベルアップしたことを通知するウィンドウを非表示
+        StartCoroutine(HidePlayerActionText());
+
+        // UIマネージャーからゲームクリアUIを表示
+        UIManager.Instance.GameClearUI();
     }
 
     /// <summary>
@@ -281,5 +282,17 @@ public abstract class BaseBattleManager : MonoBehaviour
 
         //1フレーム待つ
         yield return null;
+    }
+
+    /// <summary>
+    /// ステージデータをロードするメソッド
+    /// </summary>
+    /// <param name="data">Jsonに保存されているステージデータ</param>
+    protected void LoadStageData(StageSaveData data)
+    {
+        IsUnlockStage2 = data.Stage2UnLock_SaveData;
+
+        //ステージ3解放のフラグデータをステージセーブデータからロード
+        IsUnlockStage3 = data.Stage3UnLock_SaveData;
     }
 }

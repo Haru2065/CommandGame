@@ -1,0 +1,36 @@
+{
+    "EnemyActionText":[
+        {
+            "id": "SlimeAttack",
+            "text": "スライムが攻撃をした"
+        },
+        {
+            "id": "SlimeDied",
+            "text": "スライムを倒した！"
+        },
+        {
+            "id": "SkeletonAttack",
+            "text": "スケルトンが攻撃した"
+        },
+        {
+            "id": "SkeletonDied",
+            "text":"スケルトンを倒した！"
+        },
+        {
+            "id": "DragonRandomAttack",
+            "text": "ドラゴンが通常攻撃！"
+        },
+        {
+            "id": "DragonBreathAttack",
+            "text": "ドラゴンがブレス攻撃！"
+        },
+        {
+            "id": "DragonSpecialAttack",
+            "text": "ドラゴンが全体攻撃！"
+        },
+        {
+            "id": "DragonDied",
+            "text": "ドラゴンを倒した！"
+        }
+    ]
+}

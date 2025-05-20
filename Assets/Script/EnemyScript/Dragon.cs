@@ -3,7 +3,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -61,13 +60,13 @@ public class Dragon : BaseEnemyStatus
                 break;
 
             case 1:
-                NormalAllAttack(playerParty);
+                BreathAllAttack(playerParty);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
                 break;
 
             case 2:
-                BreathAllAttack(playerParty);
+                SpecialAllAttack(playerParty);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
                 break;
@@ -112,6 +111,10 @@ public class Dragon : BaseEnemyStatus
     /// </summary>
     public override void RandomSelect()
     {
+        //ドラゴンの単体攻撃音を再生
+        EnemySE.Instance.Play_DragonSingleAttackSE();
+
+        //ベースのランダムセレクトメソッドを実行
         base.RandomSelect();
     }
 
@@ -119,8 +122,11 @@ public class Dragon : BaseEnemyStatus
     /// 通常の全体攻撃
     /// </summary>
     /// <param name="players"></param>
-    private void NormalAllAttack(List<BasePlayerStatus> playerParty)
+    private void BreathAllAttack(List<BasePlayerStatus> playerParty)
     {
+        //ドラゴンのブレス攻撃を再生
+        EnemySE.Instance.Play_DragonBreathSE();
+
         List<BasePlayerStatus> attackPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
         if (attackPlayers.Count > 0)
@@ -141,8 +147,11 @@ public class Dragon : BaseEnemyStatus
     /// 必殺攻撃(全体に攻撃を与えてさらに2ターン継続でデバフを付与）
     /// </summary>
     /// <param name="players"></param>
-    private void BreathAllAttack(List<BasePlayerStatus> playerParty)
+    private void SpecialAllAttack(List<BasePlayerStatus> playerParty)
     {
+        //ドラゴンの必殺攻撃音を再生
+        EnemySE.Instance.Play_DragonSpecialAttackSE();
+
         List<BasePlayerStatus> attackPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
         if (attackPlayers.Count > 0)

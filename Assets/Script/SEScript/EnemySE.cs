@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
@@ -27,6 +28,23 @@ public class EnemySE : MonoBehaviour
     [SerializeField]
     [Tooltip("スケルトンの攻撃音")]
     private AudioClip skeletonAttackSE;
+
+    [SerializeField]
+    [Tooltip("ドラゴンの鳴き声音")]
+    private AudioClip dragonRoarSE;
+
+    [SerializeField]
+    [Tooltip("ドラゴンの単体攻撃音")]
+    private AudioClip dragonSingleAttackSE;
+
+    [SerializeField]
+    [Tooltip("ドラゴンのブレス攻撃音")]
+    private AudioClip dragonBreathSE;
+
+    [SerializeField]
+    [Tooltip("ドラゴンの必殺攻撃音")]
+    private AudioClip dragonSpecialAttackSE;
+
 
     /// <summary>
     /// 敵の効果音マネージャーをインスタンス化
@@ -62,5 +80,41 @@ public class EnemySE : MonoBehaviour
     {
         //スケルトンの攻撃音再生
         audioSource.PlayOneShot(skeletonAttackSE);
+    }
+
+    /// <summary>
+    /// ドラゴンの鳴き声再生メソッド
+    /// </summary>
+    public void Play_DragonRourSE()
+    {
+        //ドラゴンの鳴き声を再生
+        audioSource.PlayOneShot(dragonRoarSE);
+    }
+
+    /// <summary>
+    /// ドラゴンの単体攻撃音再生メソッド
+    /// </summary>
+    public void Play_DragonSingleAttackSE()
+    {
+        //ドラゴンの単体攻撃音を再生
+        audioSource.PlayOneShot(dragonSingleAttackSE);
+    }
+
+    /// <summary>
+    /// ドラゴンのブレス攻撃再生メソッド
+    /// </summary>
+    public void Play_DragonBreathSE()
+    {
+        //ドラゴンのブレス攻撃音を再生
+        audioSource.PlayOneShot(dragonBreathSE);
+    }
+
+    /// <summary>
+    /// ドラゴンの必殺攻撃再生メソッド
+    /// </summary>
+    public void Play_DragonSpecialAttackSE()
+    {
+        //ドラゴンの必殺攻撃音を再生
+        audioSource.PlayOneShot(dragonSpecialAttackSE); 
     }
 }

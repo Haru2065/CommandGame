@@ -7,11 +7,20 @@ using UnityEngine;
 /// </summary>
 public class StageSelectManager : MonoBehaviour
 {
-    
+    [SerializeField]
+    [Tooltip("ステージ2ボタン")]
+    private GameObject stage2Button;
 
     [SerializeField]
-    [Tooltip("ステージボタン")]
+    [Tooltip("チュートリアル2ボタン")]
+    private GameObject tutorial2Button;
+
+    [SerializeField]
+    [Tooltip("ステージ3ボタン")]
     private GameObject stage3Button;
+
+    //ステージ2が解放されたかどうか
+    private bool isStage2Unlocked;
 
     //ステージ3が解放されたかどうか
     private bool isStage3Unlocked;
@@ -19,7 +28,9 @@ public class StageSelectManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //ステージ3のボタンを非表示にする
+        //ステージ2,3のボタン、チュートリアル2ボタンを非表示にする
+        tutorial2Button.SetActive(false);
+        stage2Button.SetActive(false);
         stage3Button.SetActive(false);
 
         //ステージのセーブデータを読み込む
@@ -30,11 +41,14 @@ public class StageSelectManager : MonoBehaviour
         {
             string json = File.ReadAllText(path);
             StageSaveData saveData = JsonConvert.DeserializeObject<StageSaveData>(json);
+
+            isStage2Unlocked = saveData.Stage2UnLock_SaveData;
             isStage3Unlocked = saveData.Stage3UnLock_SaveData;
         }
         else
         {
-            //セーブデータが存在しない場合はステージ3は解放されていない
+            //セーブデータが存在しない場合はステージ2,3は解放されていない
+            isStage2Unlocked = false;
             isStage3Unlocked = false;
         }
     }
@@ -42,6 +56,18 @@ public class StageSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //もしステージ2が解放されていたらボタンを表示
+        if (isStage2Unlocked)
+        {
+            tutorial2Button.SetActive(true);
+            stage2Button.SetActive(true);
+        }
+        else
+        {
+            tutorial2Button.SetActive(false);
+            stage2Button.SetActive(false);
+        }
+
         //もしステージ3が解放されていたらボタンを表示
         if (isStage3Unlocked)
         {

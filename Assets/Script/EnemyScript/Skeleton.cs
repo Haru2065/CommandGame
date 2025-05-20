@@ -28,7 +28,6 @@ public class Skeleton : BaseEnemyStatus
         EnemyIsAlive = true;
     }
 
-
     /// <summary>
     /// スケルトンのHPを表示する処理
     /// </summary>
@@ -251,14 +250,17 @@ public class Skeleton : BaseEnemyStatus
     public override void EnemyOnDamage(int damage)
     {
         EnemyCurrentHP -= damage;
-        SkeltonHPBar.value = EnemyCurrentHP;
 
         //スケルトンのHPが０より下にいかないようにする
         if (EnemyCurrentHP <= 0)
         {
             EnemyCurrentHP = 0;
-            SkeltonHPBar.value = EnemyCurrentHP;
 
+            // UI更新
+            SkeltonHPBar.value = EnemyCurrentHP;
+            enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
+
+            //生存フラグをfalse
             EnemyIsAlive = false;
 
             //生存リストと初期ターゲットを設定するリストの消去
@@ -270,6 +272,12 @@ public class Skeleton : BaseEnemyStatus
 
             //自身のオブジェクトを消去するコールチンスタート
             StartCoroutine(DestroyObject());
+        }
+        else
+        {
+            // 通常のダメージ時のUI更新
+            SkeltonHPBar.value = EnemyCurrentHP;
+            enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
         }
     }
 

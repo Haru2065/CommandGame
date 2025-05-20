@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// スタートボタンが押されたらセーブデータがあればセーブデータを選択するスクリプト
@@ -10,64 +6,55 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SaveUIControl : MonoBehaviour
 {
+    //SaveUIControlのインスタンス
+    private static SaveUIControl instance;
+
+    /// <summary>
+    /// インスタンスのゲッター
+    /// </summary>
+    public static SaveUIControl Instance
+    {
+        get => instance;
+    }
+
     [SerializeField]
     [Tooltip("セーブデータ消去ボタン")]
     private GameObject deleteButton;
 
-    [SerializeField]
-    [Tooltip("セーブデータ選択ボタン")]
-    private GameObject SaveDataSelectButton;
-
-    [SerializeField]
-    [Tooltip("セーブデータ選択パネル")]
-    private GameObject SaveSelectPanel;
-
     /// <summary>
-    /// セーブデータがある時に表示するボタンを一度非表示で初期化
+    /// インスタンス化インスタンスがなければオブジェクトを消去
     /// </summary>
-    void Start()
+    void Awake()
     {
-        deleteButton.SetActive(false);
-        SaveDataSelectButton.SetActive(false);
-        SaveSelectPanel.SetActive(false);
-    }
-
-    private void Update()
-    {
-        //エスケープキーを押すとセーブデータ画面を閉じる
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if (instance == null)
         {
-            //セーブデータ選択パネルが開いている時は閉じる
-            if (SaveSelectPanel.activeSelf)
-            {
-                deleteButton.SetActive(false);
-                SaveDataSelectButton.SetActive(false);
-                SaveSelectPanel.SetActive(false);
-            }
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-    /// <summary>
-    /// スタートボタンが押された時のメソッド
-    /// </summary>
-    public void PushStartButton()
+    void Start()
     {
-        //セーブデータがある時はセーブデータ選択ボタンを表示
+        // セーブデータがある時はセーブデータ選択ボタンを表示
         if (SaveManager.HasAnySaveData())
         {
             deleteButton.SetActive(true);
-
-            SaveDataSelectButton.SetActive(true);
-            SaveSelectPanel.SetActive(true);
         }
-        //なければセーブデータ選択ボタンを非表示にして、シーンをロード
+        //なければセーブデータ選択ボタンを非表示
         else
         {
             deleteButton.SetActive(false);
-            SaveDataSelectButton.SetActive(false);
-            SaveSelectPanel.SetActive(false);
-
-            SceneManager.LoadScene("StageSelect");
         }
+    }
+
+    /// <summary>
+    /// 消去ボタンが押されたら消去ボタンを非表示にするメソッド
+    /// </summary>
+    public void HideSaveDeleteButton()
+    {
+        deleteButton.SetActive(false);
     }
 }

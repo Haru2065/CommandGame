@@ -23,5 +23,5 @@ MonoBehaviour:
     DebuffPowerData: 100
   - EnemyNameData: "\u30C9\u30E9\u30B4\u30F3"
     EnemyMaxHPData: 9000
-    EnemyAttackPowerData: 10000
+    EnemyAttackPowerData: 10
     DebuffPowerData: 10

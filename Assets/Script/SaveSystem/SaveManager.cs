@@ -39,10 +39,11 @@ public static class SaveManager
 
     public static void SaveStage()
     {
-        if (BaseBattleManager.Instance.IsUnlockStage3)
+        if (BaseBattleManager.Instance.IsUnlockStage2 || BaseBattleManager.Instance.IsUnlockStage3)
         {
             var data = new StageSaveData
             {
+                Stage2UnLock_SaveData = BaseBattleManager.Instance.IsUnlockStage2,
                 Stage3UnLock_SaveData = BaseBattleManager.Instance.IsUnlockStage3
             };
 
@@ -66,7 +67,7 @@ public static class SaveManager
     /// <summary>
     /// セーブデータを削除するメソッド
     /// </summary>
-    public static void DeleteSavedata(string fileName)
+    public static void DeleteSaveData(string fileName)
     {
         //セーブデータのパスを指定
         string path = Application.persistentDataPath + "/" + fileName;
