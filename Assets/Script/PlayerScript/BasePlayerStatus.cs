@@ -97,6 +97,18 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isDebuff = value;
     }
 
+    //HPが減るデバフ状態か
+    private bool isHPDebuff;
+
+    /// <summary>
+    /// HPが減るデバフ状態かのゲッターセッター
+    /// </summary>
+    public bool IsHPDebuff
+    {
+        get => isHPDebuff;
+        set => isHPDebuff = value;
+    }
+
     //特殊デバフ状態か
     private bool isSpecialDebuff;
 
@@ -262,7 +274,7 @@ public abstract class BasePlayerStatus : MonoBehaviour
     /// 状況テキストを非表示にするコールチン
     /// </summary>
     /// <returns></returns>
-    protected IEnumerator PlayerOffDebuffText()
+    public IEnumerator PlayerOffDebuffText()
     {
         //2フレーム待つ
         yield return new WaitForSeconds(2f);

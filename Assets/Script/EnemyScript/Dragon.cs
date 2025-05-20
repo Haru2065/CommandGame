@@ -19,6 +19,19 @@ public class Dragon : BaseEnemyStatus
     [Tooltip("ドラゴンの必殺の攻撃力")]
     private int dragonSpecialAttackPower;
 
+    [SerializeField]
+    [Tooltip("ドラゴンのデバフ力(HPを削る値)")]
+    private int hpDebuffPower;
+
+    /// <summary>
+    /// ドラゴンのデバフ力のゲッターセッター
+    /// </summary>
+    public int HPDebuffPower
+    {
+        get => hpDebuffPower;
+        set => hpDebuffPower = value;
+    }
+
     //ドラゴンのターンカウント
     private int turnCount = 0;
 
@@ -99,6 +112,8 @@ public class Dragon : BaseEnemyStatus
 
             //ドラゴンの攻撃力を敵データの攻撃力に設定
             EnemyAttackPower = enemyData.EnemyAttackPowerData;
+
+            HPDebuffPower = enemyData.DebuffPowerData;
         }
         else
         {
@@ -159,6 +174,10 @@ public class Dragon : BaseEnemyStatus
             foreach (var player in attackPlayers)
             {
                 player.PlayerOnDamage(dragonSpecialAttackPower);
+
+                player.IsHPDebuff = true;
+
+                player.DebuffCount = 2;
             }
         }
         else
