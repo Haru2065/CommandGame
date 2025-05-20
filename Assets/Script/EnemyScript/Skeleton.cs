@@ -1,4 +1,5 @@
 using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,14 +76,13 @@ public class Skeleton : BaseEnemyStatus
     /// <summary>
     /// スケルトンが攻撃するUniTask
     /// </summary>
-    /// <returns></returns>
     public async UniTask SkeletonAction(Skeleton skelton)
     {
         //プレイヤーも攻撃するターゲットをランダムで設定
         RandomSelect();
 
         //2フレーム待つ
-        await UniTask.Delay(2000);
+        await UniTask.Delay(TimeSpan.FromSeconds(2));
 
     }
 
@@ -98,7 +98,7 @@ public class Skeleton : BaseEnemyStatus
         if (TargetAlivePlayers.Count > 0)
         {
             //リストの中にあるプレイヤーキャラを選択してターゲットに設定
-            BasePlayerStatus target = TargetAlivePlayers[Random.Range(0, TargetAlivePlayers.Count)];
+            BasePlayerStatus target = TargetAlivePlayers[UnityEngine.Random.Range(0, TargetAlivePlayers.Count)];
 
             target.PlayerOnDamage(EnemyAttackPower);
 
@@ -133,7 +133,7 @@ public class Skeleton : BaseEnemyStatus
             EnemySE.Instance.Play_SkeletonAttackSE();
 
             //５０パーセントの確率かつプレイヤーがデバフ状態がfalseならデバフ付与
-            if (Random.Range(0, 100) < 50 && target.IsDebuff == false)
+            if (UnityEngine.Random.Range(0, 100) < 50 && target.IsDebuff == false)
             {
                 target.IsDebuff = true;
 
@@ -188,7 +188,7 @@ public class Skeleton : BaseEnemyStatus
             }
 
             //10%の確率でかつ、プレイヤーがデバフ状態で、特殊デバフ状態でなければ実行
-            if (Random.Range(0, 100) < 10 && target.IsDebuff && target.IsSpecialDebuff == false)
+            if (UnityEngine.Random.Range(0, 100) < 10 && target.IsDebuff && target.IsSpecialDebuff == false)
             {
                 target.SpecialDebuffCount = 5;
 

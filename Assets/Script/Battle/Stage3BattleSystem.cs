@@ -6,6 +6,7 @@ using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Unity.VisualScripting;
 
 /// <summary>
 /// ステージ3のバトルシステム
@@ -30,25 +31,34 @@ public class Stage3BattleSystem : BaseBattleManager
     [Tooltip("ラストバトルUI")]
     private GameObject LastButtleUI;
 
-    private bool IsActionExecutioned;
+    //バトル開始特殊演出（ステージ3限定でスタート演出が終了したかのフラグ）
+    private bool isEndDirection;
 
+    //攻撃対象者のリスト
     private List<BasePlayerStatus> playerParty;
 
     // Start is called before the first frame update
     protected override async void Start()
     {
+        //親クラスでUIの初期化と敵の攻撃対象を設定
         base.Start();
 
-        IsActionExecutioned = false;
+        //バトルの開始演出終了フラグをfalse
+        isEndDirection = false;
 
+        //最初はポーズ画面にはできない
         canPoseMode = false;
 
+        //攻撃対象を生存リストに設定
         playerParty = alivePlayers;
 
+        //キャンセルトークンソースを生成
         cts = new CancellationTokenSource();
 
-        await Action(cts.Token);
+        //ステージ3開始特殊演出を開始
+        await BattleStartAction(cts.Token);
 
+        //バトルループの開始
         await BattleLoop(cts.Token);
     }
 
@@ -77,29 +87,49 @@ public class Stage3BattleSystem : BaseBattleManager
         }
     }
 
-    async UniTask Action(CancellationToken token)
+    /// <summary>
+    /// ステージ3開始特殊演出
+    /// </summary>
+    /// <param name="token">キャンセルできる処理</param>
+    /// <returns></returns>
+    async UniTask BattleStartAction(CancellationToken token)
     {
+        //ドラゴンの鳴き声を実行
         EnemySE.Instance.Play_DragonRourSE();
 
+        //2秒待つ（キャンセル可能処理)
         await UniTask.Delay(TimeSpan.FromSeconds(2),cancellationToken: token);
 
+        //ラストバトルUIを表示
         LastButtleUI.SetActive(true);
 
+        //Stage3のBGMを再生
         BGMControl.Instance.PlayStage3BGM();
 
+        //2秒待つ（キャンセル可能処理）
         await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
+        //ラストバトルUIを非表示
         LastButtleUI.SetActive(false);
 
+        //2秒待つ（キャンセル可能処理）
         await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
 
-        IsActionExecutioned = true;
+        //開始演出終了
+        isEndDirection = true;
 
-        await UniTask.WaitUntil((() => IsActionExecutioned), cancellationToken: token) ;
+        //開始演出が終了するまで待つ（キャンセル可能処理）
+        await UniTask.WaitUntil((() => isEndDirection), cancellationToken: token) ;
     }
 
+    /// <summary>
+    /// UniTaskバトルのループ処理
+    /// </summary>
+    /// <param name="token">キャンセルできる処理/param>
+    /// <returns>プレイヤーが行動するまで待つ</returns>
     async UniTask BattleLoop(CancellationToken token)
     {
+        //ゲームクリア・ゲームオーバーのフラグがtrueならループを止めてキャンセルする
         while (!(isGameClear || token.IsCancellationRequested))
         {
             if (IsPlayerTurn)
@@ -575,7 +605,7 @@ public class Stage3BattleSystem : BaseBattleManager
     /// <summary>
     /// ユニタスク敵のターン
     /// </summary>
-    /// <param name="token">キャンセルされるトークン</param>
+    /// <param name="token">キャンセルできる処理</param>
     /// <returns>ユニタスクを止める処理</returns>
     async UniTask EnemyTurn(CancellationToken token)
     {
@@ -587,10 +617,16 @@ public class Stage3BattleSystem : BaseBattleManager
         IsPlayerTurn = true;
     }
 
+    /// <summary>
+    /// ユニタスクドラゴンターン
+    /// </summary>
+    /// <param name="Token">キャンセルできる処理/param>
+    /// <returns>次の処理を待つ</returns>
     async UniTask DragonTurn(CancellationToken Token)
     {
         await dragon.DragonAction(playerParty);
 
+        //1フレーム待つ
         await UniTask.Yield();
     }
 
@@ -606,6 +642,7 @@ public class Stage3BattleSystem : BaseBattleManager
             //ゲームクリアフラグをtrue
             isGameClear = true;
 
+            //キャンセル処理を実行し、キャンセルトークンを破棄しリソースを解放
             cts.Cancel();
             cts.Dispose();
 
@@ -636,6 +673,7 @@ public class Stage3BattleSystem : BaseBattleManager
             //レベルアップしたことをウィンドウ表示
             BattleActionTextManager.Instance.ShowBattleActionText("Retry");
 
+            //キャンセル処理を実行し、キャンセルトークンを破棄しリソースを解放
             cts.Cancel();
             cts.Dispose();
 

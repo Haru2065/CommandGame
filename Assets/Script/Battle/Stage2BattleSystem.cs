@@ -93,10 +93,10 @@ public class Stage2BattleSystem : BaseBattleManager
     }
 
     /// <summary>
-    /// UNiTaskバトルのループ処理
+    /// UniTaskバトルのループ処理
     /// </summary>
-    /// <param name="token">キャンセルトークン</param>
-    /// <returns>アタッカーの行動するまで待つ</returns>
+    /// <param name="token">キャンセルできる処理/param>
+    /// <returns>プレイヤーが行動するまで待つ</returns>
     async UniTask BattleLoop(CancellationToken token)
     {
         //ゲームクリア・ゲームオーバーのフラグがtrueならループを止めてキャンセルする
@@ -232,7 +232,7 @@ public class Stage2BattleSystem : BaseBattleManager
     /// <summary>
     /// ユニタスクアタッカーターン
     /// </summary>
-    /// <param name="token">キャンセルされるトークン</param>
+    /// <param name="token">キャンセルできる処理</param>
     /// <returns>UniTaskを止める処理</returns>
     async UniTask AttackerTurn(CancellationToken token)
     {
@@ -359,7 +359,7 @@ public class Stage2BattleSystem : BaseBattleManager
     /// <summary>
     /// ユニタスクバッファーターン
     /// </summary>
-    /// <param name="token">キャンセルされるトークン</param>
+    /// <param name="token">キャンセルできる処理</param>
     /// <returns>ユニタスクを止める処理</returns>
     async UniTask BufferTurn(CancellationToken token)
     {
@@ -482,7 +482,7 @@ public class Stage2BattleSystem : BaseBattleManager
     /// <summary>
     /// ユニタスクヒーラーターン
     /// </summary>
-    /// <param name="token">キャンセルされるトークン</param>
+    /// <param name="token">キャンセルできる処理</param>
     /// <returns>ユニタスクを止める処理</returns>
     async UniTask HealerTurn(CancellationToken token)
     {
@@ -612,11 +612,11 @@ public class Stage2BattleSystem : BaseBattleManager
             //ゲームクリアフラグをtrue
             isGameClear = true;
 
-            //
+            //キャンセル処理を実行し、キャンセルトークンを破棄しリソースを解放
             cts.Cancel();
             cts.Dispose();
 
-            if(!IsUnlockStage3)
+            if (!IsUnlockStage3)
             {
                 //ステージ3を解放
                 IsUnlockStage3 = true;
@@ -650,6 +650,7 @@ public class Stage2BattleSystem : BaseBattleManager
             //UIマネージャーからゲームオーバーを表示
             UIManager.Instance.GameOverUI();
 
+            //キャンセル処理を実行し、キャンセルトークンを破棄しリソースを解放
             cts.Cancel();
             cts.Dispose();
 
@@ -663,7 +664,7 @@ public class Stage2BattleSystem : BaseBattleManager
     /// <summary>
     /// ユニタスク敵のターン
     /// </summary>
-    /// <param name="token">キャンセルされるトークン</param>
+    /// <param name="token">キャンセルできる処理/param>
     /// <returns>ユニタスクを止める処理</returns>
     async UniTask EnemyTurn(CancellationToken token)
     {
@@ -694,7 +695,7 @@ public class Stage2BattleSystem : BaseBattleManager
     /// スケルトンターン
     /// </summary>
     /// <param name="skeleton">スケルトンステータス</param>
-    /// <param name="token">キャンセルトークンが呼ばれたらキャンセルする処理</param>
+    /// <param name="token">キャンセルできる処理</param>
     async UniTask SkeltonTurn(Skeleton skeleton, CancellationToken token)
     {
         //スケルトンアクション

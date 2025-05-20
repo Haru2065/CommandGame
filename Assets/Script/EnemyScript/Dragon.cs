@@ -53,34 +53,54 @@ public class Dragon : BaseEnemyStatus
         EnemyIsAlive = true;
     }
 
+    /// <summary>
+    /// ドラゴンの行動
+    /// </summary>
+    /// <param name="playerParty">攻撃対象者のリスト</param>
+    /// <returns></returns>
     public async UniTask DragonAction(List<BasePlayerStatus> playerParty)
     {
+        //ドラゴンが生存していなかったら実行しない
         if (!EnemyIsAlive) return;
 
+        //ドラゴンの攻撃パターン通り攻撃を実行
         await DoAttack(playerParty);
     }
 
+    /// <summary>
+    /// ドラゴンのパターン攻撃
+    /// </summary>
+    /// <param name="playerParty"></param>
+    /// <returns></returns>
     public async UniTask DoAttack(List<BasePlayerStatus> playerParty)
     {
-        TurnCount++;
+        //ターンのカウントを1増やす
+        turnCount++;
 
+        //
         int puttern = (turnCount - 1) % 3;
 
+        //攻撃パターン
         switch (puttern)
         {
+            //パターン1ランダムに敵に攻撃を行う
             case 0:
                 RandomSelect();
                 break;
-
+            
+            //パターン2ブレス攻撃全体攻撃
             case 1:
                 BreathAllAttack(playerParty);
 
+                //2フレーム待つ
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
                 break;
 
+            //パターン3必殺攻撃プレイヤーに全体攻撃+ダメージデバフ付与
             case 2:
                 SpecialAllAttack(playerParty);
 
+                //2フレーム待つ
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
                 break;
         }
@@ -142,12 +162,15 @@ public class Dragon : BaseEnemyStatus
         //ドラゴンのブレス攻撃を再生
         EnemySE.Instance.Play_DragonBreathSE();
 
-        List<BasePlayerStatus> attackPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
+        //対象のプレイヤーが生存していたら、リストにいれる（生存者を取得)
+        List<BasePlayerStatus> attackTargetPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
-        if (attackPlayers.Count > 0)
+        //攻撃対象がいれば攻撃対象リストに入っているプレイヤーに攻撃
+        if (attackTargetPlayers.Count > 0)
         {
-            foreach (var player in attackPlayers)
+            foreach (var player in attackTargetPlayers)
             {
+                //プレイヤーにダメージを与える
                 player.PlayerOnDamage(EnemyAttackPower);
             }
         }
@@ -167,16 +190,19 @@ public class Dragon : BaseEnemyStatus
         //ドラゴンの必殺攻撃音を再生
         EnemySE.Instance.Play_DragonSpecialAttackSE();
 
+        //対象のプレイヤーが生存していたら、リストにいれる（生存者を取得)
         List<BasePlayerStatus> attackPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
+        // 攻撃対象がいれば攻撃対象リストに入っているプレイヤーに攻撃
         if (attackPlayers.Count > 0)
         {
             foreach (var player in attackPlayers)
             {
+                //プレイヤーにダメージを与えて、やけどのデバフ（毎ターンHPを減らす2ターン継続）
                 player.PlayerOnDamage(dragonSpecialAttackPower);
-
                 player.IsHPDebuff = true;
 
+                //デバフ継続カウントを2に設定
                 player.DebuffCount = 2;
             }
         }
@@ -193,6 +219,7 @@ public class Dragon : BaseEnemyStatus
     {
         enemyHPUGUI.text = $"{EnemyCurrentHP} / {EnemyMaxHP}";
 
+        //ドラゴンが生存していなかったら現在のHPは0
         if(!EnemyIsAlive)
         {
             EnemyCurrentHP = 0;
