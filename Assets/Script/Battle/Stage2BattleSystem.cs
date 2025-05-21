@@ -134,6 +134,9 @@ public class Stage2BattleSystem : BaseBattleManager
                     //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
                     await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
+                    //ステータスウィンドウを開くボタンを押せるようにする
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //アタッカーターン開始
                     await AttackerTurn(token);
 
@@ -145,6 +148,9 @@ public class Stage2BattleSystem : BaseBattleManager
                     {
                         return;
                     }
+
+                    //ステータスボタンを開くボタンを押せないようにする
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
 
                 if (buffer.IsAlive)
@@ -164,6 +170,8 @@ public class Stage2BattleSystem : BaseBattleManager
                     //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
                     await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //バッファーのターン開始
                     await BufferTurn(token);
 
@@ -174,6 +182,8 @@ public class Stage2BattleSystem : BaseBattleManager
                     {
                         return;
                     }
+
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
 
                 if (healer.IsAlive)
@@ -193,6 +203,8 @@ public class Stage2BattleSystem : BaseBattleManager
                     //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
                     await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
 
+                    //ステータスウィンドウを開くボタンを押せるようにする
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //ヒーラーのターン開始
                     await HealerTurn(token);
@@ -204,6 +216,8 @@ public class Stage2BattleSystem : BaseBattleManager
                     {
                         return;
                     }
+
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
             }
 

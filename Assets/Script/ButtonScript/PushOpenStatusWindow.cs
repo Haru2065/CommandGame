@@ -6,27 +6,46 @@ using UnityEngine.UI;
 /// </summary>
 public class PushOpenStatusWindow : MonoBehaviour
 {
+    //ステータスウィンドウを開くスクリプトのインスタンス
+    private static PushOpenStatusWindow instance;
+
+    /// <summary>
+    /// インスタンスのゲッター
+    /// </summary>
+    public static PushOpenStatusWindow Instance
+    {
+        get => instance;
+    }
+
     [SerializeField]
     [Tooltip("ステータスウィンドウを開くボタン")]
     private Button statusWindowButton;
 
-    public void Update()
+    private void Awake()
     {
-        //プレイヤーターン時のみボタンを押せるようにする
-        //もしステージ１もしくはステージ２のインスタンスがありかつプレイヤーターンなら実行
-        if (Stage1BattleSystem.Instance != null && Stage1BattleSystem.Instance.IsPlayerTurn ||
-            Stage2BattleSystem.Instance != null && Stage2BattleSystem.Instance.IsPlayerTurn)
+        if (instance == null)
         {
-            //ボタンが押せるようにする
-            statusWindowButton.interactable = true;
+            instance = this;
         }
-
         else
         {
-            //ボタンが押せないように透明にする
-            statusWindowButton.interactable = false;
+            Destroy(gameObject);
         }
     }
+
+    //ボタンが押せるようにするメソッド
+    public void CanPushStatusButton()
+    {
+        //ボタンが押せるようにする
+        statusWindowButton.interactable = true;
+    }
+
+    //ボタンが押せないように透明にするメソッド
+    public void TransparentStatusButton()
+    {
+        statusWindowButton.interactable = false;
+    }
+    
 
     /// <summary>
     /// ボタンを押すとステータスウィンドウを開く

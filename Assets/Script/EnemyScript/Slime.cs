@@ -84,7 +84,7 @@ public class Slime : BaseEnemyStatus
     /// <summary>
     /// プレイヤーにランダムで攻撃するメソッド
     /// </summary>
-    public override void RandomSelect()
+    public override BasePlayerStatus RandomSelect()
     {
         //一度生存しているキャラのみでリストを整理する
         List<BasePlayerStatus> TargetAlivePlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
@@ -129,10 +129,12 @@ public class Slime : BaseEnemyStatus
 
                     break;
             }
+            return target;
         }
         else
         {
             Debug.Log("攻撃対象がいません");
+            return null;
         }
     }
 

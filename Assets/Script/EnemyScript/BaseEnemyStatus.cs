@@ -157,7 +157,7 @@ public abstract class BaseEnemyStatus : MonoBehaviour
     /// <summary>
     /// ランダムでプレイヤーに攻撃力する対象を決めるメソッド
     /// </summary>
-    public virtual void RandomSelect()
+    public virtual BasePlayerStatus RandomSelect()
     {
         //一度生存しているキャラのみでリストを整理する
         List<BasePlayerStatus> TargetAlivePlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
@@ -170,10 +170,14 @@ public abstract class BaseEnemyStatus : MonoBehaviour
 
             //設定したターゲットにダメージを与える
             target.PlayerOnDamage(EnemyAttackPower);
+
+            return target;
         }
         else 
         {
             Debug.Log("攻撃対象がいません");
+
+            return null;
         }
     }
 

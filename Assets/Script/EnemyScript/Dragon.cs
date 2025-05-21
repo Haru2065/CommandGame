@@ -32,6 +32,26 @@ public class Dragon : BaseEnemyStatus
         set => hpDebuffPower = value;
     }
 
+    [SerializeField]
+    [Tooltip("ドラゴンの単体攻撃エフェクト")]
+    private GameObject onleyAttackEffect;
+
+    [SerializeField]
+    [Tooltip("ドラゴンのブレス攻撃のエフェクト")]
+    private GameObject breathEffect;
+
+    [SerializeField]
+    [Tooltip("ドラゴン側の攻撃エフェクトのスポーン位置")]
+    private Transform dragonEffectSpawnPoint;
+
+    [SerializeField]
+    [Tooltip("必殺の攻撃エフェクト")]
+    private GameObject specialEffect;
+
+    [SerializeField]
+    [Tooltip("必殺の攻撃エフェクトのスポーン位置")]
+    private Transform specialEffectSpawnPoint;
+
     //ドラゴンのターンカウント
     private int turnCount = 0;
 
@@ -144,13 +164,24 @@ public class Dragon : BaseEnemyStatus
     /// <summary>
     /// ランダムでプレイヤー単体に攻撃するメソッド
     /// </summary>
-    public override void RandomSelect()
+    public override BasePlayerStatus RandomSelect()
     {
         //ドラゴンの単体攻撃音を再生
         EnemySE.Instance.Play_DragonSingleAttackSE();
 
         //ベースのランダムセレクトメソッドを実行
-        base.RandomSelect();
+        BasePlayerStatus target = base.RandomSelect();
+
+        //攻撃対象に単体攻撃エフェクトを生成
+        if (target != null)
+        {
+            GameObject effectInstance = Instantiate(onleyAttackEffect,target.transform.position, Quaternion.identity);
+
+            //2フレーム後エフェクトを消去
+            Destroy(effectInstance, 2f);
+        }
+
+        return target;
     }
 
     /// <summary>
@@ -162,14 +193,22 @@ public class Dragon : BaseEnemyStatus
         //ドラゴンのブレス攻撃を再生
         EnemySE.Instance.Play_DragonBreathSE();
 
+        //通常全体攻撃のエフェクトを生成
+        GameObject effectInstance = Instantiate(breathEffect,dragonEffectSpawnPoint.position, Quaternion.Euler(0f,0f,-160f));
+
+        //2フレーム後エフェクトを消去
+        Destroy(effectInstance,2f);
+
         //対象のプレイヤーが生存していたら、リストにいれる（生存者を取得)
         List<BasePlayerStatus> attackTargetPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
+
 
         //攻撃対象がいれば攻撃対象リストに入っているプレイヤーに攻撃
         if (attackTargetPlayers.Count > 0)
         {
             foreach (var player in attackTargetPlayers)
             {
+
                 //プレイヤーにダメージを与える
                 player.PlayerOnDamage(EnemyAttackPower);
             }
@@ -178,7 +217,6 @@ public class Dragon : BaseEnemyStatus
         {
             Debug.Log("攻撃対象がいません");
         }
-
     }
 
     /// <summary>
@@ -189,6 +227,15 @@ public class Dragon : BaseEnemyStatus
     {
         //ドラゴンの必殺攻撃音を再生
         EnemySE.Instance.Play_DragonSpecialAttackSE();
+
+        //必殺エフェクトをプレイヤーキャラの位置に生成
+        GameObject dragonEffectInstance = Instantiate(specialEffect, specialEffectSpawnPoint.position, Quaternion.identity);
+
+        // エフェクトスケールを変更（2倍）
+        dragonEffectInstance.transform.localScale = new Vector3(2f, 2f, 2f);
+
+        //3フレーム後消去
+        Destroy(dragonEffectInstance, 3f);
 
         //対象のプレイヤーが生存していたら、リストにいれる（生存者を取得)
         List<BasePlayerStatus> attackPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);

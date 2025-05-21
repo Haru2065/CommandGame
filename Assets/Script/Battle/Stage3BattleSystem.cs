@@ -6,6 +6,7 @@ using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using Unity.VisualScripting;
 
 /// <summary>
 /// ステージ3のバトルシステム
@@ -188,6 +189,9 @@ public class Stage3BattleSystem : BaseBattleManager
                     //アタッカーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //ステータスウィンドウを開くボタンを押せるようにする
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //アタッカーターン開始
                     await AttackerTurn(token);
 
@@ -199,6 +203,9 @@ public class Stage3BattleSystem : BaseBattleManager
                     {
                         return;
                     }
+
+                    //ステータスボタンを開くボタンを押せないようにする
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
 
                 if (buffer.IsAlive)
@@ -239,6 +246,9 @@ public class Stage3BattleSystem : BaseBattleManager
                         }
                     }
 
+                    //ステータスウィンドウを開くボタンを押せるようにする
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //バッファーのターン開始
                     await BufferTurn(token);
 
@@ -249,6 +259,9 @@ public class Stage3BattleSystem : BaseBattleManager
                     {
                         return;
                     }
+
+                    //ステータスボタンを開くボタンを押せないようにする
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
 
                 if (healer.IsAlive)
@@ -289,6 +302,9 @@ public class Stage3BattleSystem : BaseBattleManager
                         }
                     }
 
+                    //ステータスウィンドウを開くボタンを押せるようにする
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //ヒーラーのターン開始
                     await HealerTurn(token);
 
@@ -299,6 +315,9 @@ public class Stage3BattleSystem : BaseBattleManager
                     {
                         return;
                     }
+
+                    //ステータスボタンを開くボタンを押せないようにする
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
             }
 

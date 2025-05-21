@@ -35,9 +35,9 @@ public class HPManager : MonoBehaviour
     void Update()
     {
         //プレイヤーキャラのHP数表示
-        attackerHPUGUI.text = $"{attacker.PlayerCurrentHP}/1800";
-        bufferHPUGUI.text = $"{buffer.PlayerCurrentHP}/1600";
-        healerHPUGUI.text = $"{healer.PlayerCurrentHP}/1600";
+        attackerHPUGUI.text = $"{attacker.PlayerCurrentHP}/ {attacker.PlayerMaxHP}";
+        bufferHPUGUI.text = $"{buffer.PlayerCurrentHP}/ {buffer.PlayerMaxHP}";
+        healerHPUGUI.text = $"{healer.PlayerCurrentHP}/  {healer.PlayerMaxHP}";
 
 
     }

@@ -100,7 +100,7 @@ public abstract class BaseBattleManager : MonoBehaviour
     }
 
     //プレイヤーターンか
-    public bool IsPlayerTurn;
+    protected bool IsPlayerTurn;
 
     //ゲームクリアか
     protected bool isGameClear;
@@ -111,10 +111,29 @@ public abstract class BaseBattleManager : MonoBehaviour
     //ポーズモードにできるか
     protected bool canPoseMode;
 
-    public bool IsUnlockStage2;
+    //ステージ2が解放されたか
+    private bool isUnlockStage2;
+
+    /// <summary>
+    /// ステージ2が解放フラグのゲッターセッター
+    /// </summary>
+    public bool IsUnlockStage2
+    {
+        get => isUnlockStage2;
+        set => isUnlockStage2 = value;
+    }
 
     //ステージ3が解放されたか
-    public bool IsUnlockStage3;
+    private bool isUnlockStage3;
+
+    /// <summary>
+    /// ステージ3が解放フラグのゲッターセッター
+    /// </summary>
+    public bool IsUnlockStage3
+    {
+        get => isUnlockStage3;
+        set => isUnlockStage3 = value;
+    }
 
     /// <summary>
     /// ベースのバトルマネージャーをインスタンス化
@@ -152,6 +171,9 @@ public abstract class BaseBattleManager : MonoBehaviour
 
         //バトル開始時にターゲットを設定
         PlayerTargetSelect.Instance.SetStartBattleTarget();
+
+        //最初はステータスボタンを開くボタンを押せないようにする
+        PushOpenStatusWindow.Instance.TransparentStatusButton();
     }
 
     /// <summary>
@@ -274,8 +296,8 @@ public abstract class BaseBattleManager : MonoBehaviour
     /// <returns></returns>
     protected IEnumerator HidePlayerActionText()
     {
-        //2フレーム待つ
-        yield return new WaitForSeconds(2f);
+        //1秒待つ
+        yield return new WaitForSeconds(1);
 
         //JSONファイルの状況通知テキストを非表示
         BattleActionTextManager.Instance.TextDelayHide();
@@ -290,9 +312,9 @@ public abstract class BaseBattleManager : MonoBehaviour
     /// <param name="data">Jsonに保存されているステージデータ</param>
     protected void LoadStageData(StageSaveData data)
     {
-        IsUnlockStage2 = data.Stage2UnLock_SaveData;
+        isUnlockStage2 = data.Stage2UnLock_SaveData;
 
         //ステージ3解放のフラグデータをステージセーブデータからロード
-        IsUnlockStage3 = data.Stage3UnLock_SaveData;
+        isUnlockStage3 = data.Stage3UnLock_SaveData;
     }
 }

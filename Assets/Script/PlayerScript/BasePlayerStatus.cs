@@ -366,10 +366,4 @@ public abstract class BasePlayerStatus : MonoBehaviour
     /// スクリプタブルオブジェクトからパラメータを設定するメソッド
     /// </summary>
     protected abstract void SetPlayerParameters();
-
-    //Jsonの保存データがあった場合にJsonからパラメータを設定するメソッド
-    protected virtual void JsonLoadPlayerParameters()
-    {
-
-    }
 }

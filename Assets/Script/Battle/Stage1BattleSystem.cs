@@ -86,6 +86,9 @@ public class Stage1BattleSystem : BaseBattleManager
                     //アタッカーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //ステータスウィンドウを開くボタンを押せるようにする
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //アタッカーターン開始
                     yield return AttackerTurn();
 
@@ -93,6 +96,9 @@ public class Stage1BattleSystem : BaseBattleManager
 
                     //敵の生存状況を確認する
                     GameClearCheck();
+
+                    //ステータスボタンを開くボタンを押せないようにする
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
 
                     //ゲームクリアならループを止める
                     if (isGameClear)yield break;
@@ -109,12 +115,16 @@ public class Stage1BattleSystem : BaseBattleManager
                     //バッファーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //バッファーターン開始
                     yield return BufferTurn();
 
                     yield return new WaitForSeconds(2);
 
                     GameClearCheck();
+
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
 
                     if (isGameClear) yield break;
                 }
@@ -131,12 +141,16 @@ public class Stage1BattleSystem : BaseBattleManager
                     //ヒーラーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    PushOpenStatusWindow.Instance.CanPushStatusButton();
+
                     //ヒーラーターン開始
                     yield return HealerTurn();
 
                     yield return new WaitForSeconds(2);
 
                     GameClearCheck();
+
+                    PushOpenStatusWindow.Instance.TransparentStatusButton();
 
                     if (isGameClear) yield break ;
                 }
