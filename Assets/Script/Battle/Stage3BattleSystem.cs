@@ -6,7 +6,6 @@ using System;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Collections;
-using Unity.VisualScripting;
 
 /// <summary>
 /// ステージ3のバトルシステム
