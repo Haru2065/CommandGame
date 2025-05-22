@@ -49,6 +49,31 @@
             "text": "ヒーラーのデバフが解除"
         },
         {
+            "id": "AttackerAttackDown",
+            "text": "アタッカーの攻撃力が下がった！"
+        },
+        {
+            "id": "BufferAttackDown",
+            "text": "バッファーの攻撃力が下がった！"
+        },
+        {
+            "id": "HealerAttackDown",
+            "text": "ヒーラーの攻撃力が下がった！"
+        },
+        {
+            "id": "AttackerBurned",
+            "text": "アタッカーがやけどを負った！"
+        },
+        {
+            "id": "BufferBurned",
+            "text": "バッファーがやけどを負った！"
+        },
+        {
+            "id": "HealerBurned",
+            "text": "ヒーラーがやけどを負った！"
+        },
+
+        {
             "id": "Can't_UseSkill",
             "text": "スキルはつかえません！！"
         },
@@ -80,5 +105,15 @@
             "id": "DragonNormalAttack",
             "text": "ドラゴンの単体攻撃"
         },
+
+       {
+            "id": "DragonAreaAttack",
+            "text": "ドラゴンが全体攻撃をした！"
+       },
+        {
+            "id": "DragonSpecialAttack",
+            "text": "ドラゴンが必殺攻撃をした！"
+       },
+       
     ]
 }
