@@ -66,6 +66,18 @@ public class Attacker : BasePlayerStatus
     }
 
     /// <summary>
+    /// プレイヤーの行動終了したか（アタッカーが行動したか）のフラグをリセットにするメソッド
+    /// </summary>
+    public override void ResetActionFlag()
+    {
+        //ベースのメソッドからプレイヤー行動フラグをリセット
+        base.ResetActionFlag();
+
+        //アタッカーの行動フラグもfalse
+        IsAttackerAction = false;
+    }
+
+    /// <summary>
     /// パラメータを設定するメソッド
     /// プレイヤーのデータベースから読み込み
     /// </summary>

@@ -121,6 +121,14 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isSpecialDebuff = value;
     }
 
+    private bool isPlayerAction;
+
+    public bool IsPlayerAction
+    {
+        get => isPlayerAction;
+        set => isPlayerAction = value;
+    }
+
     //ƒvƒŒƒCƒ„[‚ÌUŒ‚—Í
     private int attackPower;
 
@@ -306,6 +314,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         {
             SetPlayerParameters();
         }
+    }
+
+    public virtual void ResetActionFlag()
+    {
+        isPlayerAction = false;
     }
 
     /// <summary>

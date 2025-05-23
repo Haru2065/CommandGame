@@ -79,6 +79,18 @@ public class Healer : BasePlayerStatus
     }
 
     /// <summary>
+    /// プレイヤーの行動終了したか（ヒーラーが行動したか）のフラグをリセットにするメソッド
+    /// </summary>
+    public override void ResetActionFlag()
+    {
+        //ベースのメソッドからプレイヤー行動フラグをリセット
+        base.ResetActionFlag();
+
+        //ヒーラーの行動フラグもfalse
+        IsHealerAction = false;
+    }
+
+    /// <summary>
     /// パラメータを設定するメソッド
     /// </summary>
     protected override void SetPlayerParameters()

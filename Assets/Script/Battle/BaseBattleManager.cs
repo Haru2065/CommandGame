@@ -1,5 +1,7 @@
+using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 /// <summary>
@@ -43,13 +45,12 @@ public abstract class BaseBattleManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("敵の生存リスト")]
-    public List<BaseEnemyStatus> aliveEnemies = new List<BaseEnemyStatus>();
-
-
-    [SerializeField]
     [Tooltip("レベルアップを行うリスト")]
     protected List<BasePlayerStatus> LevelUPPlayerList = new List<BasePlayerStatus>();
+
+    [SerializeField]
+    [Tooltip("敵の生存リスト")]
+    public List<BaseEnemyStatus> aliveEnemies = new List<BaseEnemyStatus>();
 
     [SerializeField]
     [Tooltip("ターン開始エフェクト")]
@@ -135,6 +136,13 @@ public abstract class BaseBattleManager : MonoBehaviour
         set => isUnlockStage3 = value;
     }
 
+    protected const float TurnDelay = 1f;
+
+    //
+    protected const float EffectDelay = 2f;
+
+    protected const int JsonTextDelay = 1;
+
     /// <summary>
     /// ベースのバトルマネージャーをインスタンス化
     /// </summary>
@@ -196,6 +204,19 @@ public abstract class BaseBattleManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// プレイヤーターンの共通処理
+    /// </summary>
+    /// <param name="player">プレイヤーのクラス名</param>
+    /// <param name="offDebuffTextID">デバフ解除テキスト</param>
+    /// <param name="normalKey">通常攻撃キー</param>
+    /// <param name="skillKey">スキルキー</param>
+    /// <param name="specialKey">必殺キー</param>
+    /// <param name="token">キャンセルできる処理</param>
+    /// <returns>プレイヤーが行動するまで処理を待つ</returns>
+    protected abstract UniTask PlayerTurn(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token);
+
     /// <summary>
     /// 遅れてクリアUI表示とデータ保存するメソッド
     /// </summary>
@@ -284,20 +305,20 @@ public abstract class BaseBattleManager : MonoBehaviour
         GameObject startTurnEffectInstance = Instantiate(StartTurnEffect, spawnPoint.position, Quaternion.identity);
 
         //ターン開始エフェクトを2秒後消去
-        Destroy(startTurnEffectInstance, 2f);
+        Destroy(startTurnEffectInstance, EffectDelay);
 
         //0.5秒待機
         yield return new WaitForSeconds(0.5f);
     }
 
     /// <summary>
-    /// JSONファイルの状況通知テキストを非表示にするコールチン
+    /// JSONファイルのプレイヤー状況通知テキストを非表示にするコールチン
     /// </summary>
     /// <returns></returns>
     protected IEnumerator HidePlayerActionText()
     {
         //1秒待つ
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(JsonTextDelay);
 
         //JSONファイルの状況通知テキストを非表示
         BattleActionTextManager.Instance.TextDelayHide();

@@ -76,6 +76,18 @@ public class Buffer : BasePlayerStatus
     }
 
     /// <summary>
+    /// プレイヤーの行動終了したか（バッファーが行動したか）のフラグをリセットにするメソッド
+    /// </summary>
+    public override void ResetActionFlag()
+    {
+        //ベースのメソッドからプレイヤー行動フラグをリセット
+        base.ResetActionFlag();
+
+        //バッファーの行動フラグもfalse
+        IsBufferAction = false;
+    }
+
+    /// <summary>
     /// パラメータを設定するメソッド
     /// プレイヤーのデータベースから読み込み
     /// </summary>
