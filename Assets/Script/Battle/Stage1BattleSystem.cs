@@ -2,6 +2,9 @@ using Newtonsoft.Json;
 using System.Collections;
 using UnityEngine;
 using System.IO;
+using Cysharp.Threading.Tasks;
+using System.Threading;
+using System;
 
 /// <summary>
 /// ステージ１のバトルシステム
@@ -21,9 +24,13 @@ public class Stage1BattleSystem : BaseBattleManager
     private Slime slime3;
 
     // Start is called before the first frame update
-    protected override void Start()
+    protected override async void Start()
     {
         base.Start();
+
+        canPoseMode = false;
+
+        cts = new CancellationTokenSource();        
 
         // ステージのセーブデータを読み込む
         string path = Application.persistentDataPath + $"/StageSaveData.Json";
@@ -47,28 +54,45 @@ public class Stage1BattleSystem : BaseBattleManager
         canPoseMode = false;
 
         //バトルループ開始
-        StartCoroutine(BattleLoop());
+        await BattleLoop(cts.Token);
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+
+        // もし終了ボタンが押されたら安全に終了するためにキャンセル処理を行う
+        if (pushExitButton.IsQuitGame)
+        {
+            cts.Cancel();
+            cts.Dispose();
+        }
     }
 
     /// <summary>
-    /// バトルループ
+    /// UniTaskバトルのループ処理
     /// </summary>
-    /// <returns></returns>
-    IEnumerator BattleLoop()
+    /// <param name="token">キャンセルできる処理/param>
+    /// <returns>プレイヤーが行動するまで待つ</returns>
+    async UniTask BattleLoop(CancellationToken token)
     {
-        //ゲームクリアフラグか、ゲームオーバーフラグがtrueになるまでループし続ける
-        while (true)
+        //ゲームクリア・ゲームオーバーのフラグがtrueならループを止めてキャンセルする
+        while (!(isGameClear || token.IsCancellationRequested))
         {
-            if (isGameClear || isGameOver) yield break;
-
             if (IsPlayerTurn)
             {
-                //UIマネージャーからプレイヤーターンUIを表示
+                //UIマネージャーからプレイヤーターン表示
                 UIManager.Instance.PlayerTurnUI.SetActive(true);
 
-                yield return new WaitForSeconds(2f);
+                //1フレーム待つ（キャンセルトークンが呼ばれたらキャンセル）
+                await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                //UIマネージャーからプレイヤーターンUIを非表示
+                //全プレイヤーの行動フラグをリセット
+                attacker.ResetActionFlag();
+                buffer.ResetActionFlag();
+                healer.ResetActionFlag();
+
+                //UIマネージャーからプレイヤーターン非表示
                 UIManager.Instance.PlayerTurnUI.SetActive(false);
 
                 //UIマネージャーからプレイヤーターン時に表示するUIを表示
@@ -77,86 +101,102 @@ public class Stage1BattleSystem : BaseBattleManager
                 //アタッカーが生存していたら処理を実行
                 if (attacker.IsAlive)
                 {
+                    //指定した位置にターン開始エフェクト生成
+                    StartCoroutine(ShowStartTurnEffect(FirstTurnEffect_SpawnPoint));
+
+                    //1フレーム待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
                     //アタッカーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("AttackerTurnText");
-
-                    //指定した位置にターン開始エフェクト生成
-                    yield return ShowStartTurnEffect(FirstTurnEffect_SpawnPoint);
 
                     //アタッカーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //1フレーム待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
                     //ステータスウィンドウを開くボタンを押せるようにする
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
-                    //アタッカーターン開始
-                    yield return AttackerTurn();
+                    //アタッカーターン開始(キャンセルできる処理)
+                    await PlayerTurnAction(attacker, "AttackeroffDebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    yield return new WaitForSeconds(2f);
-
-                    //敵の生存状況を確認する
-                    GameClearCheck();
+                    //敵の生存状況を確認（生存リストが空ならループを止める）
+                    if (GameClearCheck())
+                    {
+                        return;
+                    }
 
                     //ステータスボタンを開くボタンを押せないようにする
                     PushOpenStatusWindow.Instance.TransparentStatusButton();
-
-                    //ゲームクリアならループを止める
-                    if (isGameClear)yield break;
                 }
 
-                //バッファーが生存していたら処理を実行
                 if (buffer.IsAlive)
                 {
+                    //指定した位置にターン開始エフェクト生成
+                    StartCoroutine(ShowStartTurnEffect(SecondTurnEffect_SpawnPoint));
+
+                    //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル)
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
                     //バッファーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("BufferTurnText");
-
-                    yield return ShowStartTurnEffect(SecondTurnEffect_SpawnPoint);
 
                     //バッファーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
-                    //バッファーターン開始
-                    yield return BufferTurn();
+                    //バッファーのターン開始(キャンセルできる処理)
+                    await PlayerTurnAction(buffer, "BufferOffDebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    yield return new WaitForSeconds(2);
-
-                    GameClearCheck();
-
+                    //敵の生存状況を確認（生存リストが空ならループを止める）
+                    if (GameClearCheck())
+                    {
+                        return;
+                    }
                     PushOpenStatusWindow.Instance.TransparentStatusButton();
-
-                    if (isGameClear) yield break;
                 }
 
-                //ヒーラーが生存していたら処理を実行
                 if (healer.IsAlive)
                 {
+                    //指定した位置にターン開始エフェクト生成
+                    StartCoroutine(ShowStartTurnEffect(ThirdTurnEffect_SpawnPoint));
+
+                    //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル)
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //ヒーラーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("HealerTurnText");
 
-                    yield return ShowStartTurnEffect(ThirdTurnEffect_SpawnPoint);
-
                     //ヒーラーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
+                    //1フレーム待つ
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
+                    //ステータスウィンドウを開くボタンを押せるようにする
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
-                    //ヒーラーターン開始
-                    yield return HealerTurn();
+                    //ヒーラーのターン開始(キャンセルできる処理）
+                    await PlayerTurnAction(healer, "HealerOffdebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    yield return new WaitForSeconds(2);
+                    //敵の生存状況を確認（生存リストが空ならループを止める）
+                    if (GameClearCheck())
+                    {
+                        return;
+                    }
 
-                    GameClearCheck();
-
+                    //ステータスボタンを開くボタンを押せないようにする
                     PushOpenStatusWindow.Instance.TransparentStatusButton();
-
-                    if (isGameClear) yield break ;
                 }
             }
 
-            //敵ターン
+            //敵のターン
             else
             {
                 //各プレイヤーの行動フラグをfalseにする
@@ -167,172 +207,248 @@ public class Stage1BattleSystem : BaseBattleManager
                 //UIマネージャーから敵ターンUIを表示
                 UIManager.Instance.EnemyTurnUI.SetActive(true);
 
-                yield return new WaitForSeconds(3f);
+                await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                 //UIマネージャーから敵ターンUIを非表示
                 UIManager.Instance.EnemyTurnUI.SetActive(false);
 
                 //敵ターン開始
-                yield return EnemyTurn();
+                await EnemyTurn(token);
+            }
+        }
+    }
+
+    /// <summary>
+    /// プレイヤーターンの共通処理
+    /// </summary>
+    /// <param name="player">プレイヤーのクラス名</param>
+    /// <param name="offDebuffTextID">デバフ解除テキスト</param>
+    /// <param name="normalKey">通常攻撃キー</param>
+    /// <param name="skillKey">スキルキー</param>
+    /// <param name="specialKey">必殺キー</param>
+    /// <param name="token">キャンセルできる処理</param>
+    /// <returns>プレイヤーが行動するまで処理を待つ</returns>
+    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
+    {
+        //プレイヤーの行動フラグがtrueになるまでループし続ける
+        while (!player.IsPlayerAction)
+        {
+            //ポーズ画面に切り替え可能にする
+            canPoseMode = true;
+
+            //いずれかのキーが押されるまで待つ(通常、スキン、必殺)
+            await UniTask.WaitUntil(() =>
+                Input.GetKeyDown(normalKey) ||
+                Input.GetKeyDown(skillKey) ||
+                Input.GetKeyDown(specialKey),
+                cancellationToken: token);
+
+            if (Input.GetKeyDown(normalKey))
+            {
+                //プレイヤーの通常攻撃実行
+                player.NormalAttack();
+
+                //通常攻撃ではすぐにプレイヤー行動フラグをtrueにす
+                player.IsPlayerAction = true;
+            }
+            else if (Input.GetKeyDown(skillKey))
+            {
+                //プレイヤーのスキルを実行
+                player.PlayerSkill();
+                break;
+            }
+            else if (Input.GetKeyDown(specialKey))
+            {
+                if (!player.IsUseSpecial)
+                {
+                    //必殺制限フラグがfalseならスペシャルを実行
+                    player.SpecialSkill();
+                    break;
+                }
+                else
+                {
+                    //JSONファイルから必殺使用不可通知表示
+                    BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
+
+                    //必殺使用不可UIを非表示にするコールチン
+                    StartCoroutine(HidePlayerActionText());
+                }
             }
         }
 
+        //プレイヤーターンが終了したらポーズ画面には切り替えれなくする
+        if (player.IsPlayerAction)
+        {
+            //プレイヤーの必殺制限カウントのテキストを非表示
+            UIManager.Instance.SpecialLimitCountText.SetActive(false);
+            canPoseMode = false;
+        }
+
+        //1フレーム待つ(キャンセルできる処理）
+        await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
+        //TryCatchを使いエラーを防ぐ
+        try
+        {
+            //プレイヤーが行動を終了するまで処理を待つ
+            await UniTask.WaitUntil(() => player.IsPlayerAction, cancellationToken: token);
+
+            //プレイヤー全体の行動が終わったらプレイヤーターン終了
+            if (attacker.IsPlayerAction && buffer.IsPlayerAction && healer.IsPlayerAction)
+            {
+                IsPlayerTurn = false;
+            }
+        }
+        catch (OperationCanceledException)
+        {
+            Debug.Log("キャンセルされた");
+        }
+
+        //1フレーム待つ
+        await UniTask.Yield();
     }
 
     /// <summary>
     /// アタッカーターン処理
     /// </summary>
     /// <returns>処理が行われるまで待機</returns>
-    IEnumerator AttackerTurn()
-    {
-        //ポーズモードにできるかのフラグをtrueに
-        canPoseMode = true;
+    //IEnumerator AttackerTurn()
+    //{
+    //    //ポーズモードにできるかのフラグをtrueに
+    //    canPoseMode = true;
 
-        //A・S・Fキーのいずれかが押されるまで待機し、押されたキーに応じた攻撃を実行する。
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F));
+    //    //A・S・Fキーのいずれかが押されるまで待機し、押されたキーに応じた攻撃を実行する。
+    //    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F));
 
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            //アタッカーの通常攻撃
-            attacker.NormalAttack();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            //アタッカーのスキル
-            attacker.PlayerSkill();
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            //アタッカーの必殺
-            attacker.SpecialSkill();
-        }
+    //    if (Input.GetKeyDown(KeyCode.A))
+    //    {
+    //        //アタッカーの通常攻撃
+    //        attacker.NormalAttack();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.S))
+    //    {
+    //        //アタッカーのスキル
+    //        attacker.PlayerSkill();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        //アタッカーの必殺
+    //        attacker.SpecialSkill();
+    //    }
 
-        //アタッカーの行動が終わるまで処理を待つ
-        yield return new WaitUntil(() => attacker.IsAttackerAction);
+    //    //アタッカーの行動が終わるまで処理を待つ
+    //    yield return new WaitUntil(() => attacker.IsAttackerAction);
 
-        //ポーズモードのできるかのフラグをfalse
-        canPoseMode = false;
-    }
+    //    //ポーズモードのできるかのフラグをfalse
+    //    canPoseMode = false;
+    //}
+
+    ///// <summary>
+    ///// バッファーターン処理
+    ///// </summary>
+    ///// <returns>処理が行われるまで待機</returns>
+    //IEnumerator BufferTurn()
+    //{
+    //    canPoseMode = true;
+
+    //    //A・S・Fキーのいずれかが押されるまで待機し、押されたキーに応じた攻撃を実行する。
+    //    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F));
+
+    //    if (Input.GetKeyDown(KeyCode.A))
+    //    {
+    //        //バッファー通常攻撃
+    //        buffer.NormalAttack();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.S))
+    //    {
+    //        //バッファーのスキル
+    //        buffer.PlayerSkill();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        //バッファーの必殺
+    //        buffer.SpecialSkill();
+    //    }
+
+    //    //バッファーの行動が終わるまで処理を待つ
+    //    yield return new WaitUntil(() => buffer.IsBufferAction);
+
+    //    canPoseMode = false;
+    //}
+
+    ///// <summary>
+    ///// ヒーラーのターン処理
+    ///// </summary>
+    ///// <returns>処理が行われるまで待機</returns>
+    //IEnumerator HealerTurn()
+    //{
+    //    canPoseMode = true;
+
+    //    //A・S・Fキーのいずれかが押されるまで待機し、押されたキーに応じた攻撃を実行する。
+    //    yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F));
+
+    //    if (Input.GetKeyDown(KeyCode.A))
+    //    {
+    //        //ヒーラーの通常攻撃
+    //        healer.NormalAttack();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.S))
+    //    {
+    //        //ヒーラーのスキル
+    //        healer.PlayerSkill();
+    //    }
+    //    else if (Input.GetKeyDown(KeyCode.F))
+    //    {
+    //        //ヒーラーの必殺
+    //        healer.SpecialSkill();
+    //    }
+
+    //    //ヒーラーの行動が終わるまで処理を待つ
+    //    yield return new WaitUntil(() => healer.IsHealerAction);
+
+    //    canPoseMode = false;
+
+    //    //プレイヤーのターン終了
+    //    IsPlayerTurn = false;
+    //}
 
     /// <summary>
-    /// バッファーターン処理
+    /// ユニタスク敵のターン
     /// </summary>
-    /// <returns>処理が行われるまで待機</returns>
-    IEnumerator BufferTurn()
+    /// <param name="token">キャンセルできる処理/param>
+    /// <returns>ユニタスクを止める処理</returns>
+    async UniTask EnemyTurn(CancellationToken token)
     {
-        canPoseMode = true;
-
-        //A・S・Fキーのいずれかが押されるまで待機し、押されたキーに応じた攻撃を実行する。
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F));
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            //バッファー通常攻撃
-            buffer.NormalAttack();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            //バッファーのスキル
-            buffer.PlayerSkill();
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            //バッファーの必殺
-            buffer.SpecialSkill();
-        }
-
-        //バッファーの行動が終わるまで処理を待つ
-        yield return new WaitUntil(() => buffer.IsBufferAction);
-
-        canPoseMode = false;
-    }
-
-    /// <summary>
-    /// ヒーラーのターン処理
-    /// </summary>
-    /// <returns>処理が行われるまで待機</returns>
-    IEnumerator HealerTurn()
-    {
-        canPoseMode = true;
-
-        //A・S・Fキーのいずれかが押されるまで待機し、押されたキーに応じた攻撃を実行する。
-        yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F));
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            //ヒーラーの通常攻撃
-            healer.NormalAttack();
-        }
-        else if (Input.GetKeyDown(KeyCode.S))
-        {
-            //ヒーラーのスキル
-            healer.PlayerSkill();
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            //ヒーラーの必殺
-            healer.SpecialSkill();
-        }
-
-        //ヒーラーの行動が終わるまで処理を待つ
-        yield return new WaitUntil(() => healer.IsHealerAction);
-
-        canPoseMode = false;
-        
-        //プレイヤーのターン終了
-        IsPlayerTurn = false;
-    }
-
-    /// <summary>
-    /// 敵ターン
-    /// </summary>
-    /// <returns>2フレーム待つ</returns>
-    IEnumerator EnemyTurn()
-    {
-        //スライムが生存していたら処理を実行
         if (slime1.EnemyIsAlive)
         {
-            //スライム１のターン開始
-            yield return SlimeTurn(slime1);
-
-            //プレイヤーの生存状況を確認
-            GameOverCheck();
-
-            //ゲームオーバーフラグがtrueならループを止める
-            if (isGameOver) yield break;
+            //スライム1ターン
+            await SlimeTurn(slime1, token);
+            
         }
-
         if (slime2.EnemyIsAlive)
         {
-            yield return new WaitForSeconds(2f);
-
-            //スライム2のターン開始
-            yield return SlimeTurn(slime2);
-
-            //プレイヤーの生存状況を確認
-            GameOverCheck();
-
-            if (isGameOver) yield break;
+            //スライム2ターン
+            await SlimeTurn(slime2, token);
         }
 
         if (slime3.EnemyIsAlive)
         {
-            yield return new WaitForSeconds(2f);
-
-            //スライム3のターン開始
-            yield return SlimeTurn(slime3);
-
-            //プレイヤーの生存状況を確認
-            GameOverCheck();
-
-            if (isGameOver) yield break;
+            //スライム3ターン
+            await SlimeTurn(slime3, token);
         }
 
-        //敵ターン終了
-        IsPlayerTurn = true;
+        GameOverCheck();
 
-        //1フレーム待つ
-        yield return null;
+        // 全スライムが行動し終えた後で全滅チェック
+        if (isGameOver)
+        {
+            return;
+        }
+
+
+
+        //敵のターン終了
+        IsPlayerTurn = true;
     }
 
     /// <summary>
@@ -340,12 +456,12 @@ public class Stage1BattleSystem : BaseBattleManager
     /// </summary>
     /// <param name="slime">スライムのステータス</param>
     /// <returns></returns>
-    IEnumerator SlimeTurn(Slime slime)
+    async UniTask SlimeTurn(Slime slime, CancellationToken token)
     {
         //スライムの攻撃開始
-        slime.SlimeAction();
+        await slime.SlimeAction();
 
-        yield return null;
+        await UniTask.Yield();
     }
 
     /// <summary>

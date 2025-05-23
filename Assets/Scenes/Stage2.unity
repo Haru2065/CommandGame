@@ -4090,21 +4090,21 @@ MonoBehaviour:
   - {fileID: 1311294519}
   - {fileID: 728548674}
   - {fileID: 1681756801}
+  LevelUPPlayerList: []
   aliveEnemies:
   - {fileID: 1278360431}
   - {fileID: 987172768}
   - {fileID: 657519576}
-  LevelUPPlayerList: []
   startTurnEffect: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   firstTurnEffect_SpawnPoint: {fileID: 1311294521}
   secondTurnEffect_SpawnPoint: {fileID: 728548676}
   thirdTurnEffect_SpawnPoint: {fileID: 1681756803}
+  pushExitButton: {fileID: 1128852651}
   skeleton1: {fileID: 1278360431}
   skeleton2: {fileID: 987172768}
   skeleton3: {fileID: 657519576}
   skillLimitCountUGUI: {fileID: 1076880168}
   specialLimitCountUGUI: {fileID: 132019727}
-  pushExitButton: {fileID: 1128852651}
 --- !u!1 &509743576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4648,7 +4648,7 @@ MonoBehaviour:
   buffer: {fileID: 728548674}
   healer: {fileID: 1681756801}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
-  enemyID: "\u30B9\u30B1\u30EB\u30C8\u30F3"
+  enemyID: Skelton
   StartAlivePlayers:
   - {fileID: 1311294519}
   - {fileID: 728548674}
@@ -6019,7 +6019,7 @@ GameObject:
   - component: {fileID: 914781140}
   - component: {fileID: 914781141}
   m_Layer: 5
-  m_Name: Skelton2HPBar
+  m_Name: Skelton1HPBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6676,7 +6676,7 @@ MonoBehaviour:
   buffer: {fileID: 728548674}
   healer: {fileID: 1681756801}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
-  enemyID: "\u30B9\u30B1\u30EB\u30C8\u30F3"
+  enemyID: Skelton
   StartAlivePlayers:
   - {fileID: 1311294519}
   - {fileID: 728548674}
@@ -9377,7 +9377,7 @@ MonoBehaviour:
   buffer: {fileID: 728548674}
   healer: {fileID: 1681756801}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
-  enemyID: "\u30B9\u30B1\u30EB\u30C8\u30F3"
+  enemyID: Skelton
   StartAlivePlayers:
   - {fileID: 1311294519}
   - {fileID: 728548674}

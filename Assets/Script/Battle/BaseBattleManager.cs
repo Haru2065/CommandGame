@@ -100,6 +100,10 @@ public abstract class BaseBattleManager : MonoBehaviour
         get => thirdTurnEffect_SpawnPoint;
     }
 
+    [SerializeField]
+    [Tooltip("終了ボタンスクリプト")]
+    protected PushExitButton pushExitButton;
+
     //プレイヤーターンか
     protected bool IsPlayerTurn;
 
@@ -142,6 +146,8 @@ public abstract class BaseBattleManager : MonoBehaviour
     protected const float EffectDelay = 2f;
 
     protected const int JsonTextDelay = 1;
+
+    protected CancellationTokenSource cts;
 
     /// <summary>
     /// ベースのバトルマネージャーをインスタンス化
@@ -215,7 +221,7 @@ public abstract class BaseBattleManager : MonoBehaviour
     /// <param name="specialKey">必殺キー</param>
     /// <param name="token">キャンセルできる処理</param>
     /// <returns>プレイヤーが行動するまで処理を待つ</returns>
-    protected abstract UniTask PlayerTurn(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token);
+    protected abstract UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token);
 
     /// <summary>
     /// 遅れてクリアUI表示とデータ保存するメソッド

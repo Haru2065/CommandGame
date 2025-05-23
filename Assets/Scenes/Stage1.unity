@@ -4569,7 +4569,7 @@ MonoBehaviour:
   buffer: {fileID: 6048673}
   healer: {fileID: 1090882260}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
-  enemyID: "\u30B9\u30E9\u30A4\u30E0"
+  enemyID: Slime
   StartAlivePlayers:
   - {fileID: 44762002}
   - {fileID: 6048673}
@@ -4984,7 +4984,7 @@ MonoBehaviour:
   buffer: {fileID: 6048673}
   healer: {fileID: 1090882260}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
-  enemyID: "\u30B9\u30E9\u30A4\u30E0"
+  enemyID: Slime
   StartAlivePlayers:
   - {fileID: 44762002}
   - {fileID: 6048673}
@@ -10079,7 +10079,7 @@ MonoBehaviour:
   buffer: {fileID: 6048673}
   healer: {fileID: 1090882260}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
-  enemyID: "\u30B9\u30E9\u30A4\u30E0"
+  enemyID: Slime
   StartAlivePlayers:
   - {fileID: 44762002}
   - {fileID: 6048673}
@@ -13567,18 +13567,19 @@ MonoBehaviour:
   - {fileID: 44762002}
   - {fileID: 6048673}
   - {fileID: 1090882260}
-  aliveEnemies:
-  - {fileID: 730760724}
-  - {fileID: 1391727082}
-  - {fileID: 749763770}
   LevelUPPlayerList:
   - {fileID: 44762002}
   - {fileID: 6048673}
   - {fileID: 1090882260}
+  aliveEnemies:
+  - {fileID: 730760724}
+  - {fileID: 1391727082}
+  - {fileID: 749763770}
   startTurnEffect: {fileID: 4021103657954561961, guid: 5c755f9bc5253ea418e919994537dcc7, type: 3}
   firstTurnEffect_SpawnPoint: {fileID: 44762001}
   secondTurnEffect_SpawnPoint: {fileID: 6048672}
   thirdTurnEffect_SpawnPoint: {fileID: 1090882259}
+  pushExitButton: {fileID: 716418926}
   slime1: {fileID: 730760724}
   slime2: {fileID: 1391727082}
   slime3: {fileID: 749763770}

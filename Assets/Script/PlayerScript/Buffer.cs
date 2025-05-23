@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -62,9 +61,6 @@ public class Buffer : BasePlayerStatus
         base.Start();
 
         IsBufferAction = false;
-
-        //SkillLimitCount = 3;
-        //SpecialLimitCount = 6;
 
         IsUseSkill = false;
 

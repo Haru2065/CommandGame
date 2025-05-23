@@ -82,7 +82,7 @@ public class Skeleton : BaseEnemyStatus
         RandomSelect();
 
         //2ƒtƒŒ[ƒ€‘Ò‚Â
-        await UniTask.Delay(TimeSpan.FromSeconds(2));
+        await UniTask.Delay(TimeSpan.FromSeconds(2f));
 
     }
 

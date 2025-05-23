@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,7 +71,7 @@ public class Slime : BaseEnemyStatus
     /// <summary>
     /// スライムのターンに行動するメソッド
     /// </summary>
-    public IEnumerator SlimeAction()
+    public async UniTask SlimeAction()
     {
         //ランダムでプレイヤーに攻撃する対象を選択して攻撃するメソッドを実行
         RandomSelect();
@@ -77,8 +79,8 @@ public class Slime : BaseEnemyStatus
         //スライムの攻撃効果音再生
         EnemySE.Instance.Play_slimeAttackSE();
 
-        //1フレーム待つ
-        return null;
+        //2フレーム待つ
+        await UniTask.Delay(TimeSpan.FromSeconds(2f));
     }
 
     /// <summary>
@@ -93,7 +95,7 @@ public class Slime : BaseEnemyStatus
         if (TargetAlivePlayers.Count > 0)
         {
             //リストの中にあるプレイヤーキャラを選択してターゲットに設定
-            BasePlayerStatus target = TargetAlivePlayers[Random.Range(0, TargetAlivePlayers.Count)];
+            BasePlayerStatus target = TargetAlivePlayers[UnityEngine.Random.Range(0, TargetAlivePlayers.Count)];
 
             Debug.Log(target.PlayerID + "に攻撃");
 

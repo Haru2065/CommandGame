@@ -138,46 +138,6 @@ public class Attacker : BasePlayerStatus
             Destroy(textEffectInstance, 2f);
         }
 
-        if (IsDebuff)
-        {
-            DebuffCount--;
-
-            if (DebuffCount <= 0)
-            {
-                // 攻撃力を元の値に戻す
-                AttackPower = PlayerResetAttackPower;
-
-                //デバフ状態フラグfalse
-                IsDebuff = false;
-
-                // JSONファイルで設定されたアタッカーのデバフ解除通知を表示
-                BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
-
-                //デバフ解除時の状況テキストを非表示にする
-                StartCoroutine(PlayerOffDebuffText());
-            }
-        }
-
-        if (IsSpecialDebuff)
-        {
-            SpecialDebuffCount--;
-
-            // 特殊デバフのカウントが0になったら、攻撃力を元に戻してデバフを解除
-            if (SpecialDebuffCount <= 0)
-            {
-                // 攻撃力を元の値に戻す
-                AttackPower = PlayerResetAttackPower;
-
-                IsSpecialDebuff = false;
-
-                // JSONファイルで設定されたアタッカーの特殊デバフ解除通知を表示
-                BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
-
-                // デバフ解除時の状況テキストを非表示にする
-                StartCoroutine(PlayerOffDebuffText());
-            }
-        }
-
         //アタッカーの行動フラグをtrueに
         IsAttackerAction = true;
     }
@@ -217,43 +177,6 @@ public class Attacker : BasePlayerStatus
 
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
         AttackPower = playerData.PlayerAttackPowerData;
-
-        if (HasBuff)
-        {
-            //バフ付与フラグをfalse
-            HasBuff = false;
-        }
-
-        if (IsDebuff)
-        {
-            DebuffCount--;
-
-            if (DebuffCount <= 0)
-            {
-                // 攻撃力を元の値に戻す
-                AttackPower = PlayerResetAttackPower;
-
-                IsDebuff = false;
-
-                BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
-                StartCoroutine(PlayerOffDebuffText());
-            }
-        }
-
-        if (IsSpecialDebuff)
-        {
-            SpecialDebuffCount--;
-
-            if (SpecialDebuffCount <= 0)
-            {
-                AttackPower = PlayerResetAttackPower;
-
-                IsSpecialDebuff = false;
-
-                BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
-                StartCoroutine(PlayerOffDebuffText());
-            }
-        }
 
         //スキルを使ったかのフラグをtrue
         IsUseSkill = true;
@@ -315,45 +238,6 @@ public class Attacker : BasePlayerStatus
                 foreach (var textEffect in textEffects)
                 {
                     Destroy(textEffect, 3f);
-                }
-            }
-
-            //バフが実行されていたら攻撃力をリセット
-            if (HasBuff)
-            {
-                var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
-                AttackPower = playerData.PlayerAttackPowerData;
-
-                HasBuff = false;
-            }
-
-            if (IsDebuff)
-            {
-                DebuffCount--;
-
-                if (DebuffCount <= 0)
-                {
-                    AttackPower = PlayerResetAttackPower;
-
-                    IsDebuff = false;
-
-                    BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
-                    StartCoroutine(PlayerOffDebuffText());
-                }
-            }
-
-            if (IsSpecialDebuff)
-            {
-                SpecialDebuffCount--;
-
-                if (SpecialDebuffCount <= 0)
-                {
-                    AttackPower = PlayerResetAttackPower;
-
-                    IsSpecialDebuff = false;
-
-                    BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
-                    StartCoroutine(PlayerOffDebuffText());
                 }
             }
 

@@ -8,9 +8,6 @@ using System.IO;
 
 public class Stage2BattleSystem : BaseBattleManager
 {
-    //UniTaskのキャンセルするトークンソース
-    private CancellationTokenSource cts;
-
     [SerializeField]
     [Tooltip("3体のスケルトン")]
     private Skeleton skeleton1, skeleton2, skeleton3;
@@ -22,12 +19,6 @@ public class Stage2BattleSystem : BaseBattleManager
     [SerializeField]
     [Tooltip("必殺制限カウントのTMProUGUI")]
     private TextMeshProUGUI specialLimitCountUGUI;
-
-    [SerializeField]
-    [Tooltip("終了ボタンスクリプト")]
-    protected PushExitButton pushExitButton;
-
-    
 
     // Start is called before the first frame update
     protected override async void Start()
@@ -57,7 +48,7 @@ public class Stage2BattleSystem : BaseBattleManager
 
         canPoseMode = false;
 
-        
+
 
         //バトルループ開始
         //キャンセルトークンを渡す
@@ -85,7 +76,7 @@ public class Stage2BattleSystem : BaseBattleManager
         }
 
         //もし終了ボタンが押されたら安全に終了するためにキャンセル処理を行う
-        if(pushExitButton.IsQuitGame)
+        if (pushExitButton.IsQuitGame)
         {
             cts.Cancel();
             cts.Dispose();
@@ -107,8 +98,13 @@ public class Stage2BattleSystem : BaseBattleManager
                 //UIマネージャーからプレイヤーターン表示
                 UIManager.Instance.PlayerTurnUI.SetActive(true);
 
-                //２秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル）
+                await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
+                //全プレイヤーの行動フラグをリセット
+                attacker.ResetActionFlag();
+                buffer.ResetActionFlag();
+                healer.ResetActionFlag();
 
                 //UIマネージャーからプレイヤーターン非表示
                 UIManager.Instance.PlayerTurnUI.SetActive(false);
@@ -123,7 +119,7 @@ public class Stage2BattleSystem : BaseBattleManager
                     StartCoroutine(ShowStartTurnEffect(FirstTurnEffect_SpawnPoint));
 
                     //1秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //アタッカーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("AttackerTurnText");
@@ -132,16 +128,16 @@ public class Stage2BattleSystem : BaseBattleManager
                     StartCoroutine(HidePlayerActionText());
 
                     //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //ステータスウィンドウを開くボタンを押せるようにする
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //アタッカーターン開始
-                    await AttackerTurn(token);
+                    await PlayerTurnAction(attacker, "AttackerOffDeBuff", KeyCode.A,KeyCode.S, KeyCode.F, token);
 
-                    //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    //デバフが付与されているかチェック
+                    statusDebuffCheck(attacker,"AttackerOffDebuff");
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -158,8 +154,8 @@ public class Stage2BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(SecondTurnEffect_SpawnPoint));
 
-                    //1秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                    //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル)
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //バッファーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("BufferTurnText");
@@ -167,22 +163,22 @@ public class Stage2BattleSystem : BaseBattleManager
                     //バッファーのターン開始通知非表示
                     StartCoroutine(HidePlayerActionText());
 
-                    //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル）
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //バッファーのターン開始
-                    await BufferTurn(token);
+                    await PlayerTurnAction(buffer, "BufferOffDebuffText", KeyCode.A, KeyCode.S, KeyCode.F,token);
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    //デバフが付与されているかチェック
+                    statusDebuffCheck(attacker, "AttackerOffDebuff");
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
                     {
                         return;
                     }
-
                     PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
 
@@ -191,8 +187,8 @@ public class Stage2BattleSystem : BaseBattleManager
                     //指定した位置にターン開始エフェクト生成
                     StartCoroutine(ShowStartTurnEffect(ThirdTurnEffect_SpawnPoint));
 
-                    //1秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(1), cancellationToken: token);
+                    //1フレーム待つ(キャンセルトークンが呼ばれたらキャンセル)
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //ヒーラーのターン開始通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("HealerTurnText");
@@ -201,15 +197,15 @@ public class Stage2BattleSystem : BaseBattleManager
                     StartCoroutine(HidePlayerActionText());
 
                     //2秒待つ（キャンセルトークンが呼ばれたらキャンセル）
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //ステータスウィンドウを開くボタンを押せるようにする
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //ヒーラーのターン開始
-                    await HealerTurn(token);
+                    await PlayerTurnAction(healer, "HealerOffDebuffText", KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    await UniTask.Delay(TimeSpan.FromSeconds(2), cancellationToken: token);
+                    await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -244,29 +240,36 @@ public class Stage2BattleSystem : BaseBattleManager
     }
 
     /// <summary>
-    /// ユニタスクアタッカーターン
+    /// プレイヤーターンの共通処理
     /// </summary>
+    /// <param name="player">プレイヤーのクラス名</param>
+    /// <param name="offDebuffTextID">デバフ解除テキスト</param>
+    /// <param name="normalKey">通常攻撃キー</param>
+    /// <param name="skillKey">スキルキー</param>
+    /// <param name="specialKey">必殺キー</param>
     /// <param name="token">キャンセルできる処理</param>
-    /// <returns>UniTaskを止める処理</returns>
-    async UniTask AttackerTurn(CancellationToken token)
+    /// <returns>プレイヤーが行動するまで処理を待つ</returns>
+    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
     {
-        //アタッカーがスキルを使っていたらカウントを減らす
-        if (attacker.IsUseSkill)
+        //スキン制限中ならUIを表示にして制限カウントを減らす
+        if (player.IsUseSkill)
         {
             //UIマネージャーからスキルカウントUIを表示
             UIManager.Instance.SkillLimitCountText.SetActive(true);
 
-            attacker.SkillLimitCount--;
+            player.SkillLimitCount--;
 
-            //スキル制限カウントが0なったらスキル制限フラグfalse
-            if (attacker.SkillLimitCount <= 0)
+            //スキン制限カウントが0になったらUIを非表示にして使用可能にする
+            if (player.SkillLimitCount <= 0)
             {
-                attacker.SkillLimitCount = 0;
+                player.SkillLimitCount = 0;
 
                 //UIマネージャーからスキル制限カウントUI非表示
                 UIManager.Instance.SkillLimitCountText.SetActive(false);
-                attacker.IsUseSkill = false;
+                player.IsUseSkill = false;
             }
+
+            //制限継続中ならそのままUIを表示する
             else
             {
                 //スキル制限カウント数を表示
@@ -274,51 +277,60 @@ public class Stage2BattleSystem : BaseBattleManager
             }
         }
 
-        //アタッカーがを使っていたらカウントを減らす
-        if (attacker.IsUseSpecial)
+        //必殺制限中ならUIを表示して制限カウントを減らす
+        if (player.IsUseSpecial)
         {
-            //UIマネージャーからスキルカウントUIを表示
             UIManager.Instance.SpecialLimitCountText.SetActive(true);
+            player.SpecialLimitCount--;
 
-            //必殺制限カウントを減らす
-            attacker.SpecialLimitCount--;
-
-            //必殺制限カウントが0になったら表示制限フラグfalse
-            if (attacker.SpecialLimitCount <= 0)
+            //必殺制限カウントが0になったら必殺を使用可能にする
+            if (player.SpecialLimitCount <= 0)
             {
-                attacker.SpecialDebuffCount = 0;
+                player.SpecialLimitCount = 0;
+                player.IsUseSpecial = false;
 
-                //UIマネージャーから必殺カウント制限カウントのUIを非表示
+                //必殺制限カウントのUI非表示
                 UIManager.Instance.SpecialLimitCountText.SetActive(false);
-                attacker.IsUseSpecial = false;
             }
+
+            //制限継続中ならそのままUIを表示する
             else
             {
-                //必殺制限カウント数表示
-                specialLimitCountUGUI.text = $"{attacker.SpecialLimitCount}";
+                specialLimitCountUGUI.text = $"({player.SpecialLimitCount})";
+
             }
         }
 
-        //アタッカーの行動が終わるまでループし続ける
-        while (!attacker.IsAttackerAction)
+        //プレイヤーの行動フラグがtrueになるまでループし続ける
+        while (!player.IsPlayerAction)
         {
-            //ポーズモード可能
+            //ポーズ画面に切り替え可能にする
             canPoseMode = true;
 
-            //A・S・Fキーいずれかのキーが押されるまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
-            await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F),
-        cancellationToken: token);
+            //いずれかのキーが押されるまで待つ(通常、スキン、必殺)
+            await UniTask.WaitUntil(() =>
+            Input.GetKeyDown(normalKey) ||
+                Input.GetKeyDown(skillKey) ||
+                Input.GetKeyDown(specialKey),
+                cancellationToken: token);
 
-            if (Input.GetKeyDown(KeyCode.A))
+
+            if (Input.GetKeyDown(normalKey))
             {
-                //アタッカーの通常攻撃
-                attacker.NormalAttack();
-            }
+                //プレイヤーの通常攻撃実行
+                player.NormalAttack();
 
-            else if (Input.GetKeyDown(KeyCode.S))
+                //通常攻撃ではすぐにプレイヤー行動フラグをtrueにする
+                player.IsPlayerAction = true;
+            }
+            else if (Input.GetKeyDown(skillKey))
             {
                 //スキル制限フラグがfalseならスキルを実行
-                if (attacker.IsUseSkill == false) attacker.PlayerSkill();
+                if (player.IsUseSkill == false)
+                {
+                    player.PlayerSkill();
+                    break;
+                }
 
                 else
                 {
@@ -330,12 +342,15 @@ public class Stage2BattleSystem : BaseBattleManager
                 }
             }
 
-            else if (Input.GetKeyDown(KeyCode.F))
+            else if (Input.GetKeyDown(specialKey))
             {
                 //必殺制限フラグがfalseならスペシャルを実行
-                if (attacker.IsUseSpecial == false) attacker.SpecialSkill();
-
-                else if (attacker.IsUseSpecial)
+                if (player.IsUseSpecial == false)
+                {
+                    player.SpecialSkill();
+                    break;
+                }
+                else
                 {
                     //JSONファイルから必殺使用不可通知表示
                     BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
@@ -343,276 +358,414 @@ public class Stage2BattleSystem : BaseBattleManager
                     //必殺使用不可UIを非表示にするコールチン
                     StartCoroutine(HidePlayerActionText());
                 }
-
             }
         }
 
-        //アタッカーの行動フラグがtrueになったら制限UIを非表示
-        if (attacker.IsAttackerAction)
+        //プレイヤーターンが終了したらポーズ画面には切り替えれなくする
+        if (player.IsPlayerAction)
         {
-            UIManager.Instance.SkillLimitCountText.SetActive(false);
-            UIManager.Instance.SpecialLimitCountText.SetActive(false);
-
-            canPoseMode = false;
-        }
-
-        //TryCatchを使いエラーを防ぐ
-        try
-        {
-            //アタッカーの行動フラグを待つ（キャンセルトークンが呼ばれたらキャンセルする）
-            await UniTask.WaitUntil(() => attacker.IsAttackerAction, cancellationToken: token);
-            IsPlayerTurn = false;
-        }
-
-        catch (OperationCanceledException)
-        {
-            return;
-        }
-    }
-
-    /// <summary>
-    /// ユニタスクバッファーターン
-    /// </summary>
-    /// <param name="token">キャンセルできる処理</param>
-    /// <returns>ユニタスクを止める処理</returns>
-    async UniTask BufferTurn(CancellationToken token)
-    {
-        //バッファーがスキルを使っていたらカウントを減らす
-        if (buffer.IsUseSkill)
-        {
-            //バッファーのスキル制限カウントを表示
-            UIManager.Instance.SkillLimitCountText.SetActive(true);
-
-            buffer.SkillLimitCount--;
-
-            if (buffer.SkillLimitCount <= 0)
-            {
-                buffer.SkillLimitCount = 0;
-
-                //バッファーのスキル制限カウントを非表示
-                UIManager.Instance.SkillLimitCountText.SetActive(false);
-                buffer.IsUseSkill = false;
-            }
-            else
-            {
-                //バッファーのスキル制限カウント数を表示
-                skillLimitCountUGUI.text = $"{buffer.SkillLimitCount}";
-            }
-        }
-
-        //バッファーが必殺を使っていたらカウントを減らす
-        if (buffer.IsUseSpecial)
-        {
-            //バッファーの必殺制限カウントを表示
-            UIManager.Instance.SpecialLimitCountText.SetActive(true);
-            buffer.SpecialLimitCount--;
-
-            if (buffer.SpecialLimitCount <= 0)
-            {
-                buffer.SpecialDebuffCount = 0;
-
-                //バッファーの必殺制限カウントを非表示
-                UIManager.Instance.SpecialLimitCountText.SetActive(false);
-                buffer.IsUseSpecial = false;
-            }
-            else
-            {
-                specialLimitCountUGUI.text = $"{buffer.SpecialLimitCount}";
-            }
-        }
-
-        while (!buffer.IsBufferAction)
-        {
-            canPoseMode = true;
-
-            //A・S・Fキーいずれかのキーが押されるまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
-            await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F),
-        cancellationToken: token);
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                //バッファーの通常攻撃
-                buffer.NormalAttack();
-
-                //通常攻撃時はすぐにバッファーターンを終了
-                buffer.IsBufferAction = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                //スキル制限フラグがfalseならスキルを実行
-                if (buffer.IsUseSkill == false)
-                {
-                    //バッファーのスキル
-                    buffer.PlayerSkill();
-                    break;
-                }
-                else
-                {
-                    BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSkill");
-                    StartCoroutine(HidePlayerActionText());
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                //必殺制限フラグがfalseなら必殺を実行
-                if (buffer.IsUseSpecial == false)
-                {
-                    //バッファーの必殺実行
-                    buffer.SpecialSkill();
-
-                    //必殺の時はすぐにバッファーターンを終了
-                    buffer.IsBufferAction = true;
-                }
-                else
-                {
-                    BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
-                    StartCoroutine(HidePlayerActionText());
-                }
-            }
-        }
-
-        //ポーズフラグを解除して制限カウントUIを非表示
-        if (buffer.IsBufferAction)
-        {
+            //プレイヤーのスキル制限カウントと必殺制限カウントのテキスト非表示
             UIManager.Instance.SkillLimitCountText.SetActive(false);
             UIManager.Instance.SpecialLimitCountText.SetActive(false);
             canPoseMode = false;
         }
 
-        //TryCatchを使いエラーを防ぐ
+        //1フレーム待つ(キャンセルできる処理）
+        await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
+
+        //tryCatchを使いエラーを防ぐ
         try
         {
-            //バッファー行動するまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
-            await UniTask.WaitUntil(() => buffer.IsBufferAction, cancellationToken: token);
+            //プレイヤーが行動を終了するまで処理を待つ
+            await UniTask.WaitUntil(() => player.IsPlayerAction, cancellationToken: token);
 
-            IsPlayerTurn = false;
-        }
-        catch (OperationCanceledException)
-        {
-            return;
-        }
-    }
-
-    /// <summary>
-    /// ユニタスクヒーラーターン
-    /// </summary>
-    /// <param name="token">キャンセルできる処理</param>
-    /// <returns>ユニタスクを止める処理</returns>
-    async UniTask HealerTurn(CancellationToken token)
-    {
-        //ヒーラーのスキル制限フラグがtrueならスキル制限カウント減らす
-        if (healer.IsUseSkill)
-        {
-            //ヒーラーのスキル制限カウントを表示
-            UIManager.Instance.SkillLimitCountText.SetActive(true);
-            healer.SkillLimitCount--;
-            
-            
-            //スキル制限カウントが0になったら
-            if (healer.SkillLimitCount <= 0)
+            //プレイヤー全体の行動が終わったらプレイヤーターン終了
+            if(attacker.IsPlayerAction && buffer.IsPlayerAction &&healer.IsPlayerAction)
             {
-
-                healer.SkillLimitCount = 0;
-                
-                UIManager.Instance.SkillLimitCountText.SetActive(false);
-                healer.IsUseSkill = false;
-            }
-            else
-            {
-                skillLimitCountUGUI.text = $"{healer.SkillLimitCount}";
+                IsPlayerTurn = false;
             }
         }
-
-        //ヒーラーの必殺制限フラグがtrueなら必要制限カウント減らす
-        if (healer.IsUseSpecial)
-        {
-            //ヒーラーの必殺制限カウントを表示
-            UIManager.Instance.SpecialLimitCountText.SetActive(true);
-　　　　　　healer.SpecialLimitCount--;
-
-            if (healer.SpecialLimitCount <= 0)
-            {
-                healer.SpecialLimitCount = 0;
-
-                UIManager.Instance.SpecialLimitCountText.SetActive(false);
-                healer.IsUseSpecial = false;
-            }
-            else
-            {
-                specialLimitCountUGUI.text = $"{healer.SpecialLimitCount}";
-            }
-        }
-
-        while (!healer.IsHealerAction)
-        {
-            canPoseMode = true;
-
-            //A・S・Fキーいずれかのキーが押されるまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
-            await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F),
-        cancellationToken: token);
-
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                //ヒーラーの通常攻撃
-                healer.NormalAttack();
-
-                //通常攻撃時はすぐにヒーラーターン終了
-                healer.IsHealerAction = true;
-            }
-            else if (Input.GetKeyDown(KeyCode.S))
-            {
-                if (healer.IsUseSkill == false)
-                {
-                    //ヒーラーのスキル
-                    healer.PlayerSkill();
-
-                    break;
-                }
-                else
-                {
-                    BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSkill");
-                    StartCoroutine(HidePlayerActionText());
-                }
-            }
-            else if (Input.GetKeyDown(KeyCode.F))
-            {
-                if (healer.IsUseSpecial == false)
-                {
-                    //ヒーラーの必殺
-                    healer.SpecialSkill();
-
-                    //通常攻撃時はすぐにヒーラーターン終了
-                    healer.IsHealerAction = true;
-                }
-                else
-                {
-                    BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
-                    StartCoroutine(HidePlayerActionText());
-                }
-
-            }
-        }
-
-        //ヒーラーの行動が終わればスキルと必殺の制限カウントUIを非表示
-        if (healer.IsHealerAction)
-        {
-            UIManager.Instance.SkillLimitCountText.SetActive(false);
-            UIManager.Instance.SpecialLimitCountText.SetActive(false);
-
-            canPoseMode = false;
-        }
-
-        try
-        {
-            await UniTask.WaitUntil(() => healer.IsHealerAction, cancellationToken: token);
-            IsPlayerTurn = false;
-        }
-        catch (OperationCanceledException)
+        catch(OperationCanceledException)
         {
             Debug.Log("キャンセルされた");
-            return;
         }
+
+        //1フレーム待つ
+        await UniTask.Yield();
     }
+
+
+
+    /// <summary>
+    /// ユニタスクアタッカーターン
+    /// </summary>
+    /// <param name="token">キャンセルできる処理</param>
+    /// <returns>UniTaskを止める処理</returns>
+    //async UniTask AttackerTurn(CancellationToken token)
+    //{
+    //    //アタッカーがスキルを使っていたらカウントを減らす
+    //    if (attacker.IsUseSkill)
+    //    {
+    //        //UIマネージャーからスキルカウントUIを表示
+    //        UIManager.Instance.SkillLimitCountText.SetActive(true);
+
+    //        attacker.SkillLimitCount--;
+
+    //        //スキル制限カウントが0なったらスキル制限フラグfalse
+    //        if (attacker.SkillLimitCount <= 0)
+    //        {
+    //            attacker.SkillLimitCount = 0;
+
+    //            //UIマネージャーからスキル制限カウントUI非表示
+    //            UIManager.Instance.SkillLimitCountText.SetActive(false);
+    //            attacker.IsUseSkill = false;
+    //        }
+    //        else
+    //        {
+    //            //スキル制限カウント数を表示
+    //            skillLimitCountUGUI.text = $"{attacker.SkillLimitCount}";
+    //        }
+    //    }
+
+    //    //アタッカーがを使っていたらカウントを減らす
+    //    if (attacker.IsUseSpecial)
+    //    {
+    //        //UIマネージャーからスキルカウントUIを表示
+    //        UIManager.Instance.SpecialLimitCountText.SetActive(true);
+
+    //        //必殺制限カウントを減らす
+    //        attacker.SpecialLimitCount--;
+
+    //        //必殺制限カウントが0になったら表示制限フラグfalse
+    //        if (attacker.SpecialLimitCount <= 0)
+    //        {
+    //            attacker.SpecialDebuffCount = 0;
+
+    //            //UIマネージャーから必殺カウント制限カウントのUIを非表示
+    //            UIManager.Instance.SpecialLimitCountText.SetActive(false);
+    //            attacker.IsUseSpecial = false;
+    //        }
+    //        else
+    //        {
+    //            //必殺制限カウント数表示
+    //            specialLimitCountUGUI.text = $"{attacker.SpecialLimitCount}";
+    //        }
+    //    }
+
+    //    //アタッカーの行動が終わるまでループし続ける
+    //    while (!attacker.IsAttackerAction)
+    //    {
+    //        //ポーズモード可能
+    //        canPoseMode = true;
+
+    //        //A・S・Fキーいずれかのキーが押されるまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
+    //        await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F),
+    //    cancellationToken: token);
+
+    //        if (Input.GetKeyDown(KeyCode.A))
+    //        {
+    //            //アタッカーの通常攻撃
+    //            attacker.NormalAttack();
+    //        }
+
+    //        else if (Input.GetKeyDown(KeyCode.S))
+    //        {
+    //            //スキル制限フラグがfalseならスキルを実行
+    //            if (attacker.IsUseSkill == false) attacker.PlayerSkill();
+
+    //            else
+    //            {
+    //                //JSONファイルからスキルは使用不可通知表示
+    //                BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSkill");
+
+    //                //スキル使用不可UIを非表示にするコールチン
+    //                StartCoroutine(HidePlayerActionText());
+    //            }
+    //        }
+
+    //        else if (Input.GetKeyDown(KeyCode.F))
+    //        {
+    //            //必殺制限フラグがfalseならスペシャルを実行
+    //            if (attacker.IsUseSpecial == false) attacker.SpecialSkill();
+
+    //            else if (attacker.IsUseSpecial)
+    //            {
+    //                //JSONファイルから必殺使用不可通知表示
+    //                BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
+
+    //                //必殺使用不可UIを非表示にするコールチン
+    //                StartCoroutine(HidePlayerActionText());
+    //            }
+
+    //        }
+    //    }
+
+    //    //アタッカーの行動フラグがtrueになったら制限UIを非表示
+    //    if (attacker.IsAttackerAction)
+    //    {
+    //        UIManager.Instance.SkillLimitCountText.SetActive(false);
+    //        UIManager.Instance.SpecialLimitCountText.SetActive(false);
+
+    //        canPoseMode = false;
+    //    }
+
+    //    //TryCatchを使いエラーを防ぐ
+    //    try
+    //    {
+    //        //アタッカーの行動フラグを待つ（キャンセルトークンが呼ばれたらキャンセルする）
+    //        await UniTask.WaitUntil(() => attacker.IsAttackerAction, cancellationToken: token);
+    //        IsPlayerTurn = false;
+    //    }
+
+    //    catch (OperationCanceledException)
+    //    {
+    //        return;
+    //    }
+    //}
+
+    ///// <summary>
+    ///// ユニタスクバッファーターン
+    ///// </summary>
+    ///// <param name="token">キャンセルできる処理</param>
+    ///// <returns>ユニタスクを止める処理</returns>
+    //async UniTask BufferTurn(CancellationToken token)
+    //{
+    //    //バッファーがスキルを使っていたらカウントを減らす
+    //    if (buffer.IsUseSkill)
+    //    {
+    //        //バッファーのスキル制限カウントを表示
+    //        UIManager.Instance.SkillLimitCountText.SetActive(true);
+
+    //        buffer.SkillLimitCount--;
+
+    //        if (buffer.SkillLimitCount <= 0)
+    //        {
+    //            buffer.SkillLimitCount = 0;
+
+    //            //バッファーのスキル制限カウントを非表示
+    //            UIManager.Instance.SkillLimitCountText.SetActive(false);
+    //            buffer.IsUseSkill = false;
+    //        }
+    //        else
+    //        {
+    //            //バッファーのスキル制限カウント数を表示
+    //            skillLimitCountUGUI.text = $"{buffer.SkillLimitCount}";
+    //        }
+    //    }
+
+    //    //バッファーが必殺を使っていたらカウントを減らす
+    //    if (buffer.IsUseSpecial)
+    //    {
+    //        //バッファーの必殺制限カウントを表示
+    //        UIManager.Instance.SpecialLimitCountText.SetActive(true);
+    //        buffer.SpecialLimitCount--;
+
+    //        if (buffer.SpecialLimitCount <= 0)
+    //        {
+    //            buffer.SpecialDebuffCount = 0;
+
+    //            //バッファーの必殺制限カウントを非表示
+    //            UIManager.Instance.SpecialLimitCountText.SetActive(false);
+    //            buffer.IsUseSpecial = false;
+    //        }
+    //        else
+    //        {
+    //            specialLimitCountUGUI.text = $"{buffer.SpecialLimitCount}";
+    //        }
+    //    }
+
+    //    while (!buffer.IsBufferAction)
+    //    {
+    //        canPoseMode = true;
+
+    //        //A・S・Fキーいずれかのキーが押されるまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
+    //        await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F),
+    //    cancellationToken: token);
+
+    //        if (Input.GetKeyDown(KeyCode.A))
+    //        {
+    //            //バッファーの通常攻撃
+    //            buffer.NormalAttack();
+
+    //            //通常攻撃時はすぐにバッファーターンを終了
+    //            buffer.IsBufferAction = true;
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.S))
+    //        {
+    //            //スキル制限フラグがfalseならスキルを実行
+    //            if (buffer.IsUseSkill == false)
+    //            {
+    //                //バッファーのスキル
+    //                buffer.PlayerSkill();
+    //                break;
+    //            }
+    //            else
+    //            {
+    //                BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSkill");
+    //                StartCoroutine(HidePlayerActionText());
+    //            }
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.F))
+    //        {
+    //            //必殺制限フラグがfalseなら必殺を実行
+    //            if (buffer.IsUseSpecial == false)
+    //            {
+    //                //バッファーの必殺実行
+    //                buffer.SpecialSkill();
+
+    //                //必殺の時はすぐにバッファーターンを終了
+    //                buffer.IsBufferAction = true;
+    //            }
+    //            else
+    //            {
+    //                BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
+    //                StartCoroutine(HidePlayerActionText());
+    //            }
+    //        }
+    //    }
+
+    //    //ポーズフラグを解除して制限カウントUIを非表示
+    //    if (buffer.IsBufferAction)
+    //    {
+    //        UIManager.Instance.SkillLimitCountText.SetActive(false);
+    //        UIManager.Instance.SpecialLimitCountText.SetActive(false);
+    //        canPoseMode = false;
+    //    }
+
+    //    //TryCatchを使いエラーを防ぐ
+    //    try
+    //    {
+    //        //バッファー行動するまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
+    //        await UniTask.WaitUntil(() => buffer.IsBufferAction, cancellationToken: token);
+
+    //        IsPlayerTurn = false;
+    //    }
+    //    catch (OperationCanceledException)
+    //    {
+    //        return;
+    //    }
+    //}
+
+    ///// <summary>
+    ///// ユニタスクヒーラーターン
+    ///// </summary>
+    ///// <param name="token">キャンセルできる処理</param>
+    ///// <returns>ユニタスクを止める処理</returns>
+    //async UniTask HealerTurn(CancellationToken token)
+    //{
+    //    //ヒーラーのスキル制限フラグがtrueならスキル制限カウント減らす
+    //    if (healer.IsUseSkill)
+    //    {
+    //        //ヒーラーのスキル制限カウントを表示
+    //        UIManager.Instance.SkillLimitCountText.SetActive(true);
+    //        healer.SkillLimitCount--;
+
+
+    //        //スキル制限カウントが0になったら
+    //        if (healer.SkillLimitCount <= 0)
+    //        {
+
+    //            healer.SkillLimitCount = 0;
+
+    //            UIManager.Instance.SkillLimitCountText.SetActive(false);
+    //            healer.IsUseSkill = false;
+    //        }
+    //        else
+    //        {
+    //            skillLimitCountUGUI.text = $"{healer.SkillLimitCount}";
+    //        }
+    //    }
+
+    //    //ヒーラーの必殺制限フラグがtrueなら必要制限カウント減らす
+    //    if (healer.IsUseSpecial)
+    //    {
+    //        //ヒーラーの必殺制限カウントを表示
+    //        UIManager.Instance.SpecialLimitCountText.SetActive(true);
+    //        healer.SpecialLimitCount--;
+
+    //        if (healer.SpecialLimitCount <= 0)
+    //        {
+    //            healer.SpecialLimitCount = 0;
+
+    //            UIManager.Instance.SpecialLimitCountText.SetActive(false);
+    //            healer.IsUseSpecial = false;
+    //        }
+    //        else
+    //        {
+    //            specialLimitCountUGUI.text = $"{healer.SpecialLimitCount}";
+    //        }
+    //    }
+
+    //    while (!healer.IsHealerAction)
+    //    {
+    //        canPoseMode = true;
+
+    //        //A・S・Fキーいずれかのキーが押されるまで処理を待つ（キャンセルトークンが呼ばれたらキャンセルする）
+    //        await UniTask.WaitUntil(() => Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.F),
+    //    cancellationToken: token);
+
+    //        if (Input.GetKeyDown(KeyCode.A))
+    //        {
+    //            //ヒーラーの通常攻撃
+    //            healer.NormalAttack();
+
+    //            //通常攻撃時はすぐにヒーラーターン終了
+    //            healer.IsHealerAction = true;
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.S))
+    //        {
+    //            if (healer.IsUseSkill == false)
+    //            {
+    //                //ヒーラーのスキル
+    //                healer.PlayerSkill();
+
+    //                break;
+    //            }
+    //            else
+    //            {
+    //                BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSkill");
+    //                StartCoroutine(HidePlayerActionText());
+    //            }
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.F))
+    //        {
+    //            if (healer.IsUseSpecial == false)
+    //            {
+    //                //ヒーラーの必殺
+    //                healer.SpecialSkill();
+
+    //                //通常攻撃時はすぐにヒーラーターン終了
+    //                healer.IsHealerAction = true;
+    //            }
+    //            else
+    //            {
+    //                BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
+    //                StartCoroutine(HidePlayerActionText());
+    //            }
+
+    //        }
+    //    }
+
+    //    //ヒーラーの行動が終わればスキルと必殺の制限カウントUIを非表示
+    //    if (healer.IsHealerAction)
+    //    {
+    //        UIManager.Instance.SkillLimitCountText.SetActive(false);
+    //        UIManager.Instance.SpecialLimitCountText.SetActive(false);
+
+    //        canPoseMode = false;
+    //    }
+
+    //    try
+    //    {
+    //        await UniTask.WaitUntil(() => healer.IsHealerAction, cancellationToken: token);
+    //        IsPlayerTurn = false;
+    //    }
+    //    catch (OperationCanceledException)
+    //    {
+    //        Debug.Log("キャンセルされた");
+    //        return;
+    //    }
+    //}
 
     /// <summary>
     /// プレイヤーが全滅を確認し、ゲームオーバー処理を実行する。
@@ -718,4 +871,58 @@ public class Stage2BattleSystem : BaseBattleManager
         //1フレーム待つ
         await UniTask.Yield();
     }
+
+    /// <summary>
+    /// プレイヤーのデバフ状況を確認するメソッド
+    /// </summary>
+    /// <param name="debuffPlayer">デバフ対象者</param>
+    /// <param name="playerOffDebuffText">Jsonのデバフ解除通知ID</param>
+    private void statusDebuffCheck(BasePlayerStatus debuffPlayer, string playerOffDebuffText)
+    {
+        //プレイヤーがデバフ付与されていなかったらなにもしない
+        if (!debuffPlayer.IsDebuff) return;
+
+        //もしプレイヤーがデバフが付与されていたらデバフカウントを減らす
+        else if (debuffPlayer.IsDebuff)
+        {
+            debuffPlayer.DebuffCount--;
+
+            //デバフカウントが0になったら攻撃力をもとに戻して、デバフ解除
+            if (debuffPlayer.DebuffCount <= 0)
+            {
+                debuffPlayer.AttackPower = debuffPlayer.PlayerResetAttackPower;
+                debuffPlayer.IsDebuff = false;
+
+                // JSONファイルで設定されたアタッカーのデバフ解除通知を表示
+                BattleActionTextManager.Instance.ShowBattleActionText(playerOffDebuffText);
+
+                //デバフ解除時の状況テキストを非表示にする
+                StartCoroutine(debuffPlayer.PlayerOffDebuffText());
+            }
+        }
+
+        //もし特殊デバフが付与されていなかったら何もしない
+        if(!debuffPlayer.IsSpecialDebuff) return ;
+        
+        //もし特殊デバフが付与されていたら特殊デバフのカウントを減らす
+        else if(debuffPlayer.IsSpecialDebuff)
+        {
+            debuffPlayer.SpecialDebuffCount--;
+
+            // 特殊デバフのカウントが0になったら、攻撃力を元に戻してデバフを解除
+            if (debuffPlayer.SpecialDebuffCount <= 0)
+            {
+                debuffPlayer.AttackPower = debuffPlayer.PlayerResetAttackPower;
+                debuffPlayer.IsSpecialDebuff = false;
+
+                // JSONファイルで設定されたアタッカーの特殊デバフ解除通知を表示
+                BattleActionTextManager.Instance.ShowBattleActionText(playerOffDebuffText);
+
+                // デバフ解除時の状況テキストを非表示にする
+                StartCoroutine(debuffPlayer.PlayerOffDebuffText());
+            }
+        }
+    }
+
+
 }
