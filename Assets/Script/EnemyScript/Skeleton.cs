@@ -7,30 +7,30 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒXƒPƒ‹ƒgƒ“‚ÌƒXƒe[ƒ^ƒX
+/// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 /// </summary>
 public class Skeleton : BaseEnemyStatus
 {
     [SerializeField]
-    [Tooltip("ƒXƒPƒ‹ƒgƒ“‚Ìƒfƒoƒtƒpƒ[")]
+    [Tooltip("ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ãƒ‡ãƒãƒ•ãƒ‘ãƒ¯ãƒ¼")]
     private int debuffPower;
 
     [SerializeField]
-    [Tooltip("ƒXƒPƒ‹ƒgƒ“‚ÌHPƒo[")]
+    [Tooltip("ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®HPãƒãƒ¼")]
     public Slider SkeltonHPBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        //ƒXƒPƒ‹ƒgƒ“‚Ìƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         SetEnemyParameters();
 
-        //ƒXƒPƒ‹ƒgƒ“‚ğ¶‘¶ó‘Ô‚É
+        //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã‚’ç”Ÿå­˜çŠ¶æ…‹ã«
         EnemyIsAlive = true;
     }
 
     /// <summary>
-    /// ƒXƒPƒ‹ƒgƒ“‚ÌHP‚ğ•\¦‚·‚éˆ—
+    /// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®HPã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†
     /// </summary>
     protected override void Update()
     {
@@ -38,66 +38,66 @@ public class Skeleton : BaseEnemyStatus
     }
 
     /// <summary>
-    /// ƒpƒ‰ƒ[ƒ^‚ğİ’è‚·‚éƒƒ\ƒbƒh
+    /// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected override void SetEnemyParameters()
     {
-        //ƒŠƒ“ƒN‹@”\‚ğg‚Á‚ÄA“G‚Ìƒf[ƒ^ƒx[ƒX‚ÌÅ‰‚Ì—v‘f‚©‚ç“G‚ÌID‚ğæ“¾
+        //ãƒªãƒ³ã‚¯æ©Ÿèƒ½ã‚’ä½¿ã£ã¦ã€æ•µã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®æœ€åˆã®è¦ç´ ã‹ã‚‰æ•µã®IDã‚’å–å¾—
         var enemyData = EnemyDataBase.EnemyParameters.FirstOrDefault(e => e.EnemyNameData == EnemyID);
 
-        //‡’v‚·‚ê‚Îƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //åˆè‡´ã™ã‚Œã°ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         if (enemyData != null)
         {
-            //Œ»İ‚ÌHP‚ğ“Gƒf[ƒ^‚Éİ’è‚³‚ê‚Ä‚¢‚éÅ‘å‘Ì—Í‚É‚·‚é
+            //ç¾åœ¨ã®HPã‚’æ•µãƒ‡ãƒ¼ã‚¿ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹æœ€å¤§ä½“åŠ›ã«ã™ã‚‹
             EnemyMaxHP = enemyData.EnemyMaxHPData;
 
-            //ƒXƒPƒ‹ƒgƒ“‚ÌŒ»İ‚Ì‘Ì—Í‚àÅ‘å‚Éİ’è
+            //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ç¾åœ¨ã®ä½“åŠ›ã‚‚æœ€å¤§ã«è¨­å®š
             EnemyCurrentHP = EnemyMaxHP;
 
-            //ƒXƒPƒ‹ƒgƒ“‚ÌHPƒo[‚ğÅ‘å‘Ì—Í‚Éİ’è
+            //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®HPãƒãƒ¼ã‚’æœ€å¤§ä½“åŠ›ã«è¨­å®š
             SkeltonHPBar.maxValue = EnemyCurrentHP;
             SkeltonHPBar.value = EnemyCurrentHP;
 
-            //ƒXƒPƒ‹ƒgƒ“‚ÌHPƒo[‚ÌÅ¬‚Í‚O‚Éİ’è
+            //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®HPãƒãƒ¼ã®æœ€å°ã¯ï¼ã«è¨­å®š
             SkeltonHPBar.minValue = 0;
 
-            //ƒXƒPƒ‹ƒgƒ“‚ÌUŒ‚—Í‚ğƒGƒlƒ~[ƒf[ƒ^‚ÌUŒ‚—Í‚Éİ’è
+            //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®æ”»æ’ƒåŠ›ã‚’ã‚¨ãƒãƒŸãƒ¼ãƒ‡ãƒ¼ã‚¿ã®æ”»æ’ƒåŠ›ã«è¨­å®š
             EnemyAttackPower = enemyData.EnemyAttackPowerData;
 
-            //ƒXƒPƒ‹ƒgƒ“‚Ìƒfƒoƒt—Í‚ğƒGƒlƒ~[ƒf[ƒ^‚Ìƒfƒoƒt—Í‚Éİ’è
+            //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ãƒ‡ãƒãƒ•åŠ›ã‚’ã‚¨ãƒãƒŸãƒ¼ãƒ‡ãƒ¼ã‚¿ã®ãƒ‡ãƒãƒ•åŠ›ã«è¨­å®š
             debuffPower = enemyData.DebuffPowerData;
         }
         else
         {
-            Debug.LogError($"{EnemyID} ‚Ìƒf[ƒ^‚ªƒf[ƒ^ƒx[ƒX‚É‘¶İ‚µ‚Ü‚¹‚ñI");
+            Debug.LogError($"{EnemyID} ã®ãƒ‡ãƒ¼ã‚¿ãŒãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«å­˜åœ¨ã—ã¾ã›ã‚“ï¼");
         }
     }
 
     /// <summary>
-    /// ƒXƒPƒ‹ƒgƒ“‚ªUŒ‚‚·‚éUniTask
+    /// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ãŒæ”»æ’ƒã™ã‚‹UniTask
     /// </summary>
     public async UniTask SkeletonAction(Skeleton skelton)
     {
-        //ƒvƒŒƒCƒ„[‚àUŒ‚‚·‚éƒ^[ƒQƒbƒg‚ğƒ‰ƒ“ƒ_ƒ€‚Åİ’è
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚‚æ”»æ’ƒã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’ãƒ©ãƒ³ãƒ€ãƒ ã§è¨­å®š
         RandomSelect();
 
-        //2ƒtƒŒ[ƒ€‘Ò‚Â
+        //2ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
         await UniTask.Delay(TimeSpan.FromSeconds(2f));
 
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Éƒ‰ƒ“ƒ_ƒ€‚ÅUŒ‚‚·‚éƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ãƒ©ãƒ³ãƒ€ãƒ ã§æ”»æ’ƒã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public override BasePlayerStatus RandomSelect()
     {
-        //ˆê“x¶‘¶‚µ‚Ä‚¢‚éƒLƒƒƒ‰‚Ì‚İ‚ÅƒŠƒXƒg‚ğ®—‚·‚é
+        //ä¸€åº¦ç”Ÿå­˜ã—ã¦ã„ã‚‹ã‚­ãƒ£ãƒ©ã®ã¿ã§ãƒªã‚¹ãƒˆã‚’æ•´ç†ã™ã‚‹
         List<BasePlayerStatus> TargetAlivePlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
-        //ƒŠƒXƒg‚ÉƒLƒƒƒ‰‚ª‚¢‚ê‚ÎÀs
+        //ãƒªã‚¹ãƒˆã«ã‚­ãƒ£ãƒ©ãŒã„ã‚Œã°å®Ÿè¡Œ
         if (TargetAlivePlayers.Count > 0)
         {
-            //ƒŠƒXƒg‚Ì’†‚É‚ ‚éƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ğ‘I‘ğ‚µ‚Äƒ^[ƒQƒbƒg‚Éİ’è
+            //ãƒªã‚¹ãƒˆã®ä¸­ã«ã‚ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã‚’é¸æŠã—ã¦ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«è¨­å®š
             BasePlayerStatus target = TargetAlivePlayers[UnityEngine.Random.Range(0, TargetAlivePlayers.Count)];
 
             target.PlayerOnDamage(EnemyAttackPower);
@@ -129,17 +129,17 @@ public class Skeleton : BaseEnemyStatus
                     break;
             }
 
-            //ƒXƒPƒ‹ƒgƒ“‚ÌŒø‰Ê‰¹Ä¶
+            //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®åŠ¹æœéŸ³å†ç”Ÿ
             EnemySE.Instance.Play_SkeletonAttackSE();
 
-            //‚T‚Oƒp[ƒZƒ“ƒg‚ÌŠm—¦‚©‚ÂƒvƒŒƒCƒ„[‚ªƒfƒoƒtó‘Ô‚ªfalse‚È‚çƒfƒoƒt•t—^
+            //ï¼•ï¼ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆã®ç¢ºç‡ã‹ã¤ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒ‡ãƒãƒ•çŠ¶æ…‹ãŒfalseãªã‚‰ãƒ‡ãƒãƒ•ä»˜ä¸
             if (UnityEngine.Random.Range(0, 100) < 50 && target.IsDebuff == false)
             {
                 target.IsDebuff = true;
 
                 target.DebuffCount = 3;
 
-                //ƒ^[ƒQƒbƒg‚ÌUŒ‚—Í‚ğƒfƒoƒt—Í•ª‰º‚°‚é
+                //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®æ”»æ’ƒåŠ›ã‚’ãƒ‡ãƒãƒ•åŠ›åˆ†ä¸‹ã’ã‚‹
                 target.AttackPower -= debuffPower;
 
                 if (target.AttackPower < 50)
@@ -147,36 +147,36 @@ public class Skeleton : BaseEnemyStatus
                     target.AttackPower = 50;
                 }
 
-                //ƒ^[ƒQƒbƒg‚ªƒAƒ^ƒbƒJ[‚©ƒoƒbƒtƒ@[‚©ƒq[ƒ‰[‚¢‚¸‚ê‚©‚Ì‚Ç‚ê‚©‚¾‚Á‚½ê‡‚»‚ÌƒLƒƒƒ‰‚Ìs“®’Ê’m•\¦
+                //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã‹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã‹ãƒ’ãƒ¼ãƒ©ãƒ¼ã„ãšã‚Œã‹ã®ã©ã‚Œã‹ã ã£ãŸå ´åˆãã®ã‚­ãƒ£ãƒ©ã®è¡Œå‹•é€šçŸ¥è¡¨ç¤º
                 switch (target)
                 {
-                    //case•¶‚Ìwhen‚ğg‚¢’Ç‰ÁğŒ‚ğs‚¤
+                    //caseæ–‡ã®whenã‚’ä½¿ã„è¿½åŠ æ¡ä»¶ã‚’è¡Œã†
                     case var _ when target == Attacker:
 
-                        //JSONƒAƒ^ƒbƒJ[‚Ì“Áêƒfƒoƒt•t—^’Ê’m•\¦
+                        //JSONã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ãƒ‡ãƒãƒ•ä»˜ä¸é€šçŸ¥è¡¨ç¤º
                         BattleActionTextManager.Instance.ShowBattleActionText("AttackerOnDebuff");
 
-                        //s“®’Ê’mUI‚ğ”ñ•\¦
+                        //è¡Œå‹•é€šçŸ¥UIã‚’éè¡¨ç¤º
                         StartCoroutine(HideEnemyActionText());
 
                         break;
 
                     case var _ when target == Buffer:
 
-                        //JSONƒoƒbƒtƒ@[‚Ì“Áêƒfƒoƒt•t—^’Ê’m•\¦
+                        //JSONãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ãƒ‡ãƒãƒ•ä»˜ä¸é€šçŸ¥è¡¨ç¤º
                         BattleActionTextManager.Instance.ShowBattleActionText("BufferOnDebuff");
 
-                        //s“®’Ê’mUI‚ğ”ñ•\¦
+                        //è¡Œå‹•é€šçŸ¥UIã‚’éè¡¨ç¤º
                         StartCoroutine(HideEnemyActionText());
 
                         break;
 
                     case var _ when target == Healer:
 
-                        //JSONƒq[ƒ‰[‚Ì“Áêƒfƒoƒt•t—^’Ê’m•\¦
+                        //JSONãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ‡ãƒãƒ•ä»˜ä¸é€šçŸ¥è¡¨ç¤º
                         BattleActionTextManager.Instance.ShowBattleActionText("HealerOnDebuff");
 
-                        //s“®’Ê’mUI‚ğ”ñ•\¦
+                        //è¡Œå‹•é€šçŸ¥UIã‚’éè¡¨ç¤º
                         StartCoroutine(HideEnemyActionText());
 
                         break;
@@ -187,14 +187,14 @@ public class Skeleton : BaseEnemyStatus
                 }
             }
 
-            //10%‚ÌŠm—¦‚Å‚©‚ÂAƒvƒŒƒCƒ„[‚ªƒfƒoƒtó‘Ô‚ÅA“Áêƒfƒoƒtó‘Ô‚Å‚È‚¯‚ê‚ÎÀs
+            //10%ã®ç¢ºç‡ã§ã‹ã¤ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒãƒ‡ãƒãƒ•çŠ¶æ…‹ã§ã€ç‰¹æ®Šãƒ‡ãƒãƒ•çŠ¶æ…‹ã§ãªã‘ã‚Œã°å®Ÿè¡Œ
             if (UnityEngine.Random.Range(0, 100) < 10 && target.IsDebuff && target.IsSpecialDebuff == false)
             {
                 target.SpecialDebuffCount = 5;
 
                 target.IsSpecialDebuff = true;
 
-                //ƒ^[ƒQƒbƒg‚ÌUŒ‚—Í‚ğƒfƒoƒt—Í•ª‰º‚°‚é
+                //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®æ”»æ’ƒåŠ›ã‚’ãƒ‡ãƒãƒ•åŠ›åˆ†ä¸‹ã’ã‚‹
                 target.AttackPower -= debuffPower;
 
                 if (target.AttackPower < 20)
@@ -202,20 +202,20 @@ public class Skeleton : BaseEnemyStatus
                     target.AttackPower = 20;
                 }
 
-                //ƒ^[ƒQƒbƒg‚ªƒAƒ^ƒbƒJ[‚©ƒoƒbƒtƒ@[‚©ƒq[ƒ‰[‚¢‚¸‚ê‚©‚Ì‚Ç‚ê‚©‚¾‚Á‚½ê‡‚»‚ÌƒLƒƒƒ‰‚Ìs“®’Ê’m•\¦
+                //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã‹ãƒãƒƒãƒ•ã‚¡ãƒ¼ã‹ãƒ’ãƒ¼ãƒ©ãƒ¼ã„ãšã‚Œã‹ã®ã©ã‚Œã‹ã ã£ãŸå ´åˆãã®ã‚­ãƒ£ãƒ©ã®è¡Œå‹•é€šçŸ¥è¡¨ç¤º
                 switch (target)
                 {
-                    // ƒ^[ƒQƒbƒg‚ª Attacker ‚Ìê‡
+                    // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒ Attacker ã®å ´åˆ
                     case var _ when target == Attacker:
 
-                        //ƒ_ƒ[ƒW‚ğó‚¯‚½‚±‚Æ‚ğ¦‚·ƒeƒLƒXƒg‚ğ•\¦
+                        //ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ãŸã“ã¨ã‚’ç¤ºã™ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤º
                         BattleActionTextManager.Instance.ShowBattleActionText("AttackerOnSpecialDebuff");
 
-                        // ˆê’èŠÔŒã‚É“G‚ÌƒAƒNƒVƒ‡ƒ“ƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚é
+                        // ä¸€å®šæ™‚é–“å¾Œã«æ•µã®ã‚¢ã‚¯ã‚·ãƒ§ãƒ³ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
                         StartCoroutine(HideEnemyActionText());
                         break;
 
-                    // ƒ^[ƒQƒbƒg‚ª Attacker ‚Ìê‡
+                    // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒ Attacker ã®å ´åˆ
                     case var _ when target == Buffer:
 
                         BattleActionTextManager.Instance.ShowBattleActionText("BufferOnSpecialDebuff");
@@ -223,7 +223,7 @@ public class Skeleton : BaseEnemyStatus
                         StartCoroutine(HideEnemyActionText());
                         break;
 
-                    // ƒ^[ƒQƒbƒg‚ª Attacker ‚Ìê‡
+                    // ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒ Attacker ã®å ´åˆ
                     case var _ when target == Healer:
 
                         BattleActionTextManager.Instance.ShowBattleActionText("HealerOnSpecialDebuff");
@@ -242,45 +242,45 @@ public class Skeleton : BaseEnemyStatus
         }
         else
         {
-            Debug.Log("UŒ‚‘ÎÛ‚ª‚¢‚Ü‚¹‚ñ");
+            Debug.Log("æ”»æ’ƒå¯¾è±¡ãŒã„ã¾ã›ã‚“");
 
             return null;
         }
     }
 
     /// <summary>
-    /// ƒXƒPƒ‹ƒgƒ“‚Ìƒ_ƒ[ƒWˆ—
+    /// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
     /// </summary>
-    /// <param name="damage">ƒvƒŒƒCƒ„[‚©‚ç‚ÌUŒ‚ƒ_ƒ[ƒW‚·‚¤</param>
+    /// <param name="damage">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã®æ”»æ’ƒï¼ãƒ€ãƒ¡ãƒ¼ã‚¸ã™ã†</param>
     public override void EnemyOnDamage(int damage)
     {
         EnemyCurrentHP -= damage;
 
-        //ƒXƒPƒ‹ƒgƒ“‚ÌHP‚ª‚O‚æ‚è‰º‚É‚¢‚©‚È‚¢‚æ‚¤‚É‚·‚é
+        //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®HPãŒï¼ã‚ˆã‚Šä¸‹ã«ã„ã‹ãªã„ã‚ˆã†ã«ã™ã‚‹
         if (EnemyCurrentHP <= 0)
         {
             EnemyCurrentHP = 0;
 
-            // UIXV
+            // UIæ›´æ–°
             SkeltonHPBar.value = EnemyCurrentHP;
             enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
 
-            //¶‘¶ƒtƒ‰ƒO‚ğfalse
+            //ç”Ÿå­˜ãƒ•ãƒ©ã‚°ã‚’false
             EnemyIsAlive = false;
 
-            //¶‘¶ƒŠƒXƒg‚Æ‰Šúƒ^[ƒQƒbƒg‚ğİ’è‚·‚éƒŠƒXƒg‚ÌÁ‹
+            //ç”Ÿå­˜ãƒªã‚¹ãƒˆã¨åˆæœŸã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®šã™ã‚‹ãƒªã‚¹ãƒˆã®æ¶ˆå»
             Stage2BattleSystem.Instance.aliveEnemies.Remove(this);
             PlayerTargetSelect.Instance.RemoveSetTarget(this);
 
-            //ƒAƒ^ƒbƒJ[‚Ì‘S‘ÌUŒ‚‚ÌƒŠƒXƒg‚©‚çíœ
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®å…¨ä½“æ”»æ’ƒã®ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
             Attacker.RemoveDeadEnemies();
 
-            //©g‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚éƒR[ƒ‹ƒ`ƒ“ƒXƒ^[ƒg
+            //è‡ªèº«ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒ³ã‚¹ã‚¿ãƒ¼ãƒˆ
             StartCoroutine(DestroyObject());
         }
         else
         {
-            // ’Êí‚Ìƒ_ƒ[ƒW‚ÌUIXV
+            // é€šå¸¸ã®ãƒ€ãƒ¡ãƒ¼ã‚¸æ™‚ã®UIæ›´æ–°
             SkeltonHPBar.value = EnemyCurrentHP;
             enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
         }
@@ -288,12 +288,12 @@ public class Skeleton : BaseEnemyStatus
 
 
     /// <summary>
-    /// ƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚éƒR[ƒ‹ƒ`ƒ“
+    /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒ³
     /// </summary>
-    /// <returns>1ƒtƒŒ[ƒ€‘Ò‚Â</returns>
+    /// <returns>1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤</returns>
     protected override IEnumerator DestroyObject()
     {
-        //ƒXƒ‰ƒCƒ€‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹
+        //ã‚¹ãƒ©ã‚¤ãƒ ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
         Destroy(gameObject);
 
         yield return null;
