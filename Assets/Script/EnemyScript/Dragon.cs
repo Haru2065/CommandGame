@@ -140,8 +140,14 @@ public class Dragon : BaseEnemyStatus
             //パターン3必殺攻撃プレイヤーに全体攻撃+ダメージデバフ付与
             case 2:
                  
+                //ドラゴンの攻撃通知を表示(単体攻撃)
+                BattleActionTextManager.Instance.ShowBattleActionText(″DragonNormalAttack“)；
                 
+                //1フレーム待つ
+                await UniTask.Delay(TimeSpan.FromSeconds(1f)；
 
+                //ドラゴンの行動通知非表示
+                StartCoroutine(BaseBattleManager.Instance.HidePlayerActionText());
 
                 SpecialAllAttack(playerParty);
 
