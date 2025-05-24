@@ -37,8 +37,12 @@ public static class SaveManager
         }
     }
 
+    /// <summary>
+    /// ステージ保存メソッド
+    /// </summary>
     public static void SaveStage()
     {
+        //もしステージ２かステージ３が解放されていたら、
         if (BaseBattleManager.Instance.IsUnlockStage2 || BaseBattleManager.Instance.IsUnlockStage3)
         {
             var data = new StageSaveData
