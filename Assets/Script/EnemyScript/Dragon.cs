@@ -7,24 +7,24 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒhƒ‰ƒSƒ“‚ÌƒXƒe[ƒ^ƒX
+/// ãƒ‰ãƒ©ã‚´ãƒ³ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 /// </summary>
 public class Dragon : BaseEnemyStatus
 {
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚ÌHPBar")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®HPBar")]
     private Slider DragonHPBar;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚Ì•KE‚ÌUŒ‚—Í")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®å¿…æ®ºã®æ”»æ’ƒåŠ›")]
     private int dragonSpecialAttackPower;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚Ìƒfƒoƒt—Í(HP‚ğí‚é’l)")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ‡ãƒãƒ•åŠ›(HPã‚’å‰Šã‚‹å€¤)")]
     private int hpDebuffPower;
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ìƒfƒoƒt—Í‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ‡ãƒãƒ•åŠ›ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int HPDebuffPower
     {
@@ -33,30 +33,30 @@ public class Dragon : BaseEnemyStatus
     }
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚Ì’P‘ÌUŒ‚ƒGƒtƒFƒNƒg")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®å˜ä½“æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject onleyAttackEffect;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚ÌƒuƒŒƒXUŒ‚‚ÌƒGƒtƒFƒNƒg")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ–ãƒ¬ã‚¹æ”»æ’ƒã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject breathEffect;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‘¤‚ÌUŒ‚ƒGƒtƒFƒNƒg‚ÌƒXƒ|[ƒ“ˆÊ’u")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³å´ã®æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ã‚¹ãƒãƒ¼ãƒ³ä½ç½®")]
     private Transform dragonEffectSpawnPoint;
 
     [SerializeField]
-    [Tooltip("•KE‚ÌUŒ‚ƒGƒtƒFƒNƒg")]
+    [Tooltip("å¿…æ®ºã®æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject specialEffect;
 
     [SerializeField]
-    [Tooltip("•KE‚ÌUŒ‚ƒGƒtƒFƒNƒg‚ÌƒXƒ|[ƒ“ˆÊ’u")]
+    [Tooltip("å¿…æ®ºã®æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ã‚¹ãƒãƒ¼ãƒ³ä½ç½®")]
     private Transform specialEffectSpawnPoint;
 
-    //ƒhƒ‰ƒSƒ“‚Ìƒ^[ƒ“ƒJƒEƒ“ƒg
+    //ãƒ‰ãƒ©ã‚´ãƒ³ã®ã‚¿ãƒ¼ãƒ³ã‚«ã‚¦ãƒ³ãƒˆ
     private int turnCount = 0;
 
     /// <summary>
-    /// ƒ^[ƒ“ƒJƒEƒ“ƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ã‚¿ãƒ¼ãƒ³ã‚«ã‚¦ãƒ³ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int TurnCount
     {
@@ -66,118 +66,120 @@ public class Dragon : BaseEnemyStatus
     // Start is called before the first frame update
     void Start()
     {
-        //ƒhƒ‰ƒSƒ“‚Ìƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         SetEnemyParameters();
 
-        //ƒhƒ‰ƒSƒ“‚ğ¶‘¶ó‘Ô‚É‚·‚é
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã‚’ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹
         EnemyIsAlive = true;
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ìs“®
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®è¡Œå‹•
     /// </summary>
-    /// <param name="playerParty">UŒ‚‘ÎÛÒ‚ÌƒŠƒXƒg</param>
+    /// <param name="playerParty">æ”»æ’ƒå¯¾è±¡è€…ã®ãƒªã‚¹ãƒˆ</param>
     /// <returns></returns>
     public async UniTask DragonAction(List<BasePlayerStatus> playerParty)
     {
-        //ƒhƒ‰ƒSƒ“‚ª¶‘¶‚µ‚Ä‚¢‚È‚©‚Á‚½‚çÀs‚µ‚È‚¢
+        //ãƒ‰ãƒ©ã‚´ãƒ³ãŒç”Ÿå­˜ã—ã¦ã„ãªã‹ã£ãŸã‚‰å®Ÿè¡Œã—ãªã„
         if (!EnemyIsAlive) return;
 
-        //ƒhƒ‰ƒSƒ“‚ÌUŒ‚ƒpƒ^[ƒ“’Ê‚èUŒ‚‚ğÀs
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®æ”»æ’ƒãƒ‘ã‚¿ãƒ¼ãƒ³é€šã‚Šæ”»æ’ƒã‚’å®Ÿè¡Œ
         await DoAttack(playerParty);
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ìƒpƒ^[ƒ“UŒ‚
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ‘ã‚¿ãƒ¼ãƒ³æ”»æ’ƒ
     /// </summary>
     /// <param name="playerParty"></param>
     /// <returns></returns>
     public async UniTask DoAttack(List<BasePlayerStatus> playerParty)
     {
-        //ƒ^[ƒ“‚ÌƒJƒEƒ“ƒg‚ğ1‘‚â‚·
+        //ã‚¿ãƒ¼ãƒ³ã®ã‚«ã‚¦ãƒ³ãƒˆã‚’1å¢—ã‚„ã™
         turnCount++;
 
         //
         int puttern = (turnCount - 1) % 3;
 
-        //UŒ‚ƒpƒ^[ƒ“
+        //æ”»æ’ƒãƒ‘ã‚¿ãƒ¼ãƒ³
         switch (puttern)
         {
-            //ƒpƒ^[ƒ“1ƒ‰ƒ“ƒ_ƒ€‚É“G‚ÉUŒ‚‚ğs‚¤
+            //ãƒ‘ã‚¿ãƒ¼ãƒ³1ãƒ©ãƒ³ãƒ€ãƒ ã«æ•µã«æ”»æ’ƒã‚’è¡Œã†
             case 0:
+
+                 DragonNormalAttack
                 RandomSelect();
                 break;
             
-            //ƒpƒ^[ƒ“2ƒuƒŒƒXUŒ‚‘S‘ÌUŒ‚
+            //ãƒ‘ã‚¿ãƒ¼ãƒ³2ãƒ–ãƒ¬ã‚¹æ”»æ’ƒå…¨ä½“æ”»æ’ƒ
             case 1:
                 BreathAllAttack(playerParty);
 
-                //2ƒtƒŒ[ƒ€‘Ò‚Â
+                //2ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
                 break;
 
-            //ƒpƒ^[ƒ“3•KEUŒ‚ƒvƒŒƒCƒ„[‚É‘S‘ÌUŒ‚+ƒ_ƒ[ƒWƒfƒoƒt•t—^
+            //ãƒ‘ã‚¿ãƒ¼ãƒ³3å¿…æ®ºæ”»æ’ƒãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«å…¨ä½“æ”»æ’ƒ+ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ‡ãƒãƒ•ä»˜ä¸
             case 2:
                 SpecialAllAttack(playerParty);
 
-                //2ƒtƒŒ[ƒ€‘Ò‚Â
+                //2ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
                 break;
         }
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ìƒpƒ‰ƒ[ƒ^İ’èƒƒ\ƒbƒh
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿è¨­å®šãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected override void SetEnemyParameters()
     {
-        //ƒŠƒ“ƒN‹@”\‚ğg‚Á‚ÄA“G‚Ìƒf[ƒ^ƒx[ƒX‚ÌÅ‰‚Ì—v‘f‚©‚ç“G‚ÌID‚ğæ“¾
+        //ãƒªãƒ³ã‚¯æ©Ÿèƒ½ã‚’ä½¿ã£ã¦ã€æ•µã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®æœ€åˆã®è¦ç´ ã‹ã‚‰æ•µã®IDã‚’å–å¾—
         var enemyData = EnemyDataBase.EnemyParameters.FirstOrDefault(e => e.EnemyNameData == EnemyID);
 
-        //‡’v‚·‚ê‚Îƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //åˆè‡´ã™ã‚Œã°ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         if (enemyData != null)
         {
-            //Œ»İ‚ÌHP‚ğ“Gƒf[ƒ^‚Éİ’è‚³‚ê‚Ä‚¢‚éÅ‘å‘Ì—Í‚É‚·‚é
+            //ç¾åœ¨ã®HPã‚’æ•µãƒ‡ãƒ¼ã‚¿ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹æœ€å¤§ä½“åŠ›ã«ã™ã‚‹
             EnemyMaxHP = enemyData.EnemyMaxHPData;
 
-            //ƒhƒ‰ƒSƒ“‚ÌŒ»İ‚Ì‘Ì—Í‚àÅ‘å‘Ì—Í‚Éİ’è
+            //ãƒ‰ãƒ©ã‚´ãƒ³ã®ç¾åœ¨ã®ä½“åŠ›ã‚‚æœ€å¤§ä½“åŠ›ã«è¨­å®š
             EnemyCurrentHP = EnemyMaxHP;
 
-            //ƒhƒ‰ƒSƒ“‚ÌHPƒo[‚àÅ‘å‘Ì—Í‚Éİ’è
+            //ãƒ‰ãƒ©ã‚´ãƒ³ã®HPãƒãƒ¼ã‚‚æœ€å¤§ä½“åŠ›ã«è¨­å®š
             DragonHPBar.maxValue = EnemyCurrentHP;
             DragonHPBar.value = EnemyCurrentHP;
 
-            //ƒhƒ‰ƒSƒ“‚ÌHPƒo[‚ÌÅ¬‚Í0‚Éİ’è
+            //ãƒ‰ãƒ©ã‚´ãƒ³ã®HPãƒãƒ¼ã®æœ€å°ã¯0ã«è¨­å®š
             DragonHPBar.minValue = 0;
 
-            //ƒhƒ‰ƒSƒ“‚ÌUŒ‚—Í‚ğ“Gƒf[ƒ^‚ÌUŒ‚—Í‚Éİ’è
+            //ãƒ‰ãƒ©ã‚´ãƒ³ã®æ”»æ’ƒåŠ›ã‚’æ•µãƒ‡ãƒ¼ã‚¿ã®æ”»æ’ƒåŠ›ã«è¨­å®š
             EnemyAttackPower = enemyData.EnemyAttackPowerData;
 
             HPDebuffPower = enemyData.DebuffPowerData;
         }
         else
         {
-            Debug.LogError($"{EnemyID}‚Ìƒf[ƒ^‚ªƒf[ƒ^ƒx[ƒX‚É‘¶İ‚µ‚Ü‚¹‚ñ!");
+            Debug.LogError($"{EnemyID}ã®ãƒ‡ãƒ¼ã‚¿ãŒãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã«å­˜åœ¨ã—ã¾ã›ã‚“!");
         }
     }
 
     /// <summary>
-    /// ƒ‰ƒ“ƒ_ƒ€‚ÅƒvƒŒƒCƒ„[’P‘Ì‚ÉUŒ‚‚·‚éƒƒ\ƒbƒh
+    /// ãƒ©ãƒ³ãƒ€ãƒ ã§ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å˜ä½“ã«æ”»æ’ƒã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public override BasePlayerStatus RandomSelect()
     {
-        //ƒhƒ‰ƒSƒ“‚Ì’P‘ÌUŒ‚‰¹‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®å˜ä½“æ”»æ’ƒéŸ³ã‚’å†ç”Ÿ
         EnemySE.Instance.Play_DragonSingleAttackSE();
 
-        //ƒx[ƒX‚Ìƒ‰ƒ“ƒ_ƒ€ƒZƒŒƒNƒgƒƒ\ƒbƒh‚ğÀs
+        //ãƒ™ãƒ¼ã‚¹ã®ãƒ©ãƒ³ãƒ€ãƒ ã‚»ãƒ¬ã‚¯ãƒˆãƒ¡ã‚½ãƒƒãƒ‰ã‚’å®Ÿè¡Œ
         BasePlayerStatus target = base.RandomSelect();
 
-        //UŒ‚‘ÎÛ‚É’P‘ÌUŒ‚ƒGƒtƒFƒNƒg‚ğ¶¬
+        //æ”»æ’ƒå¯¾è±¡ã«å˜ä½“æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         if (target != null)
         {
             GameObject effectInstance = Instantiate(onleyAttackEffect,target.transform.position, Quaternion.identity);
 
-            //2ƒtƒŒ[ƒ€ŒãƒGƒtƒFƒNƒg‚ğÁ‹
+            //2ãƒ•ãƒ¬ãƒ¼ãƒ å¾Œã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
             Destroy(effectInstance, 2f);
         }
 
@@ -185,88 +187,88 @@ public class Dragon : BaseEnemyStatus
     }
 
     /// <summary>
-    /// ’Êí‚Ì‘S‘ÌUŒ‚
+    /// é€šå¸¸ã®å…¨ä½“æ”»æ’ƒ
     /// </summary>
     /// <param name="players"></param>
     private void BreathAllAttack(List<BasePlayerStatus> playerParty)
     {
-        //ƒhƒ‰ƒSƒ“‚ÌƒuƒŒƒXUŒ‚‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ–ãƒ¬ã‚¹æ”»æ’ƒã‚’å†ç”Ÿ
         EnemySE.Instance.Play_DragonBreathSE();
 
-        //’Êí‘S‘ÌUŒ‚‚ÌƒGƒtƒFƒNƒg‚ğ¶¬
+        //é€šå¸¸å…¨ä½“æ”»æ’ƒã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
         GameObject effectInstance = Instantiate(breathEffect,dragonEffectSpawnPoint.position, Quaternion.Euler(0f,0f,-160f));
 
-        //2ƒtƒŒ[ƒ€ŒãƒGƒtƒFƒNƒg‚ğÁ‹
+        //2ãƒ•ãƒ¬ãƒ¼ãƒ å¾Œã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
         Destroy(effectInstance,2f);
 
-        //‘ÎÛ‚ÌƒvƒŒƒCƒ„[‚ª¶‘¶‚µ‚Ä‚¢‚½‚çAƒŠƒXƒg‚É‚¢‚ê‚éi¶‘¶Ò‚ğæ“¾)
+        //å¯¾è±¡ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿå­˜ã—ã¦ã„ãŸã‚‰ã€ãƒªã‚¹ãƒˆã«ã„ã‚Œã‚‹ï¼ˆç”Ÿå­˜è€…ã‚’å–å¾—)
         List<BasePlayerStatus> attackTargetPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
 
-        //UŒ‚‘ÎÛ‚ª‚¢‚ê‚ÎUŒ‚‘ÎÛƒŠƒXƒg‚É“ü‚Á‚Ä‚¢‚éƒvƒŒƒCƒ„[‚ÉUŒ‚
+        //æ”»æ’ƒå¯¾è±¡ãŒã„ã‚Œã°æ”»æ’ƒå¯¾è±¡ãƒªã‚¹ãƒˆã«å…¥ã£ã¦ã„ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«æ”»æ’ƒ
         if (attackTargetPlayers.Count > 0)
         {
             foreach (var player in attackTargetPlayers)
             {
 
-                //ƒvƒŒƒCƒ„[‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+                //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
                 player.PlayerOnDamage(EnemyAttackPower);
             }
         }
         else
         {
-            Debug.Log("UŒ‚‘ÎÛ‚ª‚¢‚Ü‚¹‚ñ");
+            Debug.Log("æ”»æ’ƒå¯¾è±¡ãŒã„ã¾ã›ã‚“");
         }
     }
 
     /// <summary>
-    /// •KEUŒ‚(‘S‘Ì‚ÉUŒ‚‚ğ—^‚¦‚Ä‚³‚ç‚É2ƒ^[ƒ“Œp‘±‚Åƒfƒoƒt‚ğ•t—^j
+    /// å¿…æ®ºæ”»æ’ƒ(å…¨ä½“ã«æ”»æ’ƒã‚’ä¸ãˆã¦ã•ã‚‰ã«2ã‚¿ãƒ¼ãƒ³ç¶™ç¶šã§ãƒ‡ãƒãƒ•ã‚’ä»˜ä¸ï¼‰
     /// </summary>
     /// <param name="players"></param>
     private void SpecialAllAttack(List<BasePlayerStatus> playerParty)
     {
-        //ƒhƒ‰ƒSƒ“‚Ì•KEUŒ‚‰¹‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®å¿…æ®ºæ”»æ’ƒéŸ³ã‚’å†ç”Ÿ
         EnemySE.Instance.Play_DragonSpecialAttackSE();
 
-        //•KEƒGƒtƒFƒNƒg‚ğƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ÌˆÊ’u‚É¶¬
+        //å¿…æ®ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã®ä½ç½®ã«ç”Ÿæˆ
         GameObject dragonEffectInstance = Instantiate(specialEffect, specialEffectSpawnPoint.position, Quaternion.identity);
 
-        // ƒGƒtƒFƒNƒgƒXƒP[ƒ‹‚ğ•ÏXi2”{j
+        // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¹ã‚±ãƒ¼ãƒ«ã‚’å¤‰æ›´ï¼ˆ2å€ï¼‰
         dragonEffectInstance.transform.localScale = new Vector3(2f, 2f, 2f);
 
-        //3ƒtƒŒ[ƒ€ŒãÁ‹
+        //3ãƒ•ãƒ¬ãƒ¼ãƒ å¾Œæ¶ˆå»
         Destroy(dragonEffectInstance, 3f);
 
-        //‘ÎÛ‚ÌƒvƒŒƒCƒ„[‚ª¶‘¶‚µ‚Ä‚¢‚½‚çAƒŠƒXƒg‚É‚¢‚ê‚éi¶‘¶Ò‚ğæ“¾)
+        //å¯¾è±¡ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿå­˜ã—ã¦ã„ãŸã‚‰ã€ãƒªã‚¹ãƒˆã«ã„ã‚Œã‚‹ï¼ˆç”Ÿå­˜è€…ã‚’å–å¾—)
         List<BasePlayerStatus> attackPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
-        // UŒ‚‘ÎÛ‚ª‚¢‚ê‚ÎUŒ‚‘ÎÛƒŠƒXƒg‚É“ü‚Á‚Ä‚¢‚éƒvƒŒƒCƒ„[‚ÉUŒ‚
+        // æ”»æ’ƒå¯¾è±¡ãŒã„ã‚Œã°æ”»æ’ƒå¯¾è±¡ãƒªã‚¹ãƒˆã«å…¥ã£ã¦ã„ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«æ”»æ’ƒ
         if (attackPlayers.Count > 0)
         {
             foreach (var player in attackPlayers)
             {
-                //ƒvƒŒƒCƒ„[‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚ÄA‚â‚¯‚Ç‚Ìƒfƒoƒti–ˆƒ^[ƒ“HP‚ğŒ¸‚ç‚·2ƒ^[ƒ“Œp‘±j
+                //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã¦ã€ã‚„ã‘ã©ã®ãƒ‡ãƒãƒ•ï¼ˆæ¯ã‚¿ãƒ¼ãƒ³HPã‚’æ¸›ã‚‰ã™2ã‚¿ãƒ¼ãƒ³ç¶™ç¶šï¼‰
                 player.PlayerOnDamage(dragonSpecialAttackPower);
                 player.IsHPDebuff = true;
 
-                //ƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚ğ2‚Éİ’è
+                //ãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆã‚’2ã«è¨­å®š
                 player.DebuffCount = 2;
             }
         }
         else
         {
-            Debug.Log("UŒ‚‘ÎÛ‚ª‚¢‚Ü‚¹‚ñ");
+            Debug.Log("æ”»æ’ƒå¯¾è±¡ãŒã„ã¾ã›ã‚“");
         }
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚ÌHP‚ğ•\¦‚·‚éˆ—
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®HPã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†
     /// </summary>
     protected override void Update()
     {
         enemyHPUGUI.text = $"{EnemyCurrentHP} / {EnemyMaxHP}";
 
-        //ƒhƒ‰ƒSƒ“‚ª¶‘¶‚µ‚Ä‚¢‚È‚©‚Á‚½‚çŒ»İ‚ÌHP‚Í0
+        //ãƒ‰ãƒ©ã‚´ãƒ³ãŒç”Ÿå­˜ã—ã¦ã„ãªã‹ã£ãŸã‚‰ç¾åœ¨ã®HPã¯0
         if(!EnemyIsAlive)
         {
             EnemyCurrentHP = 0;
@@ -274,15 +276,15 @@ public class Dragon : BaseEnemyStatus
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ìƒ_ƒ[ƒWˆ—
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
     /// </summary>
-    /// <param name="damage">ƒvƒŒƒCƒ„[‚©‚ç‚ÌUŒ‚ƒ_ƒ[ƒW”</param>
+    /// <param name="damage">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã®æ”»æ’ƒï¼ãƒ€ãƒ¡ãƒ¼ã‚¸æ•°</param>
     public override void EnemyOnDamage(int damage)
     {
         EnemyCurrentHP -= damage;
         DragonHPBar.value = EnemyCurrentHP;
 
-        //ƒhƒ‰ƒSƒ“‚ÌHP‚ª‚O‚æ‚è‰º‚É‚¢‚©‚È‚¢‚æ‚¤‚É‚·‚é
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®HPãŒï¼ã‚ˆã‚Šä¸‹ã«ã„ã‹ãªã„ã‚ˆã†ã«ã™ã‚‹
         if (EnemyCurrentHP <= 0)
         {
             EnemyCurrentHP = 0;
@@ -290,25 +292,25 @@ public class Dragon : BaseEnemyStatus
 
             EnemyIsAlive = false;
 
-            //¶‘¶ƒŠƒXƒg‚Æ‰Šúƒ^[ƒQƒbƒg‚ğİ’è‚·‚éƒŠƒXƒg‚ÌÁ‹
+            //ç”Ÿå­˜ãƒªã‚¹ãƒˆã¨åˆæœŸã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®šã™ã‚‹ãƒªã‚¹ãƒˆã®æ¶ˆå»
             Stage2BattleSystem.Instance.aliveEnemies.Remove(this);
             PlayerTargetSelect.Instance.RemoveSetTarget(this);
 
-            //ƒAƒ^ƒbƒJ[‚Ì‘S‘ÌUŒ‚‚ÌƒŠƒXƒg‚©‚çíœ
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®å…¨ä½“æ”»æ’ƒã®ãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
             Attacker.RemoveDeadEnemies();
 
-            //ƒhƒ‰ƒSƒ“‚ÌƒIƒuƒWƒFƒNƒgÁ‹‚·‚éƒR[ƒ‹ƒ`ƒ“ƒXƒ^[ƒg
+            //ãƒ‰ãƒ©ã‚´ãƒ³ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ¶ˆå»ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒ³ã‚¹ã‚¿ãƒ¼ãƒˆ
             StartCoroutine(DestroyObject());
         }
     }
 
     /// <summary>
-    /// ƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚éƒR[ƒ‹ƒ`ƒ“
+    /// ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒ³
     /// </summary>
-    /// <returns>1ƒtƒŒ[ƒ€‘Ò‚Â</returns>
+    /// <returns>1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤</returns>
     protected override IEnumerator DestroyObject()
     {
-        //ƒhƒ‰ƒSƒ“‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
         Destroy(gameObject);
 
         yield return null;
