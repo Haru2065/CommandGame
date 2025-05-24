@@ -140,13 +140,10 @@ public abstract class BaseBattleManager : MonoBehaviour
         set => isUnlockStage3 = value;
     }
 
+    //ターンの待ち時間
     protected const float TurnDelay = 1f;
 
-    //
-    protected const float EffectDelay = 2f;
-
-    protected const int JsonTextDelay = 1;
-
+    //キャンセルトークンソース生成
     protected CancellationTokenSource cts;
 
     /// <summary>
@@ -311,7 +308,7 @@ public abstract class BaseBattleManager : MonoBehaviour
         GameObject startTurnEffectInstance = Instantiate(StartTurnEffect, spawnPoint.position, Quaternion.identity);
 
         //ターン開始エフェクトを2秒後消去
-        Destroy(startTurnEffectInstance, EffectDelay);
+        Destroy(startTurnEffectInstance, TurnDelay);
 
         //0.5秒待機
         yield return new WaitForSeconds(0.5f);
@@ -324,7 +321,7 @@ public abstract class BaseBattleManager : MonoBehaviour
     protected IEnumerator HidePlayerActionText()
     {
         //1秒待つ
-        yield return new WaitForSeconds(JsonTextDelay);
+        yield return new WaitForSeconds(TurnDelay);
 
         //JSONファイルの状況通知テキストを非表示
         BattleActionTextManager.Instance.TextDelayHide();
