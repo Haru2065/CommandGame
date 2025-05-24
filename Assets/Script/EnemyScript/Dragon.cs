@@ -110,7 +110,7 @@ public class Dragon : BaseEnemyStatus
                 
                 await UniTask.Delay(TimeSpan.FromSeconds(1f)；
 
-                BattleActionTextManager.Instance.
+                StartCoroutine(BaseBattleManager.Instance.HidePlayerActionText());
 
                 RandomSelect();
                 break;
