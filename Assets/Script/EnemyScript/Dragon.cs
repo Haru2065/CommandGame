@@ -106,7 +106,12 @@ public class Dragon : BaseEnemyStatus
             //パターン1ランダムに敵に攻撃を行う
             case 0:
 
-                 DragonNormalAttack
+                BattleActionTextManager.Instance.ShowBattleActionText(″DragonNormalAttack“)；
+                
+                await UniTask.Delay(TimeSpan.FromSeconds(1f)；
+
+                BattleActionTextManager.Instance.
+
                 RandomSelect();
                 break;
             
