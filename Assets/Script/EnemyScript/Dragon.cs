@@ -123,7 +123,7 @@ public class Dragon : BaseEnemyStatus
             case 1:
 
                  //ドラゴンの攻撃通知を表示(通常全体攻撃)
-                 BattleActionTextManager.Instance.ShowBattleActionText(″DragonNormalAttack“)；
+                 BattleActionTextManager.Instance.ShowBattleActionText("DragonAreaAttack")；
                 
                  //1フレーム待つ
                  await UniTask.Delay(TimeSpan.FromSeconds(1f)；
