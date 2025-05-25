@@ -3,55 +3,55 @@ using System.Linq;
 using UnityEngine;
 
 /// <summary>
-/// ƒAƒ^ƒbƒJ[‚ÌƒXƒe[ƒ^ƒX
-/// ƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚Ş
-/// ƒx[ƒXƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒX‚ğŒp³
+/// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+/// ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
+/// ãƒ™ãƒ¼ã‚¹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’ç¶™æ‰¿
 /// </summary>
 public class Attacker : BasePlayerStatus
 {
-    //ƒAƒ^ƒbƒJ[‚Ìs“®‚ªI—¹‚µ‚½‚©
+    //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®è¡Œå‹•ãŒçµ‚äº†ã—ãŸã‹
     public bool IsAttackerAction;
 
     [SerializeField]
-    [Tooltip("“G‚ÌƒŠƒXƒg‘S‘ÌUŒ‚•KE‚Ég—p")]
+    [Tooltip("æ•µã®ãƒªã‚¹ãƒˆå…¨ä½“æ”»æ’ƒå¿…æ®ºã«ä½¿ç”¨")]
     private List<BaseEnemyStatus> targetEnemys;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[—p’ÊíUŒ‚—pƒGƒtƒFƒNƒg")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ç”¨é€šå¸¸æ”»æ’ƒç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject attacker_NormalEffect;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚Ì•KEUŒ‚—pƒGƒtƒFƒNƒg")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®å¿…æ®ºæ”»æ’ƒç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject attacker_SpecialEffect;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚Ì•¶šƒGƒtƒFƒNƒg")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®æ–‡å­—ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject attacker_TextEffect;
 
     [SerializeField]
-    [Tooltip("“G‚ÉUŒ‚‚·‚éƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u1")]
+    [Tooltip("æ•µã«æ”»æ’ƒã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®1")]
     private Transform specialAttackEffect_SpawnPoint1;
 
     [SerializeField]
-    [Tooltip("“G‚ÉUŒ‚‚·‚éƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u2")]
+    [Tooltip("æ•µã«æ”»æ’ƒã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®2")]
     private Transform specialAttackEffect_SpawnPoint2;
 
     [SerializeField]
-    [Tooltip("“G‚ÉUŒ‚‚·‚éƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u3")]
+    [Tooltip("æ•µã«æ”»æ’ƒã™ã‚‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®3")]
     private Transform specialAttackEffect_SpawnPoint3;
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        //ƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         base.Start();
 
         IsUseSkill = false;
 
-        //Å‰‚Í•KE‚Íg‚¦‚È‚¢‚æ‚¤‚É‚·‚é
+        //æœ€åˆã¯å¿…æ®ºã¯ä½¿ãˆãªã„ã‚ˆã†ã«ã™ã‚‹
         IsUseSpecial = true;
 
-        //•’Ê‚Ìƒfƒoƒt‚Æ“ÁêƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚Ì‰Šú‰»
+        //æ™®é€šã®ãƒ‡ãƒãƒ•ã¨ç‰¹æ®Šãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–
         DebuffCount = 0;
         SpecialDebuffCount = 0;
 
@@ -61,39 +61,39 @@ public class Attacker : BasePlayerStatus
         //SkillLimitCount = 3;
         //SpecialLimitCount = 5;
 
-        //ƒAƒ^ƒbƒJ[‚Ìs“®ƒtƒ‰ƒO‚ğfalse‚É
+        //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’falseã«
         IsAttackerAction = false;
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìs“®I—¹‚µ‚½‚©iƒAƒ^ƒbƒJ[‚ªs“®‚µ‚½‚©j‚Ìƒtƒ‰ƒO‚ğƒŠƒZƒbƒg‚É‚·‚éƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•çµ‚äº†ã—ãŸã‹ï¼ˆã‚¢ã‚¿ãƒƒã‚«ãƒ¼ãŒè¡Œå‹•ã—ãŸã‹ï¼‰ã®ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public override void ResetActionFlag()
     {
-        //ƒx[ƒX‚Ìƒƒ\ƒbƒh‚©‚çƒvƒŒƒCƒ„[s“®ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+        //ãƒ™ãƒ¼ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
         base.ResetActionFlag();
 
-        //ƒAƒ^ƒbƒJ[‚Ìs“®ƒtƒ‰ƒO‚àfalse
+        //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚‚false
         IsAttackerAction = false;
     }
 
     /// <summary>
-    /// ƒpƒ‰ƒ[ƒ^‚ğİ’è‚·‚éƒƒ\ƒbƒh
-    /// ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^ƒx[ƒX‚©‚ç“Ç‚İ‚İ
+    /// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‹ã‚‰èª­ã¿è¾¼ã¿
     /// </summary>
     protected override void SetPlayerParameters()
     {
-        // LINQ‚ğg‚¢AƒvƒŒƒCƒ„[ƒf[ƒ^ƒx[ƒX‚©‚çPlayerID‚Æˆê’v‚·‚éƒvƒŒƒCƒ„[î•ñ‚ğæ“¾
+        // LINQã‚’ä½¿ã„ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‹ã‚‰PlayerIDã¨ä¸€è‡´ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ã‚’å–å¾—
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
 
-        // ˆê’v‚·‚éƒvƒŒƒCƒ„[î•ñ‚ªŒ©‚Â‚©‚Á‚½ê‡Aƒpƒ‰ƒ[ƒ^‚ğİ’è
+        // ä¸€è‡´ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã€ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         if (playerData != null)
         {
 
-            //Å‘å‘Ì—Í‚Ìƒf[ƒ^‚ğ“Ç‚İ‚İ
+            //æœ€å¤§ä½“åŠ›ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿
             PlayerMaxHP = playerData.PlayerMaxHPData;
 
-            //ƒAƒ^ƒbƒJ[‚ÌŒ»İ‚ÌHP‚ğÅ‘å‚Éİ’è‚µ‚ÄHPƒo[‚àÅ‘å‚Éİ’è
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ç¾åœ¨ã®HPã‚’æœ€å¤§ã«è¨­å®šã—ã¦HPãƒãƒ¼ã‚‚æœ€å¤§ã«è¨­å®š
             PlayerCurrentHP = PlayerMaxHP;
 
             Debug.Log($"PlayerCuurentHP:{PlayerCurrentHP},PlayerMaxHP:{PlayerMaxHP}");
@@ -102,75 +102,75 @@ public class Attacker : BasePlayerStatus
             PlayerHPBar.value = PlayerCurrentHP;
             PlayerHPBar.minValue = 0;
 
-            //UŒ‚—Í‚ğƒAƒ^ƒbƒJ[‚Ìƒf[ƒ^‚ÌUŒ‚—Í‚ğ“Ç‚İ‚Ş
+            //æ”»æ’ƒåŠ›ã‚’ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã®æ”»æ’ƒåŠ›ã‚’èª­ã¿è¾¼ã‚€
             AttackPower = playerData.PlayerAttackPowerData;
 
-            //‰ŠúUŒ‚—Í‚àƒAƒ^ƒbƒJ[‚ÌUŒ‚—Í‚Éİ’è
+            //åˆæœŸæ”»æ’ƒåŠ›ã‚‚ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®æ”»æ’ƒåŠ›ã«è¨­å®š
             PlayerResetAttackPower = AttackPower;
 
-            //¶‘¶ó‘Ô‚É‚·‚é
+            //ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹
             IsAlive = true;
         }
     }
 
     /// <summary>
-    /// ’ÊíUŒ‚
+    /// é€šå¸¸æ”»æ’ƒ
     /// </summary>
     public override void NormalAttack()
     {
-        //ƒvƒŒƒCƒ„[‚ª‘I‚ñ‚¾“G‚ğUŒ‚‘ÎÛ‚Éİ’è‚·‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸ã‚“ã æ•µã‚’æ”»æ’ƒå¯¾è±¡ã«è¨­å®šã™ã‚‹
         BaseEnemyStatus target = PlayerTargetSelect.Instance.GetAttackTargetEnemy();
 
         if (target != null)
         {
-            //’ÊíUŒ‚‰¹Ä¶
+            //é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿ
             PlayerSE.Instance.Play_AttackerNormalAttackSE();
 
-            //ƒAƒ^ƒbƒJ[‚Ì’ÊíUŒ‚‚ÌƒGƒtƒFƒNƒg‚ğ¶¬
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®é€šå¸¸æ”»æ’ƒæ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             GameObject effectInstance = Instantiate(attacker_NormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
             GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-            //UŒ‚‚·‚é‘ÎÛ‚Ì“G‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+            //æ”»æ’ƒã™ã‚‹å¯¾è±¡ã®æ•µã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
             target.EnemyOnDamage(AttackPower);
 
-            //ƒAƒ^ƒbƒJ[‚ÌƒGƒtƒFƒNƒg‚ğÁ‹
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
             Destroy(effectInstance, 0.2f);
             Destroy(textEffectInstance, 2f);
         }
 
-        //ƒAƒ^ƒbƒJ[‚Ìs“®ƒtƒ‰ƒO‚ğtrue‚É
+        //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’trueã«
         IsAttackerAction = true;
     }
 
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[ƒXƒLƒ‹
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã‚¹ã‚­ãƒ«
     /// </summary>
     public override void PlayerSkill()
     {
-        //UŒ‚—Í‚ğ‚Q”{‚É‚·‚é
+        //æ”»æ’ƒåŠ›ã‚’ï¼’å€ã«ã™ã‚‹
         AttackPower *= 2;
 
-        Debug.Log("UŒ‚—Í" + AttackPower);
+        Debug.Log("æ”»æ’ƒåŠ›" + AttackPower);
 
-        //ƒvƒŒƒCƒ„[‚ª‘I‚ñ‚¾“G‚ğUŒ‚‘ÎÛ‚Éİ’è‚·‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸ã‚“ã æ•µã‚’æ”»æ’ƒå¯¾è±¡ã«è¨­å®šã™ã‚‹
         BaseEnemyStatus target = PlayerTargetSelect.Instance.GetAttackTargetEnemy();
 
-        //ƒ^[ƒQƒbƒg‚ªİ’è‚³‚ê‚Ä‚¢‚½‚çˆ—‚ğÀs
+        //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒè¨­å®šã•ã‚Œã¦ã„ãŸã‚‰å‡¦ç†ã‚’å®Ÿè¡Œ
         if (target != null)
         {
-            //ƒAƒ^ƒbƒJ[‚ÌƒXƒLƒ‹Œø‰Ê‰¹Ä¶
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¹ã‚­ãƒ«åŠ¹æœéŸ³å†ç”Ÿ
             PlayerSE.Instance.Play_AttackerSkillSE();
 
-            //ƒAƒ^ƒbƒJ[‚ÌUŒ‚ƒGƒtƒFƒNƒg‚ÆƒeƒLƒXƒgƒGƒtƒFƒNƒg‚ğ¶¬
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¨ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             GameObject effectInstance = Instantiate(attacker_NormalEffect, transform.position, Quaternion.identity);
             GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-            //’x‚ê‚Ä‚à‚¤ˆêŒÂƒGƒtƒFƒNƒg‚ğ¶¬
+            //é…ã‚Œã¦ã‚‚ã†ä¸€å€‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             Invoke("DelayEffect", 0.3f);
 
             target.EnemyOnDamage(AttackPower);
 
-            //ƒAƒ^ƒbƒJ[‚ÌƒGƒtƒFƒNƒg‚ğÁ‹
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
             Destroy(effectInstance, 0.2f);
             Destroy(textEffectInstance, 4f);
         }
@@ -178,73 +178,73 @@ public class Attacker : BasePlayerStatus
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
         AttackPower = playerData.PlayerAttackPowerData;
 
-        //ƒXƒLƒ‹‚ğg‚Á‚½‚©‚Ìƒtƒ‰ƒO‚ğtrue
+        //ã‚¹ã‚­ãƒ«ã‚’ä½¿ã£ãŸã‹ã®ãƒ•ãƒ©ã‚°ã‚’true
         IsUseSkill = true;
 
-        //ƒXƒLƒ‹g—p§ŒÀƒJƒEƒ“ƒg‚ğ3ƒ^[ƒ“‚Éİ’è
+        //ã‚¹ã‚­ãƒ«ä½¿ç”¨åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã‚’3ã‚¿ãƒ¼ãƒ³ã«è¨­å®š
         SkillLimitCount = 3;
 
         IsAttackerAction = true;
     }
 
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[•KE
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼å¿…æ®º
     /// </summary>
     public override void SpecialSkill()
     {
-        // ƒŠƒXƒg targetEnemys ‚ÌÅŒã‚Ì—v‘f‚©‚ç‡‚Éˆ—‚ğs‚¤
-        // —v‘f‚ğíœ‚·‚éÛ‚ÉƒCƒ“ƒfƒbƒNƒX‚ª‚¸‚ê‚é‚Ì‚ğ–h‚®‚½‚ßŒã‚ë‚©‚çs‚¤
+        // ãƒªã‚¹ãƒˆ targetEnemys ã®æœ€å¾Œã®è¦ç´ ã‹ã‚‰é †ã«å‡¦ç†ã‚’è¡Œã†
+        // è¦ç´ ã‚’å‰Šé™¤ã™ã‚‹éš›ã«ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒãšã‚Œã‚‹ã®ã‚’é˜²ããŸã‚å¾Œã‚ã‹ã‚‰è¡Œã†
         for (int i = targetEnemys.Count - 1; i >= 0; i--)
         {
-            // Œ»İ‚Ìƒ^[ƒQƒbƒg‚Æ‚È‚é“G‚ğæ“¾
+            // ç¾åœ¨ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãªã‚‹æ•µã‚’å–å¾—
             BaseEnemyStatus enemy = targetEnemys[i];
 
-            //ƒ^[ƒQƒbƒg‚ÆƒIƒuƒWƒFƒNƒg‚ª‘¶İ‚µ‚È‚©‚Á‚½‚çˆ—‚ğƒXƒLƒbƒv
+            //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒå­˜åœ¨ã—ãªã‹ã£ãŸã‚‰å‡¦ç†ã‚’ã‚¹ã‚­ãƒƒãƒ—
             if (enemy == null && enemy.gameObject == null) continue;
 
-            //ƒAƒ^ƒbƒJ[•KEUŒ‚‰¹ºÄ¶
+            //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼å¿…æ®ºæ”»æ’ƒéŸ³å£°å†ç”Ÿ
             PlayerSE.Instance.Play_AttackerSpecialSE();
 
-            //¶¬‚µ‚½UŒ‚ƒGƒtƒFƒNƒg‚ğŠi”[‚·‚éƒŠƒXƒg
+            //ç”Ÿæˆã—ãŸæ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
             List<GameObject> specialEffects = new List<GameObject>();
 
-            //¶¬‚µ‚½ƒeƒLƒXƒgƒGƒtƒFƒNƒg‚ğŠi”[‚·‚éƒŠƒXƒg
+            //ç”Ÿæˆã—ãŸãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
             List<GameObject> textEffects = new List<GameObject>();
 
-            //ƒ^[ƒQƒbƒg‚ª¶‘¶‚µ‚Ä‚¢‚½‚çƒGƒtƒFƒNƒg‚ğ¶¬
+            //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãŒç”Ÿå­˜ã—ã¦ã„ãŸã‚‰ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             if (enemy.EnemyIsAlive)
             {
-                //UŒ‚ƒGƒtƒFƒNƒg‚Ì¶¬ˆÊ’u‚ğæ“¾
+                //æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”Ÿæˆä½ç½®ã‚’å–å¾—
                 Transform spawnPoint = GetSpawnPoint(i);
 
-                //ƒXƒ|[ƒ“ˆÊ’u‚ª‘¶İ‚·‚éê‡‚Ì‚İ¶¬
+                //ã‚¹ãƒãƒ¼ãƒ³ä½ç½®ãŒå­˜åœ¨ã™ã‚‹å ´åˆã®ã¿ç”Ÿæˆ
                 if (spawnPoint != null)
                 {
-                    //ƒGƒtƒFƒNƒg‚ğƒŠƒXƒg‚ÉŠi”[‚µ‚½ŒãƒXƒ|[ƒ“ˆÊ’u‚É¶¬
+                    //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ãƒªã‚¹ãƒˆã«æ ¼ç´ã—ãŸå¾Œã‚¹ãƒãƒ¼ãƒ³ä½ç½®ã«ç”Ÿæˆ
                     specialEffects.Add(Instantiate(attacker_SpecialEffect, spawnPoint.position, Quaternion.identity));
                     textEffects.Add(Instantiate(attacker_TextEffect, spawnPoint.position, Quaternion.identity));
                 }
 
-                //“G‚ÉUŒ‚‚ğs‚¤
+                //æ•µã«æ”»æ’ƒã‚’è¡Œã†
                 enemy.EnemyOnDamage(AttackPower);
 
-                //3•bŒã‘S‚Ä‚ÌUŒ‚ƒGƒtƒFƒNƒg‚ğÁ‹
+                //3ç§’å¾Œå…¨ã¦ã®æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
                 foreach (var effect in specialEffects)
                 {
                     Destroy(effect, 3f);
                 }
 
-                //3•bŒã‘S‚Ä‚ÌƒeƒLƒXƒgƒGƒtƒFƒNƒg‚ğÁ‹
+                //3ç§’å¾Œå…¨ã¦ã®ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
                 foreach (var textEffect in textEffects)
                 {
                     Destroy(textEffect, 3f);
                 }
             }
 
-            //•KE‚ğg—p‚µ‚½‚Ì‚Å•KEƒtƒ‰ƒO‚ğtrue
+            //å¿…æ®ºã‚’ä½¿ç”¨ã—ãŸã®ã§å¿…æ®ºãƒ•ãƒ©ã‚°ã‚’true
             IsUseSpecial = true;
 
-            //•KE‚Ì§ŒÀƒJƒEƒ“ƒg‚ğ3‚Éİ’è
+            //å¿…æ®ºã®åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã‚’3ã«è¨­å®š
             SpecialLimitCount = 3;
 
             IsAttackerAction = true;
@@ -254,18 +254,20 @@ public class Attacker : BasePlayerStatus
 
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒWˆ—
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸å‡¦ç†
     /// </summary>
-    /// <param name="damage">“G‚©‚ç‚Ìƒ_ƒ\ƒW—Êi“G‚ÌUŒ‚—Í)</param>
+    /// <param name="damage">æ•µã‹ã‚‰ã®ãƒ€ãƒ¡â€•ã‚¸é‡ï¼ˆæ•µã®æ”»æ’ƒåŠ›)</param>
     public override void PlayerOnDamage(int damage)
     {
         PlayerCurrentHP -= damage;
-@@@@PlayerHPBar.value = PlayerCurrentHP;
+ã€€ã€€ã€€ã€€  PlayerHPBar.value = PlayerCurrentHP;
 
-        //‚à‚µŒ»İ‚ÌHP‚ÆHPƒo[‚ª0‚É‚È‚Á‚½‚ç¶‘¶ƒtƒ‰ƒO‚ğfalse‚É
+        BattleTextManager.Instance.
+
+        //ã‚‚ã—ç¾åœ¨ã®HPã¨HPãƒãƒ¼ãŒ0ã«ãªã£ãŸã‚‰ç”Ÿå­˜ãƒ•ãƒ©ã‚°ã‚’falseã«
         if (PlayerCurrentHP <= 0)
         {
-            //¶‘¶ƒŠƒXƒg‚©‚ç‚±‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹
+            //ç”Ÿå­˜ãƒªã‚¹ãƒˆã‹ã‚‰ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
             BaseBattleManager.Instance.AlivePlayers.Remove(this);
 
             PlayerCurrentHP = 0;
@@ -276,14 +278,14 @@ public class Attacker : BasePlayerStatus
     }
 
     /// <summary>
-    /// ‘S‘ÌUŒ‚—pƒŠƒXƒg‚ÌÁ‹ƒƒ\ƒbƒh
+    /// å…¨ä½“æ”»æ’ƒç”¨ãƒªã‚¹ãƒˆã®æ¶ˆå»ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void RemoveDeadEnemies()
     {
-        //‘S‘ÌUŒ‚—pƒŠƒXƒg‚É“ü‚Á‚Ä‚¢‚é“G‚ğ‚PŒ¸‚ç‚·
+        //å…¨ä½“æ”»æ’ƒç”¨ãƒªã‚¹ãƒˆã«å…¥ã£ã¦ã„ã‚‹æ•µã‚’ï¼‘æ¸›ã‚‰ã™
         for (int i = targetEnemys.Count - 1; i >= 0; i--)
         {
-            // “G‚ª€‚ñ‚Å‚¢‚é‚È‚ç‘S‘ÌUŒ‚—pƒŠƒXƒg‚©‚ç“G‚ğíœ
+            // æ•µãŒæ­»ã‚“ã§ã„ã‚‹ãªã‚‰å…¨ä½“æ”»æ’ƒç”¨ãƒªã‚¹ãƒˆã‹ã‚‰æ•µã‚’å‰Šé™¤
             if (targetEnemys[i] == null || !targetEnemys[i].EnemyIsAlive)
             {
                 targetEnemys.RemoveAt(i);
@@ -292,24 +294,24 @@ public class Attacker : BasePlayerStatus
     }
 
     /// <summary>
-    /// ’x‚ê‚ÄƒGƒtƒFƒNƒg‚ğ¶¬‚·‚éƒƒ\ƒbƒh
+    /// é…ã‚Œã¦ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void DelayEffect()
     {
-        //ƒAƒ^ƒbƒJ[‚ÌƒGƒtƒFƒNƒg‚ÆƒeƒLƒXƒgƒGƒtƒFƒNƒg‚ğ’x‚ê‚Ä¶¬
+        //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã¨ãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’é…ã‚Œã¦ç”Ÿæˆ
         GameObject EffectInstance = Instantiate(attacker_NormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
         GameObject TextEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-        //’x‚ê‚ÄƒGƒtƒFƒNƒg‚ğÁ‹
+        //é…ã‚Œã¦ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
         Destroy(EffectInstance, 0.2f);
         Destroy(TextEffectInstance, 4f);
     }
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒg‚Ì¶¬ˆÊ’u‚ğæ“¾‚·‚éƒƒ\ƒbƒh
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”Ÿæˆä½ç½®ã‚’å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="index">ƒGƒtƒFƒNƒg‚ğ¶¬‚·‚éƒCƒ“ƒfƒbƒNƒX</param>
-    /// <returns>‘Î‰‚·‚éƒXƒ|[ƒ“ƒ|ƒCƒ“ƒg‚ÌTransformB”ÍˆÍŠO‚Ìê‡‚Ínull‚ğ•Ô‚·B</returns>
+    /// <param name="index">ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹</param>
+    /// <returns>å¯¾å¿œã™ã‚‹ã‚¹ãƒãƒ¼ãƒ³ãƒã‚¤ãƒ³ãƒˆã®Transformã€‚ç¯„å›²å¤–ã®å ´åˆã¯nullã‚’è¿”ã™ã€‚</returns>
     private Transform GetSpawnPoint(int index)
     {
         switch (index)
@@ -325,7 +327,7 @@ public class Attacker : BasePlayerStatus
     }
 
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[‚ÌƒŒƒxƒ‹ƒAƒbƒvƒƒ\ƒbƒh
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public override void LevelUP()
     {
