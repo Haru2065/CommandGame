@@ -262,7 +262,9 @@ public class Attacker : BasePlayerStatus
         PlayerCurrentHP -= damage;
 　　　　  PlayerHPBar.value = PlayerCurrentHP;
 
-        BattleActionTextManager.Instance.ShowBattleActionText(″DragonNormalAttack“)；
+        BattleActionTextManager.Instance.ShowBattleActionText("DamageAttacker")；
+
+        StartCorutine(BaseBattleManager.Instance.TextHide)；
 
         //もし現在のHPとHPバーが0になったら生存フラグをfalseに
         if (PlayerCurrentHP <= 0)
