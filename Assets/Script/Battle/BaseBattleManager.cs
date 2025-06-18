@@ -206,6 +206,13 @@ public abstract class BaseBattleManager : MonoBehaviour
                 UIManager.Instance.HidePauseMode();
             }
         }
+
+        // ゲーム終了
+        if (pushExitButton.IsQuitGame)
+        {
+            cts.Cancel();
+            cts.Dispose();
+        }
     }
 
     /// <summary>
@@ -218,7 +225,7 @@ public abstract class BaseBattleManager : MonoBehaviour
     /// <param name="specialKey">必殺キー</param>
     /// <param name="token">キャンセルできる処理</param>
     /// <returns>プレイヤーが行動するまで処理を待つ</returns>
-    protected abstract UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token);
+    protected abstract UniTask PlayerTurnAction(BasePlayerStatus player, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token);
 
     /// <summary>
     /// 遅れてクリアUI表示とデータ保存するメソッド

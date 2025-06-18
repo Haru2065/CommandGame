@@ -26,10 +26,10 @@ public class Stage1BattleSystem : BaseBattleManager
     // Start is called before the first frame update
     protected override async void Start()
     {
+        //ベースのバトルマネージャーから共通の初期化処理を行う
         base.Start();
 
-        canPoseMode = false;
-
+        //キャンセルトークンソースを生成
         cts = new CancellationTokenSource();        
 
         // ステージのセーブデータを読み込む
@@ -49,9 +49,16 @@ public class Stage1BattleSystem : BaseBattleManager
             IsUnlockStage2 = false;
         }
 
+        //最初の敵にターゲットを設定
         PlayerTargetSelect.Instance.SetStartBattleTarget();
 
+        //ポーズ画面は開けない状態にする
         canPoseMode = false;
+
+        //アタッカー、バッファー、ヒーラーが必殺を使える状態にする
+        attacker.IsUseSpecial = false;
+        buffer.IsUseSpecial = false;
+        healer.IsUseSpecial = false;
 
         //バトルループ開始
         await BattleLoop(cts.Token);
@@ -59,6 +66,7 @@ public class Stage1BattleSystem : BaseBattleManager
 
     protected override void Update()
     {
+        //ポーズ画面の処理
         base.Update();
 
         // もし終了ボタンが押されたら安全に終了するためにキャンセル処理を行う
@@ -120,7 +128,7 @@ public class Stage1BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //アタッカーターン開始(キャンセルできる処理)
-                    await PlayerTurnAction(attacker, "AttackeroffDebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(attacker, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -152,7 +160,7 @@ public class Stage1BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //バッファーのターン開始(キャンセルできる処理)
-                    await PlayerTurnAction(buffer, "BufferOffDebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(buffer, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -183,7 +191,7 @@ public class Stage1BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //ヒーラーのターン開始(キャンセルできる処理）
-                    await PlayerTurnAction(healer, "HealerOffdebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(healer, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -228,7 +236,7 @@ public class Stage1BattleSystem : BaseBattleManager
     /// <param name="specialKey">必殺キー</param>
     /// <param name="token">キャンセルできる処理</param>
     /// <returns>プレイヤーが行動するまで処理を待つ</returns>
-    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
+    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
     {
         //プレイヤーの行動フラグがtrueになるまでループし続ける
         while (!player.IsPlayerAction)
@@ -259,20 +267,9 @@ public class Stage1BattleSystem : BaseBattleManager
             }
             else if (Input.GetKeyDown(specialKey))
             {
-                if (!player.IsUseSpecial)
-                {
                     //必殺制限フラグがfalseならスペシャルを実行
                     player.SpecialSkill();
                     break;
-                }
-                else
-                {
-                    //JSONファイルから必殺使用不可通知表示
-                    BattleActionTextManager.Instance.ShowBattleActionText("Can't_UseSpecial");
-
-                    //必殺使用不可UIを非表示にするコールチン
-                    StartCoroutine(HidePlayerActionText());
-                }
             }
         }
 

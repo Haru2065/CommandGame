@@ -48,8 +48,6 @@ public class Stage2BattleSystem : BaseBattleManager
 
         canPoseMode = false;
 
-
-
         //バトルループ開始
         //キャンセルトークンを渡す
         await BattleLoop(cts.Token);
@@ -134,7 +132,7 @@ public class Stage2BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //アタッカーターン開始
-                    await PlayerTurnAction(attacker, "AttackerOffDeBuff", KeyCode.A,KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(attacker, KeyCode.A,KeyCode.S, KeyCode.F, token);
 
                     //デバフが付与されているかチェック
                     statusDebuffCheck(attacker,"AttackerOffDebuff");
@@ -169,7 +167,7 @@ public class Stage2BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //バッファーのターン開始
-                    await PlayerTurnAction(buffer, "BufferOffDebuffText", KeyCode.A, KeyCode.S, KeyCode.F,token);
+                    await PlayerTurnAction(buffer, KeyCode.A, KeyCode.S, KeyCode.F,token);
 
                     //デバフが付与されているかチェック
                     statusDebuffCheck(attacker, "AttackerOffDebuff");
@@ -203,7 +201,7 @@ public class Stage2BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //ヒーラーのターン開始
-                    await PlayerTurnAction(healer, "HealerOffDebuffText", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(healer, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
@@ -249,7 +247,7 @@ public class Stage2BattleSystem : BaseBattleManager
     /// <param name="specialKey">必殺キー</param>
     /// <param name="token">キャンセルできる処理</param>
     /// <returns>プレイヤーが行動するまで処理を待つ</returns>
-    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
+    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
     {
         //スキン制限中ならUIを表示にして制限カウントを減らす
         if (player.IsUseSkill)
@@ -273,7 +271,7 @@ public class Stage2BattleSystem : BaseBattleManager
             else
             {
                 //スキル制限カウント数を表示
-                skillLimitCountUGUI.text = $"{attacker.SkillLimitCount}";
+                skillLimitCountUGUI.text = $"{"{" + player.SkillLimitCount + "}" }";
             }
         }
 
@@ -297,7 +295,6 @@ public class Stage2BattleSystem : BaseBattleManager
             else
             {
                 specialLimitCountUGUI.text = $"({player.SpecialLimitCount})";
-
             }
         }
 

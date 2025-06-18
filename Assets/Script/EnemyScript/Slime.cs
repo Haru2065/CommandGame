@@ -99,38 +99,15 @@ public class Slime : BaseEnemyStatus
 
             Debug.Log(target.PlayerID + "に攻撃");
 
+            //ターゲットの位置にエフェクトを生成
+            GameObject effectInstance = Instantiate(OnlyAttackEffect, target.transform.position, Quaternion.identity);
+
             target.PlayerOnDamage(EnemyAttackPower);
 
-            // ターゲットの種類に応じて、適切なバトルアクションテキストを表示する
-            switch (target)
-            {
-                // ターゲットが Attacker の場合
-                case var _ when target == Attacker:
-                    
-                    //ダメージを受けたことを示すテキストを表示
-                    BattleActionTextManager.Instance.ShowBattleActionText("DamageAttacker");
+            //2フレーム後エフェクトを消去
+            Destroy(effectInstance, 2f);
 
-                    // 一定時間後に敵のアクションテキストを非表示にする
-                    StartCoroutine(HideEnemyActionText());
-                    break;
-
-                // ターゲットが Buffer の場合
-                case var _ when target == Buffer:
-
-                    BattleActionTextManager.Instance.ShowBattleActionText("DamageBuffer");
-
-                    StartCoroutine(HideEnemyActionText());
-                    break;
-
-                // ターゲットが Healer の場合
-                case var _ when target == Healer:
-
-                    BattleActionTextManager.Instance.ShowBattleActionText("DamageHealer");
-
-                    StartCoroutine(HideEnemyActionText());
-
-                    break;
-            }
+            //設定したターゲットを返す
             return target;
         }
         else

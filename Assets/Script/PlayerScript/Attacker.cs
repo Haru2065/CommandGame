@@ -113,6 +113,12 @@ public class Attacker : BasePlayerStatus
         }
     }
 
+    protected override void Update()
+    {
+        //プレイヤーキャラのHP数表示
+        PlayerHPUGUI.text = $"{PlayerCurrentHP}/ {PlayerMaxHP}";
+    }
+
     /// <summary>
     /// 通常攻撃
     /// </summary>
@@ -184,7 +190,9 @@ public class Attacker : BasePlayerStatus
         //スキル使用制限カウントを3ターンに設定
         SkillLimitCount = 3;
 
+        //アタッカーの行動フラグをtrue
         IsAttackerAction = true;
+        IsPlayerAction = true;
     }
 
     /// <summary>
@@ -247,7 +255,9 @@ public class Attacker : BasePlayerStatus
             //必殺の制限カウントを3に設定
             SpecialLimitCount = 3;
 
+            //アタッカーの行動フラグをtrue
             IsAttackerAction = true;
+            IsPlayerAction = true;
         }
     }
 
@@ -260,11 +270,7 @@ public class Attacker : BasePlayerStatus
     public override void PlayerOnDamage(int damage)
     {
         PlayerCurrentHP -= damage;
-　　　　  PlayerHPBar.value = PlayerCurrentHP;
-
-        BattleActionTextManager.Instance.ShowBattleActionText("DamageAttacker")；
-
-        StartCorutine(BaseBattleManager.Instance.TextHide)；
+　　　　PlayerHPBar.value = PlayerCurrentHP;
 
         //もし現在のHPとHPバーが0になったら生存フラグをfalseに
         if (PlayerCurrentHP <= 0)

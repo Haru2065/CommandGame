@@ -19,6 +19,8 @@ public class Skeleton : BaseEnemyStatus
     [Tooltip("スケルトンのHPバー")]
     public Slider SkeltonHPBar;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -100,13 +102,18 @@ public class Skeleton : BaseEnemyStatus
             //リストの中にあるプレイヤーキャラを選択してターゲットに設定
             BasePlayerStatus target = TargetAlivePlayers[UnityEngine.Random.Range(0, TargetAlivePlayers.Count)];
 
+            //ターゲットの位置にエフェクトを生成
+            GameObject effectInstance = Instantiate(OnlyAttackEffect, target.transform.position, Quaternion.identity);
+
             target.PlayerOnDamage(EnemyAttackPower);
+
+            Destroy(effectInstance, 2f);
 
             switch (target)
             {
                 case var _ when target == Attacker:
 
-                    BattleActionTextManager.Instance.ShowBattleActionText("DamageAttacker");
+                    StartCoroutine(ShowEnemyActionText("DamageAttacker"));
 
                     StartCoroutine(HideEnemyActionText());
 
@@ -114,7 +121,7 @@ public class Skeleton : BaseEnemyStatus
 
                 case var _ when target == Buffer:
 
-                    BattleActionTextManager.Instance.ShowBattleActionText("DamageBuffer");
+                    StartCoroutine(ShowEnemyActionText("DamageBuffer"));
 
                     StartCoroutine(HideEnemyActionText());
 
@@ -122,7 +129,7 @@ public class Skeleton : BaseEnemyStatus
 
                 case var _ when target == Healer:
 
-                    BattleActionTextManager.Instance.ShowBattleActionText("DamageHealer");
+                    StartCoroutine(ShowEnemyActionText("DamageHealer"));
 
                     StartCoroutine(HideEnemyActionText());
 
@@ -154,7 +161,7 @@ public class Skeleton : BaseEnemyStatus
                     case var _ when target == Attacker:
 
                         //JSONアタッカーのデバフ付与通知表示
-                        BattleActionTextManager.Instance.ShowBattleActionText("AttackerOnDebuff");
+                        StartCoroutine(ShowEnemyActionText("AttackerOnDebuff"));
 
                         //行動通知UIを非表示
                         StartCoroutine(HideEnemyActionText());
@@ -164,7 +171,7 @@ public class Skeleton : BaseEnemyStatus
                     case var _ when target == Buffer:
 
                         //JSONバッファーのデバフ付与通知表示
-                        BattleActionTextManager.Instance.ShowBattleActionText("BufferOnDebuff");
+                        StartCoroutine(ShowEnemyActionText("BufferOnDebuff"));
 
                         //行動通知UIを非表示
                         StartCoroutine(HideEnemyActionText());
@@ -174,7 +181,7 @@ public class Skeleton : BaseEnemyStatus
                     case var _ when target == Healer:
 
                         //JSONヒーラーのデバフ付与通知表示
-                        BattleActionTextManager.Instance.ShowBattleActionText("HealerOnDebuff");
+                        StartCoroutine(ShowEnemyActionText("HealerOnDebuff"));
 
                         //行動通知UIを非表示
                         StartCoroutine(HideEnemyActionText());
@@ -209,7 +216,7 @@ public class Skeleton : BaseEnemyStatus
                     case var _ when target == Attacker:
 
                         //ダメージを受けたことを示すテキストを表示
-                        BattleActionTextManager.Instance.ShowBattleActionText("AttackerOnSpecialDebuff");
+                        StartCoroutine(ShowEnemyActionText("AttackerOnSpecialDebuff"));
 
                         // 一定時間後に敵のアクションテキストを非表示にする
                         StartCoroutine(HideEnemyActionText());
@@ -218,7 +225,7 @@ public class Skeleton : BaseEnemyStatus
                     // ターゲットが Attacker の場合
                     case var _ when target == Buffer:
 
-                        BattleActionTextManager.Instance.ShowBattleActionText("BufferOnSpecialDebuff");
+                        StartCoroutine(ShowEnemyActionText("BufferOnSpecialDebuff"));
 
                         StartCoroutine(HideEnemyActionText());
                         break;
@@ -226,7 +233,7 @@ public class Skeleton : BaseEnemyStatus
                     // ターゲットが Attacker の場合
                     case var _ when target == Healer:
 
-                        BattleActionTextManager.Instance.ShowBattleActionText("HealerOnSpecialDebuff");
+                        StartCoroutine(ShowEnemyActionText("HealerOnSpecialDebuff"));
 
                         StartCoroutine(HideEnemyActionText());
                         break;

@@ -167,7 +167,14 @@ public class Stage3BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //アタッカーターン開始(キャンセルできる処理)
-                    await PlayerTurnAction(attacker, "AttackeroffDebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(attacker, KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    
+                    //もしアタッカーにHPデバフが付与されていたらダメージを減らし、デバフカウントも減らす
+                    if (attacker.IsHPDebuff)
+                    {
+                        //アタッカーのデバフ処理（デバフ解除されたら、デバフ解除通知を表示）
+                        await HPDebuff(attacker, "AttackerOffDebuff", token);
+                    }
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -199,7 +206,14 @@ public class Stage3BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //バッファーのターン開始(キャンセルできる処理)
-                    await PlayerTurnAction(buffer, "BufferOffDebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(buffer, KeyCode.A, KeyCode.S, KeyCode.F, token);
+
+                    //もしバッファーにHPデバフが付与されていたらダメージを減らし、デバフカウントも減らす
+                    if (buffer.IsHPDebuff)
+                    {
+                        //バッファーのデバフ処理（デバフ解除されたら、デバフ解除通知を表示）
+                        await HPDebuff(buffer, "BufferOffDebuff", token);
+                    }
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
                     if (GameClearCheck())
@@ -230,13 +244,13 @@ public class Stage3BattleSystem : BaseBattleManager
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
                     //ヒーラーのターン開始(キャンセルできる処理）
-                    await PlayerTurnAction(healer, "HealerOffdebuff", KeyCode.A, KeyCode.S, KeyCode.F, token);
+                    await PlayerTurnAction(healer, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
                     //もしヒーラーにHPデバフが付与されていたらダメージを減らし、デバフカウントも減らす
                     if (healer.IsHPDebuff)
                     {
                         //ヒーラーのデバフ処理（デバフ解除されたら、デバフ解除通知を表示）
-                        await HPDebuff(buffer, "BufferOffDebuff", token);
+                        await HPDebuff(healer, "HealerOffDebuff", token);
                     }
 
                     //敵の生存状況を確認（生存リストが空ならループを止める）
@@ -282,7 +296,7 @@ public class Stage3BattleSystem : BaseBattleManager
     /// <param name="specialKey">必殺キー</param>
     /// <param name="token">キャンセルできる処理</param>
     /// <returns>プレイヤーが行動するまで処理を待つ</returns>
-    protected override async UniTask PlayerTurnAction(BasePlayerStatus player, string offDebuffTextID, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
+    protected override async UniTask PlayerTurnAction(BasePlayerStatus player,KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
     {
         //必殺制限中ならUIを表示して制限カウントを減らす
         if (player.IsUseSpecial)
@@ -364,11 +378,11 @@ public class Stage3BattleSystem : BaseBattleManager
         //1フレーム待つ(キャンセルできる処理）
         await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-        //デバフが付与されていたらHPを減らす
-        if(player.IsDebuff)
-        {
-            await HPDebuff(player, offDebuffTextID, token);
-        }
+        ////デバフが付与されていたらHPを減らす
+        //if(player.IsDebuff)
+        //{
+        //    await HPDebuff(player, offDebuffTextID, token);
+        //}
 
         //TryCatchを使いエラーを防ぐ
         try
@@ -402,6 +416,9 @@ public class Stage3BattleSystem : BaseBattleManager
         await DragonTurn(token);
 
         if (GameOverCheck()) return;
+
+        //1フレーム待つ
+        await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay));
 
         IsPlayerTurn = true;
     }

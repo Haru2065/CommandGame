@@ -78,6 +78,12 @@ public class Healer : BasePlayerStatus
         SpecialDebuffCount = 0;
     }
 
+    protected override void Update()
+    {
+        //プレイヤーキャラのHP数表示
+        PlayerHPUGUI.text = $"{PlayerCurrentHP}/ {PlayerMaxHP}";
+    }
+
     /// <summary>
     /// プレイヤーの行動終了したか（ヒーラーが行動したか）のフラグをリセットにするメソッド
     /// </summary>
@@ -319,7 +325,10 @@ public class Healer : BasePlayerStatus
 
         //必殺制限カウントを6ターンに設定
         SpecialLimitCount = 6;
+
+        //ヒーラーの行動フラグをtrue
         IsHealerAction = true;
+        IsPlayerAction = true;
     }
 
     /// <summary>
@@ -340,13 +349,15 @@ public class Healer : BasePlayerStatus
         //選択したターゲットに回復
         target.PlayerCurrentHP += healPower;
 
-        //Debug.Log(target.PlayerCurrentHP);
-
         //最大体力を超えないようにする
         if (target.PlayerCurrentHP > target.PlayerMaxHP)
         {
             target.PlayerCurrentHP = target.PlayerMaxHP;
+
         }
+
+        //回復対象者のHPUIも更新
+        target.PlayerHPUGUI.text = $"{target.PlayerCurrentHP}/ {target.PlayerMaxHP}";
 
         //HPバーを更新
         target.PlayerHPBar.value = target.PlayerCurrentHP;
@@ -356,7 +367,9 @@ public class Healer : BasePlayerStatus
         //スキル制限カウントを５ターンに設定
         SkillLimitCount = 5;
 
+        //ヒーラーの行動フラグをtrue
         IsHealerAction = true;
+        IsPlayerAction = true;
     }
 
     /// <summary>

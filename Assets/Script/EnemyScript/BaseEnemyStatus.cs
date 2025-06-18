@@ -105,6 +105,17 @@ public abstract class BaseEnemyStatus : MonoBehaviour
         set => enemyID = value;
     }
 
+    [SerializeField]
+    [Tooltip("ドラゴンの単体攻撃エフェクト")]
+    private GameObject onlyAttackEffect;
+
+    public GameObject OnlyAttackEffect
+    {
+        get => onlyAttackEffect;
+        set => onlyAttackEffect = value;
+    }
+
+
     //生存しているキャラを初期時に設定するリスト
     public List<BasePlayerStatus> StartAlivePlayers;
 
@@ -138,6 +149,15 @@ public abstract class BaseEnemyStatus : MonoBehaviour
         }
     }
 
+    protected IEnumerator ShowEnemyActionText(string EnemyActiuon)
+    {
+        yield return new WaitForSeconds(1f);
+
+        BattleActionTextManager.Instance.ShowBattleActionText(EnemyActiuon);
+
+        yield return null;
+    }
+
     /// <summary>
     /// スケルトンのデバフ通知を非表示にするコールチン
     /// </summary>
@@ -145,7 +165,7 @@ public abstract class BaseEnemyStatus : MonoBehaviour
     protected IEnumerator HideEnemyActionText()
     {
         //2フレーム待つ
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         
         //テキストウィンドウを非表示
         BattleActionTextManager.Instance.TextDelayHide();
@@ -195,5 +215,9 @@ public abstract class BaseEnemyStatus : MonoBehaviour
     /// </summary>
     protected abstract void SetEnemyParameters();
 
+    /// <summary>
+    /// 敵を消去するコールチン
+    /// </summary>
+    /// <returns>1フレーム待つ</returns>
     protected abstract IEnumerator DestroyObject();
 }

@@ -71,6 +71,12 @@ public class Buffer : BasePlayerStatus
         IsSpecialDebuff = false;
     }
 
+    protected override void Update()
+    {
+        //プレイヤーキャラのHP数表示
+        PlayerHPUGUI.text = $"{PlayerCurrentHP}/ {PlayerMaxHP}";
+    }
+
     /// <summary>
     /// プレイヤーの行動終了したか（バッファーが行動したか）のフラグをリセットにするメソッド
     /// </summary>
@@ -323,7 +329,10 @@ public class Buffer : BasePlayerStatus
             }
         }
         IsUseSpecial = true;
+
+        //バッファーの行動フラグをtrue
         IsBufferAction = true;
+        IsPlayerAction = true;
 
         //必殺制限カウントを６に設定
         SpecialLimitCount = 6;
@@ -350,13 +359,15 @@ public class Buffer : BasePlayerStatus
         //バフ力をターゲットの攻撃力を加算
         target.AttackPower += buffPower;
 
-        Debug.LogWarning(target.PlayerID + "の攻撃力" + target.AttackPower);
+        Debug.LogWarning($"{target.PlayerID} バフ後の攻撃力: {target.AttackPower} (InstanceID: {target.GetInstanceID()})");
 
         //エフェクトを消去
         Destroy(effectInstance, 3f);
 
         //バッファーが行動したのでtrueに
         IsBufferAction = true;
+
+        IsPlayerAction = true;
 
         //バッファーのターンが終了したらスキル制限と必殺制限カウントのUIを非表示
         if (IsBufferAction)

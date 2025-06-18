@@ -3195,7 +3195,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -468601484125067301, guid: be73c701dfac3f24494811ba23673e74, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -4649,6 +4649,7 @@ MonoBehaviour:
   healer: {fileID: 1681756801}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
   enemyID: Skelton
+  onlyAttackEffect: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
   StartAlivePlayers:
   - {fileID: 1311294519}
   - {fileID: 728548674}
@@ -5224,6 +5225,7 @@ MonoBehaviour:
   playerHPBar: {fileID: 2060252900}
   playerEffect_SpawnPoint: {fileID: 1305966732}
   playerTextEfferct_SpawnPoint: {fileID: 1189835325}
+  playerHPUGUI: {fileID: 1057810691}
   bufferTargetWindow: {fileID: 1886318415}
   attacker: {fileID: 1311294519}
   healer: {fileID: 1681756801}
@@ -5277,7 +5279,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: 6219682109667405611, guid: 6e571eb64e868eb40bb24579dcf7bc47, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -6677,6 +6679,7 @@ MonoBehaviour:
   healer: {fileID: 1681756801}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
   enemyID: Skelton
+  onlyAttackEffect: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
   StartAlivePlayers:
   - {fileID: 1311294519}
   - {fileID: 728548674}
@@ -9378,6 +9381,7 @@ MonoBehaviour:
   healer: {fileID: 1681756801}
   enemyDataBase: {fileID: 11400000, guid: e8b842c026634d043bc174581a5231bb, type: 2}
   enemyID: Skelton
+  onlyAttackEffect: {fileID: 8525990746615576120, guid: b85d21f3b8fed714bacf0c4fd50fa512, type: 3}
   StartAlivePlayers:
   - {fileID: 1311294519}
   - {fileID: 728548674}
@@ -9582,6 +9586,7 @@ MonoBehaviour:
   playerHPBar: {fileID: 861148373}
   playerEffect_SpawnPoint: {fileID: 1305966732}
   playerTextEfferct_SpawnPoint: {fileID: 1189835325}
+  playerHPUGUI: {fileID: 1242208227}
   IsAttackerAction: 0
   targetEnemys:
   - {fileID: 1278360431}
@@ -9635,7 +9640,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -374350562512408893, guid: cfe6b2ce1f54cad4aa037acda113c8f8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -10521,9 +10526,6 @@ MonoBehaviour:
   attacker: {fileID: 1311294519}
   buffer: {fileID: 728548674}
   healer: {fileID: 1681756801}
-  attackerHPUGUI: {fileID: 1242208227}
-  bufferHPUGUI: {fileID: 1057810691}
-  healerHPUGUI: {fileID: 1428311502}
 --- !u!1 &1531251777
 GameObject:
   m_ObjectHideFlags: 0
@@ -11866,6 +11868,7 @@ MonoBehaviour:
   playerHPBar: {fileID: 1626747699}
   playerEffect_SpawnPoint: {fileID: 1305966732}
   playerTextEfferct_SpawnPoint: {fileID: 1189835325}
+  playerHPUGUI: {fileID: 1428311502}
   healTargetWindow: {fileID: 1011525504}
   attacker: {fileID: 1311294519}
   buffer: {fileID: 728548674}
@@ -11918,7 +11921,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 0
   m_Sprite: {fileID: -6588796887137209440, guid: 4c2fb90c6b030be43bf82966fc4c5836, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

@@ -32,9 +32,7 @@ public class Dragon : BaseEnemyStatus
         set => hpDebuffPower = value;
     }
 
-    [SerializeField]
-    [Tooltip("ドラゴンの単体攻撃エフェクト")]
-    private GameObject onleyAttackEffect;
+    
 
     [SerializeField]
     [Tooltip("ドラゴンのブレス攻撃のエフェクト")]
@@ -105,33 +103,32 @@ public class Dragon : BaseEnemyStatus
         {
             //パターン1ランダムに敵に攻撃を行う
             case 0:
-                
+
                 //ドラゴンの攻撃通知を表示(単体攻撃)
-                BattleActionTextManager.Instance.ShowBattleActionText(″DragonNormalAttack“)；
-                
-                //1フレーム待つ
-                await UniTask.Delay(TimeSpan.FromSeconds(1f)；
-                
+                BattleActionTextManager.Instance.ShowBattleActionText("DragonNormalAttack");
+
                 //ドラゴンの行動通知非表示
-                StartCoroutine(BaseBattleManager.Instance.HidePlayerActionText());
+                StartCoroutine(HideEnemyActionText());
+
+                await UniTask.Delay(TimeSpan.FromSeconds(1f));
 
                 //プレイヤーにランダムで選択して攻撃
                 RandomSelect();
                 break;
-            
+
             //パターン2ブレス攻撃全体攻撃
             case 1:
 
-                 //ドラゴンの攻撃通知を表示(通常全体攻撃)
-                 BattleActionTextManager.Instance.ShowBattleActionText("DragonAreaAttack")；
-                
-                 //1フレーム待つ
-                 await UniTask.Delay(TimeSpan.FromSeconds(1f)；
+                //ドラゴンの攻撃通知を表示(通常全体攻撃)
+                BattleActionTextManager.Instance.ShowBattleActionText("DragonAreaAttack");
 
-                 //ドラゴンの行動通知非表示
-                 StartCoroutine(BaseBattleManager.Instance.HidePlayerActionText());
+                //ドラゴンの行動通知非表示
+                StartCoroutine(HideEnemyActionText());
 
-                 BreathAllAttack(playerParty);
+                //1フレーム待つ
+                await UniTask.Delay(TimeSpan.FromSeconds(1f));
+
+                BreathAllAttack(playerParty);
 
                 //2フレーム待つ
                 await UniTask.Delay(TimeSpan.FromSeconds(2f));
@@ -139,15 +136,14 @@ public class Dragon : BaseEnemyStatus
 
             //パターン3必殺攻撃プレイヤーに全体攻撃+ダメージデバフ付与
             case 2:
-                 
+
                 //ドラゴンの攻撃通知を表示(単体攻撃)
-                BattleActionTextManager.Instance.ShowBattleActionText(″DragonNormalAttack“)；
-                
-                //1フレーム待つ
-                await UniTask.Delay(TimeSpan.FromSeconds(1f)；
+                BattleActionTextManager.Instance.ShowBattleActionText("DragonSpecialAttack");
 
                 //ドラゴンの行動通知非表示
-                StartCoroutine(BaseBattleManager.Instance.HidePlayerActionText());
+                StartCoroutine(HideEnemyActionText());
+
+
 
                 SpecialAllAttack(playerParty);
 
@@ -200,19 +196,32 @@ public class Dragon : BaseEnemyStatus
         //ドラゴンの単体攻撃音を再生
         EnemySE.Instance.Play_DragonSingleAttackSE();
 
-        //ベースのランダムセレクトメソッドを実行
-        BasePlayerStatus target = base.RandomSelect();
+        //一度生存しているキャラのみでリストを整理する
+        List<BasePlayerStatus> TargetAlivePlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
-        //攻撃対象に単体攻撃エフェクトを生成
-        if (target != null)
+        //リストにキャラがいれば実行
+        if (TargetAlivePlayers.Count > 0)
         {
-            GameObject effectInstance = Instantiate(onleyAttackEffect,target.transform.position, Quaternion.identity);
+            //リストの中にあるプレイヤーキャラを選択してターゲットに設定
+            BasePlayerStatus target = TargetAlivePlayers[UnityEngine.Random.Range(0, TargetAlivePlayers.Count)];
+
+            Debug.Log(target.PlayerID + "に攻撃");
+
+            //ターゲットの位置にエフェクトを生成
+            GameObject effectInstance = Instantiate(OnlyAttackEffect, target.transform.position, Quaternion.identity);
+
+            target.PlayerOnDamage(EnemyAttackPower);
 
             //2フレーム後エフェクトを消去
             Destroy(effectInstance, 2f);
-        }
 
-        return target;
+            return target;
+        }
+        else
+        {
+            Debug.Log("攻撃対象がいません");
+            return null;
+        }
     }
 
     /// <summary>
@@ -225,10 +234,10 @@ public class Dragon : BaseEnemyStatus
         EnemySE.Instance.Play_DragonBreathSE();
 
         //通常全体攻撃のエフェクトを生成
-        GameObject effectInstance = Instantiate(breathEffect,dragonEffectSpawnPoint.position, Quaternion.Euler(0f,0f,-160f));
+        GameObject effectInstance = Instantiate(breathEffect, dragonEffectSpawnPoint.position, Quaternion.Euler(0f, 0f, -160f));
 
         //2フレーム後エフェクトを消去
-        Destroy(effectInstance,2f);
+        Destroy(effectInstance, 2f);
 
         //対象のプレイヤーが生存していたら、リストにいれる（生存者を取得)
         List<BasePlayerStatus> attackTargetPlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
@@ -298,7 +307,7 @@ public class Dragon : BaseEnemyStatus
         enemyHPUGUI.text = $"{EnemyCurrentHP} / {EnemyMaxHP}";
 
         //ドラゴンが生存していなかったら現在のHPは0
-        if(!EnemyIsAlive)
+        if (!EnemyIsAlive)
         {
             EnemyCurrentHP = 0;
         }
@@ -322,7 +331,7 @@ public class Dragon : BaseEnemyStatus
             EnemyIsAlive = false;
 
             //生存リストと初期ターゲットを設定するリストの消去
-            Stage2BattleSystem.Instance.aliveEnemies.Remove(this);
+            Stage3BattleSystem.Instance.aliveEnemies.Remove(this);
             PlayerTargetSelect.Instance.RemoveSetTarget(this);
 
             //アタッカーの全体攻撃のリストから削除

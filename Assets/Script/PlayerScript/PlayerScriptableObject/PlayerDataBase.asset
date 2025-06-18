@@ -18,16 +18,13 @@ MonoBehaviour:
     PlayerAttackPowerData: 200
     BuffPowerData: 0
     HealPowerData: 0
-    DebuffPowerData: 0
   - PlayerNameData: Buffer
     PlayerMaxHPData: 1600
     PlayerAttackPowerData: 150
     BuffPowerData: 50
     HealPowerData: 0
-    DebuffPowerData: 0
   - PlayerNameData: Healer
     PlayerMaxHPData: 1600
     PlayerAttackPowerData: 150
     BuffPowerData: 0
-    HealPowerData: 50
-    DebuffPowerData: 0
+    HealPowerData: 150

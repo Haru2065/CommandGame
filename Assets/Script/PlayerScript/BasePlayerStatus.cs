@@ -1,8 +1,8 @@
-using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.IO;
-using System.Threading;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -268,6 +268,19 @@ public abstract class BasePlayerStatus : MonoBehaviour
         get => playerEffect_SpawnPoint;
     }
 
+    [SerializeField]
+    [Tooltip("プレイヤーのHPのUI")]
+    private TextMeshProUGUI playerHPUGUI;
+
+    /// <summary>
+    /// プレイヤーのHPのUIのゲッターセッター
+    /// </summary>
+    public TextMeshProUGUI PlayerHPUGUI
+    {
+        get => playerHPUGUI;
+        set => playerHPUGUI = value;
+    }
+
     //プレイヤーのレベル
     private int level = 0; 
 
@@ -279,6 +292,9 @@ public abstract class BasePlayerStatus : MonoBehaviour
         get => level;
         set => level = value;
     }
+
+    // Update is called once per frame
+    protected abstract void Update();
 
     /// <summary>
     /// 状況テキストを非表示にするコールチン
@@ -297,21 +313,24 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// 
+    /// セーブデータがあればセーブしたプレイヤーデータからステータスを読み込む
     /// </summary>
     protected virtual void Start()
     {
+        //プレイヤーIDのセーブデータを取得
         string path = Application.persistentDataPath + $"/{PlayerID}_save.Json";
 
+        //セーブデータがあれば読み、C#に変換した後、ステータスロード処理開始
         if(File.Exists(path))
         {
             string json = File.ReadAllText(path);
             PlayerSaveData saveData = JsonConvert.DeserializeObject<PlayerSaveData>(json);
+            
+            //セーブデータからステータスを読み込む
             ApplySaveData(saveData);
-            
-            
-
         }
+
+        //セーブデータがなければスクリプタブルオブジェクトからロード
         else
         {
             SetPlayerParameters();
@@ -329,15 +348,18 @@ public abstract class BasePlayerStatus : MonoBehaviour
     /// <param name="data">パラメータの保存データ</param>
     private void ApplySaveData(PlayerSaveData data)
     {
+        //プレイヤーセーブデータに保存されているレベル、攻撃力、最大体力を読み込み
         level = data.level_SaveData;
         AttackPower = data.attackPower_SaveData;
         playerMaxHP = data.playerMaxHP_SaveData;
         playerCurrentHP = playerMaxHP;
 
+        //HPBarも最大に設定
         playerHPBar.maxValue = playerCurrentHP;
         playerHPBar.value = playerCurrentHP;
         playerHPBar.minValue = 0;
 
+        //リセット用攻撃力もセーブデータから読み込んで設定
         playerResetAttackPower = data.attackPower_SaveData;
     }
 
@@ -355,6 +377,7 @@ public abstract class BasePlayerStatus : MonoBehaviour
         level++;;
 
     }
+    
 
     /// <summary>
     /// プレイヤーのダメージメソッド
