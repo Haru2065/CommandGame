@@ -5,7 +5,7 @@ using UnityEngine;
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    //UIマネージャーのインスタンス化用
+    // UIマネージャーのシングルトンインスタンス
     private static UIManager instance;
 
     /// <summary>
@@ -193,11 +193,11 @@ public class UIManager : MonoBehaviour
         playerTurnUI.SetActive(false);
         enemyTurnUI.SetActive(false);
 
-        //クリアとゲームオーバーUIを非表示で初期化
+        // クリアUIとゲームオーバーUIを非表示で初期化
         gameClearUI.SetActive(false);
         gameOverUI.SetActive(false);
 
-        //再挑戦と終了ボタンとタイトルボタンとステージセレクトボタンを非表示で初期化
+        // 再挑戦ボタン、終了ボタン、タイトルボタン、ステージセレクトボタンを全て非表示で初期化
         exitButton.SetActive(false);
         reTryButton.SetActive(false);
         titleButton.SetActive(false);

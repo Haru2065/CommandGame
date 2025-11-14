@@ -87,7 +87,7 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => hasBuff = value;
     }
 
-    //デバフ状態か
+    // デバフ効果（攻撃力低下など）が適用されている状態かどうか
     private bool isDebuff;
 
     /// <summary>

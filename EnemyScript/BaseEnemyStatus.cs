@@ -9,13 +9,13 @@ using UnityEngine;
 /// </summary>
 public abstract class BaseEnemyStatus : MonoBehaviour
 {
-    //敵の攻撃力
+    // 敵の攻撃力（プレイヤーへのダメージ量）
     public int EnemyAttackPower;
 
     //敵の最大体力
     protected int EnemyMaxHP;
 
-    //敵の現在のHP
+    // 敵の現在のHP（0になると戦闘不能）
     private int enemyCurrentHP;
 
     /// <summary>

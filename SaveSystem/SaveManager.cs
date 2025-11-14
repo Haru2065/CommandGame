@@ -33,10 +33,10 @@ public static class SaveManager
             //Jsonの文字列に変換して保存（出力Jsonをインデントする）
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-            //保存パス、ファイル名指定
+            // 保存先のパスを構築（プレイヤーIDごとに個別のファイル）
             string path = Application.persistentDataPath + $"/{player.PlayerID}_save.json";
 
-            //指定した保存パスにJsonを書き込み
+            // JSONファイルとして書き出し
             File.WriteAllText(path, json);
         }
     }
@@ -77,7 +77,7 @@ public static class SaveManager
     /// </summary>
     public static void DeleteSaveData(string fileName)
     {
-        //セーブデータのパスを指定
+        // セーブデータのファイルパスを構築
         string path = Application.persistentDataPath + "/" + fileName;
 
         //セーブデータが存在すれば消去
@@ -99,7 +99,7 @@ public static class SaveManager
     /// <returns>セーブデータが存在すればセーブデータとフラグをtrueで返す</returns>
     public static bool HasPlayerSave(string playerID)
     {
-        //セーブデータのパスを指定
+        // セーブデータのファイルパスを構築
         string path = Application.persistentDataPath + $"/{playerID}_save.json";
         return File.Exists(path);
     }
@@ -110,7 +110,7 @@ public static class SaveManager
     /// <returns>セーブデータが存在すればセーブデータとフラグをtrueで返す</returns>
     public static bool HasStageSave()
     {
-        //セーブデータのパスを指定
+        // セーブデータのファイルパスを構築
         string path = Application.persistentDataPath + "/StageSaveData.json";
         return File.Exists(path);
     }
