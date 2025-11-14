@@ -2,15 +2,15 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// ƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE
+/// ã‚­ãƒ£ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦
 /// </summary>
 public class StatusWindow : MonoBehaviour
 {
-    //ƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»—p
+    //ã‚­ãƒ£ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ç”¨
     private static StatusWindow instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static StatusWindow Instance
     {
@@ -18,56 +18,56 @@ public class StatusWindow : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼")]
     private BasePlayerStatus attacker;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼")]
     private BasePlayerStatus buffer;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼")]
     private BasePlayerStatus healer;
 
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚ÌUŒ‚—Í”’ltext")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®æ”»æ’ƒåŠ›æ•°å€¤text")]
     private TextMeshProUGUI attackerAttackpowerText;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚ÌƒfƒoƒtƒJƒEƒ“ƒgtext")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆtext")]
     private TextMeshProUGUI attacker_DebuffCount_Text;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚Ì“ÁêƒfƒoƒtƒJƒEƒ“ƒgtext")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ç‰¹æ®Šãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆtext")]
     private TextMeshProUGUI attacker_SpecialDebuffCount_Text;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌUŒ‚—Í”’ltext")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æ”»æ’ƒåŠ›æ•°å€¤text")]
     private TextMeshProUGUI bufferAttackPowerText;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌƒfƒoƒtƒJƒEƒ“ƒgtext")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆtext")]
     private TextMeshProUGUI buffer_DebuffCount_Text;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚Ì“ÁêƒfƒoƒtƒJƒEƒ“ƒgtext")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ç‰¹æ®Šãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆtext")]
     private TextMeshProUGUI buffer_SpecialDebuffCount_Text;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚ÌUŒ‚—Í”’ltext")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®æ”»æ’ƒåŠ›æ•°å€¤text")]
     private TextMeshProUGUI healerAttackPowerText;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚ÌƒfƒoƒtƒJƒEƒ“ƒgtext")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆtext")]
     private TextMeshProUGUI healer_DebuffCount_Text;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚Ì“ÁêƒfƒoƒtƒJƒEƒ“ƒgtext")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ç‰¹æ®Šãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆtext")]
     private TextMeshProUGUI healer_SpecialDebuffCount_Text;
 
     /// <summary>
-    /// ƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// ã‚­ãƒ£ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     public void Awake()
     {
@@ -82,33 +82,33 @@ public class StatusWindow : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒƒ\ƒbƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void OpenStatusWindow()
     {
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ã
         UIManager.Instance.StatusWindow.SetActive(true);
 
-        //ƒXƒe[ƒ^ƒXXVƒeƒLƒXƒg•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ›´æ–°ãƒ†ã‚­ã‚¹ãƒˆè¡¨ç¤º
         UPdateStatusWindow();
     }
 
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXXV‚µ‚ÄƒeƒLƒXƒg‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ›´æ–°ã—ã¦ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     private void UPdateStatusWindow()
     {
-        //ƒAƒ^ƒbƒJ[‚ÌUŒ‚—Í‚Æƒfƒoƒt‚Æ“ÁêƒfƒoƒtƒJƒEƒ“ƒg‚ğ”’l‚Æ‚µ‚Ä•\¦
+        //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®æ”»æ’ƒåŠ›ã¨ãƒ‡ãƒãƒ•ã¨ç‰¹æ®Šãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆã‚’æ•°å€¤ã¨ã—ã¦è¡¨ç¤º
         attackerAttackpowerText.text = $"{attacker.AttackPower}";
         attacker_DebuffCount_Text.text = $"{attacker.DebuffCount}";
         attacker_SpecialDebuffCount_Text.text = $"{attacker.SpecialDebuffCount}";
 
-        //ƒoƒbƒtƒ@[‚ÌUŒ‚—Í‚Æƒfƒoƒt‚Æ“ÁêƒfƒoƒtƒJƒEƒ“ƒg‚ğ”’l‚Æ‚µ‚Ä•\¦
+        //ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®æ”»æ’ƒåŠ›ã¨ãƒ‡ãƒãƒ•ã¨ç‰¹æ®Šãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆã‚’æ•°å€¤ã¨ã—ã¦è¡¨ç¤º
         bufferAttackPowerText.text = $"{buffer.AttackPower}";
         buffer_DebuffCount_Text.text = $"{buffer.DebuffCount}";
         buffer_SpecialDebuffCount_Text.text = $"{buffer.SpecialDebuffCount}";
 
-        //ƒq[ƒ‰[‚ÌUŒ‚—Í‚Æƒfƒoƒt‚Æ“ÁêƒfƒoƒtƒJƒEƒ“ƒg‚ğ”’l‚Æ‚µ‚Ä•\¦
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®æ”»æ’ƒåŠ›ã¨ãƒ‡ãƒãƒ•ã¨ç‰¹æ®Šãƒ‡ãƒãƒ•ã‚«ã‚¦ãƒ³ãƒˆã‚’æ•°å€¤ã¨ã—ã¦è¡¨ç¤º
         healerAttackPowerText.text = $"{healer.AttackPower}";
         healer_DebuffCount_Text.text = $"{healer.DebuffCount}";
         healer_SpecialDebuffCount_Text.text = $"{healer.SpecialDebuffCount}";

@@ -2,12 +2,12 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// ステージの解放状況を保存するデータ
+/// 繧ｹ繝�繝ｼ繧ｸ縺ｮ隗｣謾ｾ迥ｶ豕√ｒ菫晏ｭ倥☆繧九ョ繝ｼ繧ｿ
 /// </summary>
 [Serializable]
 public class StageSaveData
 {
-    //ステージ2,3は解放されたか
+    //繧ｹ繝�繝ｼ繧ｸ2,3縺ｯ隗｣謾ｾ縺輔ｌ縺溘°
     public bool Stage2UnLock_SaveData;
     public bool Stage3UnLock_SaveData;
 }

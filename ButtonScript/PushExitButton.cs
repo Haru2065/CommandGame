@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// I—¹ƒ{ƒ^ƒ“
+/// çµ‚äº†ãƒœã‚¿ãƒ³
 /// </summary>
 public class PushExitButton : MonoBehaviour
 {
@@ -13,13 +13,13 @@ public class PushExitButton : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğI—¹‚·‚é
+    /// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’çµ‚äº†ã™ã‚‹
     /// </summary>
     public void OnButton()
     {
         isQuitGame = true;
 
-        //Unity‚ğI—¹iƒQ[ƒ€‚ğI—¹)
+        //Unityã‚’çµ‚äº†ï¼ˆã‚²ãƒ¼ãƒ ã‚’çµ‚äº†)
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

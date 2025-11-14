@@ -2,23 +2,23 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// �v���C���[�̃f�[�^�x�[�X�ŗ��p����p�����[�^
+/// プレイヤーのデータベースで利用するパラメータ
 /// </summary>
 [Serializable]
 public class PlayerParameters
 {
-    [Tooltip("�v���C���[�̖��O�f�[�^")]
+    [Tooltip("プレイヤーの名前データ")]
     public string PlayerNameData;
 
-    [Tooltip("�v���C���[�̖��O�̍ő�̗͂̃f�[�^")]
+    [Tooltip("プレイヤーの名前の最大体力のデータ")]
     public int PlayerMaxHPData;
 
-    [Tooltip("�v���C���[�U���̓f�[�^")]
+    [Tooltip("プレイヤー攻撃力データ")]
     public int PlayerAttackPowerData;
 
-    [Tooltip("�v���C���[�̃o�t�p���[�f�[�^")]
+    [Tooltip("プレイヤーのバフパワーデータ")]
     public int BuffPowerData;
 
-    [Tooltip("�v���C���[�̉񕜗̓f�[�^")]
+    [Tooltip("プレイヤーの回復力データ")]
     public int HealPowerData;
 }

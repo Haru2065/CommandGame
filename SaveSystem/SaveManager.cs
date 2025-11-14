@@ -1,22 +1,22 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using Newtonsoft.Json;@
+using Newtonsoft.Json;ã€€
 using System;
 
 /// <summary>
-/// Player‚Ìƒpƒ‰ƒ[ƒ^AƒXƒe[ƒW‚Ìó‹µ‚ğ•Û‘¶‚·‚éƒXƒNƒŠƒvƒg
+/// Playerã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã€ã‚¹ãƒ†ãƒ¼ã‚¸ã®çŠ¶æ³ã‚’ä¿å­˜ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public static class SaveManager
 {
 
     /// <summary>
-    /// Json‚ÉƒŒƒxƒ‹ƒAƒbƒv‚µ‚½ƒ‰ƒ“ƒ^ƒCƒ€‚Ìƒpƒ‰ƒ[ƒ^ƒf[ƒ^‚ğ•Û‘¶‚·‚éƒƒ\ƒbƒh
+    /// Jsonã«ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã—ãŸãƒ©ãƒ³ã‚¿ã‚¤ãƒ ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="players">ƒŒƒxƒ‹ƒAƒbƒv‚·‚éƒvƒŒƒCƒ„[</param>
+    /// <param name="players">ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼</param>
     public static void SavePlayers(List<BasePlayerStatus> players)
     {
-        //ƒŒƒxƒ‹ƒAƒbƒv‚·‚éƒvƒŒƒCƒ„[‚ÌƒŠƒXƒg‚É“ü‚Á‚Ä‚¢‚éƒLƒƒƒ‰‚Ìƒ‰ƒ“ƒ^ƒCƒ€ƒf[ƒ^‚ğ•Û‘¶
+        //ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒªã‚¹ãƒˆã«å…¥ã£ã¦ã„ã‚‹ã‚­ãƒ£ãƒ©ã®ãƒ©ãƒ³ã‚¿ã‚¤ãƒ ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜
         foreach (var player in players)
         {
             var data = new PlayerSaveData
@@ -30,23 +30,23 @@ public static class SaveManager
                 healerHealPower_saveData = player.HealPower
             };
 
-            //Json‚Ì•¶š—ñ‚É•ÏŠ·‚µ‚Ä•Û‘¶io—ÍJson‚ğƒCƒ“ƒfƒ“ƒg‚·‚éj
+            //Jsonã®æ–‡å­—åˆ—ã«å¤‰æ›ã—ã¦ä¿å­˜ï¼ˆå‡ºåŠ›Jsonã‚’ã‚¤ãƒ³ãƒ‡ãƒ³ãƒˆã™ã‚‹ï¼‰
             string json = JsonConvert.SerializeObject(data, Formatting.Indented);
 
-            //•Û‘¶ƒpƒXAƒtƒ@ƒCƒ‹–¼w’è
+            //ä¿å­˜ãƒ‘ã‚¹ã€ãƒ•ã‚¡ã‚¤ãƒ«åæŒ‡å®š
             string path = Application.persistentDataPath + $"/{player.PlayerID}_save.json";
 
-            //w’è‚µ‚½•Û‘¶ƒpƒX‚ÉJson‚ğ‘‚«‚İ
+            //æŒ‡å®šã—ãŸä¿å­˜ãƒ‘ã‚¹ã«Jsonã‚’æ›¸ãè¾¼ã¿
             File.WriteAllText(path, json);
         }
     }
 
     /// <summary>
-    /// ƒXƒe[ƒW•Û‘¶ƒƒ\ƒbƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ä¿å­˜ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public static void SaveStage()
     {
-        //‚à‚µƒXƒe[ƒW‚Q‚©ƒXƒe[ƒW‚R‚ª‰ğ•ú‚³‚ê‚Ä‚¢‚½‚çA
+        //ã‚‚ã—ã‚¹ãƒ†ãƒ¼ã‚¸ï¼’ã‹ã‚¹ãƒ†ãƒ¼ã‚¸ï¼“ãŒè§£æ”¾ã•ã‚Œã¦ã„ãŸã‚‰ã€
         if (BaseBattleManager.Instance.IsUnlockStage2 || BaseBattleManager.Instance.IsUnlockStage3)
         {
             var data = new StageSaveData
@@ -55,68 +55,68 @@ public static class SaveManager
                 Stage3UnLock_SaveData = BaseBattleManager.Instance.IsUnlockStage3
             };
 
-            //Json‚Ìƒf[ƒ^‚ª‚ ‚é‚©‚ğŠm”F‚µA•Û‘¶
+            //Jsonã®ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹ã‹ã‚’ç¢ºèªã—ã€ä¿å­˜
             try
             {
                 string json = JsonConvert.SerializeObject(data, Formatting.Indented);
                 string path = Application.persistentDataPath + "/StageSaveData.json";
                 File.WriteAllText(path, json);
-                Debug.Log("•Û‘¶¬Œ÷: " + path);
+                Debug.Log("ä¿å­˜æˆåŠŸ: " + path);
             }
-            //‚È‚¯‚ê‚Î¸”s
+            //ãªã‘ã‚Œã°å¤±æ•—
             catch (Exception ex)
             {
-                Debug.LogError("•Û‘¶¸”s: " + ex.Message);
+                Debug.LogError("ä¿å­˜å¤±æ•—: " + ex.Message);
             }
 
         }
     }
 
     /// <summary>
-    /// ƒZ[ƒuƒf[ƒ^‚ğíœ‚·‚éƒƒ\ƒbƒh
+    /// ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public static void DeleteSaveData(string fileName)
     {
-        //ƒZ[ƒuƒf[ƒ^‚ÌƒpƒX‚ğw’è
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹ã‚’æŒ‡å®š
         string path = Application.persistentDataPath + "/" + fileName;
 
-        //ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚ê‚ÎÁ‹
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚Œã°æ¶ˆå»
         if(File.Exists(path))
         {
             File.Delete(path);
-            Debug.Log("ƒZ[ƒuƒf[ƒ^íœ¬Œ÷: " + path);
+            Debug.Log("ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿å‰Šé™¤æˆåŠŸ: " + path);
         }
         else
         {
-            Debug.LogWarning("ƒZ[ƒuƒf[ƒ^‚ğíœ‚Å‚«‚Ü‚¹‚ñ‚Å‚µ‚½: " + path);
+            Debug.LogWarning("ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’å‰Šé™¤ã§ãã¾ã›ã‚“ã§ã—ãŸ: " + path);
         }
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒpƒ‰ƒ[ƒ^ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚é‚©
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚‹ã‹
     /// </summary>
-    /// <param name="playerID">ƒvƒŒƒCƒ„[‚ÌID</param>
-    /// <returns>ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚ê‚ÎƒZ[ƒuƒf[ƒ^‚Æƒtƒ‰ƒO‚ğtrue‚Å•Ô‚·</returns>
+    /// <param name="playerID">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ID</param>
+    /// <returns>ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚Œã°ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã¨ãƒ•ãƒ©ã‚°ã‚’trueã§è¿”ã™</returns>
     public static bool HasPlayerSave(string playerID)
     {
-        //ƒZ[ƒuƒf[ƒ^‚ÌƒpƒX‚ğw’è
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹ã‚’æŒ‡å®š
         string path = Application.persistentDataPath + $"/{playerID}_save.json";
         return File.Exists(path);
     }
 
     /// <summary>
-    /// ƒXƒe[ƒW‚ÌƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚é‚©
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚‹ã‹
     /// </summary>
-    /// <returns>ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚ê‚ÎƒZ[ƒuƒf[ƒ^‚Æƒtƒ‰ƒO‚ğtrue‚Å•Ô‚·</returns>
+    /// <returns>ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚Œã°ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã¨ãƒ•ãƒ©ã‚°ã‚’trueã§è¿”ã™</returns>
     public static bool HasStageSave()
     {
-        //ƒZ[ƒuƒf[ƒ^‚ÌƒpƒX‚ğw’è
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã®ãƒ‘ã‚¹ã‚’æŒ‡å®š
         string path = Application.persistentDataPath + "/StageSaveData.json";
         return File.Exists(path);
     }
 
     /// <summary>
-    /// ‚·‚×‚Ä‚ÌƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚é‚©‚Ü‚Æ‚ß‚Äƒ`ƒFƒbƒN‚ğs‚¤
+    /// ã™ã¹ã¦ã®ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚‹ã‹ã¾ã¨ã‚ã¦ãƒã‚§ãƒƒã‚¯ã‚’è¡Œã†
     /// </summary>
     /// <returns></returns>
     public static bool HasAnySaveData()

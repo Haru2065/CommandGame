@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 揋偺僗僋儕僾僞僽儖僆僽僕僃僋僩傪嶌惉
+/// 鏁点伄銈广偗銉儣銈裤儢銉偑銉栥偢銈с偗銉堛倰浣滄垚
 /// </summary>
 [CreateAssetMenu(fileName = "EnemyData", menuName = "Enemy/EnemySatusData")]
 public class EnemyDataBase : ScriptableObject
 {
-    //揋偺僷儔儊乕僞儕僗僩
+    //鏁点伄銉戙儵銉°兗銈裤儶銈广儓
     public List<EnemyParameters> EnemyParameters = new List<EnemyParameters>();
 }

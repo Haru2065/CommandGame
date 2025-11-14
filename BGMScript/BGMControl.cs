@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// BGM‚ğƒRƒ“ƒgƒ[ƒ‹‚·‚éƒXƒNƒŠƒvƒg
+/// BGMã‚’ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class BGMControl : MonoBehaviour
 {
-    //BGMControl‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    //BGMControlã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     private static BGMControl instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static BGMControl Instance
     {
@@ -19,7 +19,7 @@ public class BGMControl : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     private void Awake()
     {
@@ -34,25 +34,25 @@ public class BGMControl : MonoBehaviour
     }
 
         [SerializeField]
-    [Tooltip("BGM—pƒI[ƒfƒBƒIƒ\[ƒX")]
+    [Tooltip("BGMç”¨ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚½ãƒ¼ã‚¹")]
     private AudioSource audioSource;
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒW3‚ÌBGM")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¸3ã®BGM")]
     private AudioClip stage3BGM;
 
     /// <summary>
-    /// ƒXƒe[ƒW3‚ÌBGM‚ğÄ¶‚·‚éƒƒ\ƒbƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸3ã®BGMã‚’å†ç”Ÿã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void PlayStage3BGM()
     {
-        //ƒNƒŠƒbƒv‚ğStage3BGM‚Éİ’è
+        //ã‚¯ãƒªãƒƒãƒ—ã‚’Stage3BGMã«è¨­å®š
         audioSource.clip = stage3BGM;
 
-        //ƒI[ƒfƒBƒIƒ\[ƒX‚ğƒ‹[ƒv‚µ‘±‚¯‚é
+        //ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚½ãƒ¼ã‚¹ã‚’ãƒ«ãƒ¼ãƒ—ã—ç¶šã‘ã‚‹
         audioSource.loop = true;
 
-        //BGMÄ¶
+        //BGMå†ç”Ÿ
         audioSource.Play();
     }
 }

@@ -7,17 +7,17 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒx[ƒX‚ÌƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒX
-/// İŒv}‚É‚·‚é
+/// ãƒ™ãƒ¼ã‚¹ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
+/// è¨­è¨ˆå›³ã«ã™ã‚‹
 /// </summary>
 public abstract class BasePlayerStatus : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚Ìƒf[ƒ^ƒx[ƒX")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹")]
     private PlayerDataBase playerDataBase;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^ƒx[ƒX‚ÌƒQƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public PlayerDataBase PlayerDataBase
     {
@@ -25,11 +25,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[ID–¼")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼IDå")]
     private string playerID;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[ID‚ÌƒQƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼IDã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public string PlayerID
     {
@@ -37,11 +37,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => playerID = value;
     }
 
-    //ƒvƒŒƒCƒ„[‚ª¶‘¶‚µ‚Ä‚¢‚é‚©
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿå­˜ã—ã¦ã„ã‚‹ã‹
     private bool isAlive;
 
     /// <summary>
-    /// ƒŒƒCƒ„[‚ª¶‘¶‚µ‚Ä‚¢‚é‚©ƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿå­˜ã—ã¦ã„ã‚‹ã‹ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsAlive
     {
@@ -50,12 +50,12 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒLƒ‹‚ğg‚Á‚½‚©
+    /// ã‚¹ã‚­ãƒ«ã‚’ä½¿ã£ãŸã‹
     /// </summary>
     private bool isUseSkill;
 
     /// <summary>
-    /// ƒXƒLƒ‹‚ğg‚Á‚½‚©‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ã‚¹ã‚­ãƒ«ã‚’ä½¿ã£ãŸã‹ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsUseSkill
     {
@@ -63,11 +63,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isUseSkill = value;
     }
 
-    //•KE‚ğg‚Á‚½‚©
+    //å¿…æ®ºã‚’ä½¿ã£ãŸã‹
     private bool isUseSpecial;
 
     /// <summary>
-    /// •KE‚ğg‚Á‚½‚©‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// å¿…æ®ºã‚’ä½¿ã£ãŸã‹ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsUseSpecial
     {
@@ -75,11 +75,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isUseSpecial = value;
     }
 
-    //ƒoƒt‚³‚ê‚Ä‚¢‚é‚©
+    //ãƒãƒ•ã•ã‚Œã¦ã„ã‚‹ã‹
     private bool hasBuff;
 
     /// <summary>
-    /// ƒoƒt‚³‚ê‚Ä‚¢‚é‚©‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒãƒ•ã•ã‚Œã¦ã„ã‚‹ã‹ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool HasBuff
     {
@@ -87,11 +87,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => hasBuff = value;
     }
 
-    //ƒfƒoƒtó‘Ô‚©
+    //ãƒ‡ãƒãƒ•çŠ¶æ…‹ã‹
     private bool isDebuff;
 
     /// <summary>
-    /// ƒfƒoƒtó‘Ô‚©‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ‡ãƒãƒ•çŠ¶æ…‹ã‹ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsDebuff
     {
@@ -99,11 +99,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isDebuff = value;
     }
 
-    //HP‚ªŒ¸‚éƒfƒoƒtó‘Ô‚©
+    //HPãŒæ¸›ã‚‹ãƒ‡ãƒãƒ•çŠ¶æ…‹ã‹
     private bool isHPDebuff;
 
     /// <summary>
-    /// HP‚ªŒ¸‚éƒfƒoƒtó‘Ô‚©‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// HPãŒæ¸›ã‚‹ãƒ‡ãƒãƒ•çŠ¶æ…‹ã‹ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsHPDebuff
     {
@@ -111,11 +111,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isHPDebuff = value;
     }
 
-    //“Áêƒfƒoƒtó‘Ô‚©
+    //ç‰¹æ®Šãƒ‡ãƒãƒ•çŠ¶æ…‹ã‹
     private bool isSpecialDebuff;
 
     /// <summary>
-    /// “Áêƒfƒoƒtó‘Ô‚©‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ç‰¹æ®Šãƒ‡ãƒãƒ•çŠ¶æ…‹ã‹ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsSpecialDebuff
     {
@@ -131,11 +131,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => isPlayerAction = value;
     }
 
-    //ƒvƒŒƒCƒ„[‚ÌUŒ‚—Í
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒåŠ›
     private int attackPower;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌUŒ‚—Í‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ”»æ’ƒåŠ›ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int AttackPower
     {
@@ -143,11 +143,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => attackPower = value;
     }
 
-    //ƒvƒŒƒCƒ„[‚ÌÅ‘å‘Ì—Í
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æœ€å¤§ä½“åŠ›
     private int playerMaxHP;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌÅ‘å‚Ì‘Ì—Í‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æœ€å¤§ã®ä½“åŠ›ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int PlayerMaxHP
     {
@@ -156,12 +156,12 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌŒ»İ‚Ì‘Ì—Í
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¾åœ¨ã®ä½“åŠ›
     /// </summary>
     private int playerCurrentHP;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌŒ»İ‚Ì‘Ì—Í‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç¾åœ¨ã®ä½“åŠ›ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int PlayerCurrentHP
     {
@@ -169,11 +169,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => playerCurrentHP = value;
     }
 
-    //ƒvƒŒƒCƒ„[‚Ì‰ŠúUŒ‚—Í(ƒfƒoƒt‰ğœ—pj
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åˆæœŸæ”»æ’ƒåŠ›(ãƒ‡ãƒãƒ•è§£é™¤ç”¨ï¼‰
     private int playerResetAttackPower;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[—p‚Ì‰ŠúUŒ‚—Í‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ç”¨ã®åˆæœŸæ”»æ’ƒåŠ›ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int PlayerResetAttackPower
     {
@@ -181,11 +181,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => playerResetAttackPower = value;
     }
 
-    //ƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg
+    //ãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆ
     private int debuffCount;
 
     /// <summary>
-    /// ƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int DebuffCount
     {
@@ -193,11 +193,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => debuffCount = value;
     }
 
-    //“ÁêƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg
+    //ç‰¹æ®Šãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆ
     private int specialDebuffCount;
 
     /// <summary>
-    /// “ÁêƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ç‰¹æ®Šãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int SpecialDebuffCount
     {
@@ -206,11 +206,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒXƒLƒ‹g—p§ŒÀƒJƒEƒ“ƒg")]
+    [Tooltip("ã‚¹ã‚­ãƒ«ä½¿ç”¨åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆ")]
     private int skillLimitCount;
 
     /// <summary>
-    /// ƒXƒLƒ‹g—p§ŒÀƒJƒEƒ“ƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ã‚¹ã‚­ãƒ«ä½¿ç”¨åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int SkillLimitCount
     {
@@ -219,11 +219,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
     
     [SerializeField]
-    [Tooltip("•KEg—p§ŒÀ‚ÌƒJƒEƒ“ƒg")]
+    [Tooltip("å¿…æ®ºä½¿ç”¨åˆ¶é™ã®ã‚«ã‚¦ãƒ³ãƒˆ")]
     private int specialLimitCount;
 
     /// <summary>
-    /// •KEg—p§ŒÀ‚ÌƒJƒEƒ“ƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// å¿…æ®ºä½¿ç”¨åˆ¶é™ã®ã‚«ã‚¦ãƒ³ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int SpecialLimitCount
     {
@@ -232,11 +232,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌHPƒo[")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPãƒãƒ¼")]
     private Slider playerHPBar;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌHPƒo[‚ÌƒQƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPãƒãƒ¼ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public Slider PlayerHPBar
     {
@@ -245,11 +245,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®")]
     private Transform playerEffect_SpawnPoint;
 
     /// <summary>
-    /// ƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u‚ÌƒQƒbƒ^[
+    /// ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public Transform PlayerEffect_SpawnPoint
     {
@@ -257,11 +257,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("•¶šƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("æ–‡å­—ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®")]
     private Transform playerTextEfferct_SpawnPoint;
 
     /// <summary>
-    /// •¶šƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u‚ÌƒQƒbƒ^[
+    /// æ–‡å­—ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public Transform PlayerTextEfferct_SpawnPoint
     {
@@ -269,11 +269,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌHP‚ÌUI")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPã®UI")]
     private TextMeshProUGUI playerHPUGUI;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌHP‚ÌUI‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®HPã®UIã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public TextMeshProUGUI PlayerHPUGUI
     {
@@ -281,11 +281,11 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => playerHPUGUI = value;
     }
 
-    //ƒvƒŒƒCƒ„[‚ÌƒŒƒxƒ‹
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ¬ãƒ™ãƒ«
     private int level = 0; 
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌƒŒƒxƒ‹‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ¬ãƒ™ãƒ«ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public int Level
     {
@@ -293,50 +293,50 @@ public abstract class BasePlayerStatus : MonoBehaviour
         set => level = value;
     }
 
-    //ÀÛ‚Ìƒoƒt—Í
+    //å®Ÿéš›ã®ãƒãƒ•åŠ›
     public int BuffPower;
 
-    //‰ñ•œ—Í
+    //å›å¾©åŠ›
     public int HealPower;
 
     // Update is called once per frame
     protected abstract void Update();
 
     /// <summary>
-    /// ó‹µƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚éƒR[ƒ‹ƒ`ƒ“
+    /// çŠ¶æ³ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹ã‚³ãƒ¼ãƒ«ãƒãƒ³
     /// </summary>
     /// <returns></returns>
     public IEnumerator PlayerOffDebuffText()
     {
-        //2ƒtƒŒ[ƒ€‘Ò‚Â
+        //2ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
         yield return new WaitForSeconds(2f);
 
-        //ƒeƒLƒXƒg‚ğ”ñ•\¦
+        //ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤º
         BattleActionTextManager.Instance.TextDelayHide();
 
-        //1ƒtƒŒ[ƒ€‘Ò‚Â
+        //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
         yield return null;
     }
 
     /// <summary>
-    /// ƒZ[ƒuƒf[ƒ^‚ª‚ ‚ê‚ÎƒZ[ƒu‚µ‚½ƒvƒŒƒCƒ„[ƒf[ƒ^‚©‚çƒXƒe[ƒ^ƒX‚ğ“Ç‚İ‚Ş
+    /// ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°ã‚»ãƒ¼ãƒ–ã—ãŸãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’èª­ã¿è¾¼ã‚€
     /// </summary>
     protected virtual void Start()
     {
-        //ƒvƒŒƒCƒ„[ID‚ÌƒZ[ƒuƒf[ƒ^‚ğæ“¾
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼IDã®ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
         string path = Application.persistentDataPath + $"/{PlayerID}_save.Json";
 
-        //ƒZ[ƒuƒf[ƒ^‚ª‚ ‚ê‚Î“Ç‚İAC#‚É•ÏŠ·‚µ‚½ŒãAƒXƒe[ƒ^ƒXƒ[ƒhˆ—ŠJn
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°èª­ã¿ã€C#ã«å¤‰æ›ã—ãŸå¾Œã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ­ãƒ¼ãƒ‰å‡¦ç†é–‹å§‹
         if(File.Exists(path))
         {
             string json = File.ReadAllText(path);
             PlayerSaveData saveData = JsonConvert.DeserializeObject<PlayerSaveData>(json);
             
-            //ƒZ[ƒuƒf[ƒ^‚©‚çƒXƒe[ƒ^ƒX‚ğ“Ç‚İ‚Ş
+            //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’èª­ã¿è¾¼ã‚€
             ApplySaveData(saveData);
         }
 
-        //ƒZ[ƒuƒf[ƒ^‚ª‚È‚¯‚ê‚ÎƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚©‚çƒ[ƒh
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒãªã‘ã‚Œã°ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰ãƒ­ãƒ¼ãƒ‰
         else
         {
             SetPlayerParameters();
@@ -349,65 +349,65 @@ public abstract class BasePlayerStatus : MonoBehaviour
     }
 
     /// <summary>
-    /// Json‚Å•Û‘¶‚³‚ê‚½ƒpƒ‰ƒ[ƒ^‚ğƒ[ƒh
+    /// Jsonã§ä¿å­˜ã•ã‚ŒãŸãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
-    /// <param name="data">ƒpƒ‰ƒ[ƒ^‚Ì•Û‘¶ƒf[ƒ^</param>
+    /// <param name="data">ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ä¿å­˜ãƒ‡ãƒ¼ã‚¿</param>
     protected virtual void ApplySaveData(PlayerSaveData data)
     {
-        //ƒvƒŒƒCƒ„[ƒZ[ƒuƒf[ƒ^‚É•Û‘¶‚³‚ê‚Ä‚¢‚éƒŒƒxƒ‹AUŒ‚—ÍAÅ‘å‘Ì—Í‚ğ“Ç‚İ‚İ
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã«ä¿å­˜ã•ã‚Œã¦ã„ã‚‹ãƒ¬ãƒ™ãƒ«ã€æ”»æ’ƒåŠ›ã€æœ€å¤§ä½“åŠ›ã‚’èª­ã¿è¾¼ã¿
         level = data.level_SaveData;
         AttackPower = data.attackPower_SaveData;
         playerMaxHP = data.playerMaxHP_SaveData;
         playerCurrentHP = playerMaxHP;
 
-        //HPBar‚àÅ‘å‚Éİ’è
+        //HPBarã‚‚æœ€å¤§ã«è¨­å®š
         playerHPBar.maxValue = playerCurrentHP;
         playerHPBar.value = playerCurrentHP;
         playerHPBar.minValue = 0;
 
-        //ƒŠƒZƒbƒg—pUŒ‚—Í‚àƒZ[ƒuƒf[ƒ^‚©‚ç“Ç‚İ‚ñ‚Åİ’è
+        //ãƒªã‚»ãƒƒãƒˆç”¨æ”»æ’ƒåŠ›ã‚‚ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰èª­ã¿è¾¼ã‚“ã§è¨­å®š
         playerResetAttackPower = data.attackPower_SaveData;
     }
 
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌƒŒƒxƒ‹ƒAƒbƒv‚µAƒpƒ‰ƒ[ƒ^‚ğã‚°‚éƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ã—ã€ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ä¸Šã’ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public virtual void LevelUP()
     {
-        //UŒ‚—ÍAÅ‘å‘Ì—Í‚Ì”’l‚ğã‚°‚é
+        //æ”»æ’ƒåŠ›ã€æœ€å¤§ä½“åŠ›ã®æ•°å€¤ã‚’ä¸Šã’ã‚‹
         attackPower += 100;
         playerMaxHP += 500;
 
-        //ƒŒƒxƒ‹‚ğƒvƒ‰ƒX‚·‚é
-        level++;;
+        //ãƒ¬ãƒ™ãƒ«ã‚’ãƒ—ãƒ©ã‚¹ã™ã‚‹
+        level++;
 
     }
     
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìƒ_ƒ[ƒWƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="damage">“G‚ÌUŒ‚—Í‚ğƒ_ƒ[ƒW‚É‚·‚é</param>
+    /// <param name="damage">æ•µã®æ”»æ’ƒåŠ›ã‚’ãƒ€ãƒ¡ãƒ¼ã‚¸ã«ã™ã‚‹</param>
     public abstract void PlayerOnDamage(int damage);
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ì’ÊíUŒ‚ƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€šå¸¸æ”»æ’ƒãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public abstract void NormalAttack();
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌƒXƒLƒ‹ƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚­ãƒ«ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public abstract void PlayerSkill();
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ì•KE‹Zƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¿…æ®ºæŠ€ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public abstract void SpecialSkill();
 
     /// <summary>
-    /// ƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚©‚çƒpƒ‰ƒ[ƒ^‚ğİ’è‚·‚éƒƒ\ƒbƒh
+    /// ã‚¹ã‚¯ãƒªãƒ—ã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected abstract void SetPlayerParameters();
 }

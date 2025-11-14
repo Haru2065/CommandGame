@@ -7,24 +7,24 @@ using Newtonsoft.Json;
 [Serializable]
 public class BattleText
 {
-    //JSONƒtƒ@ƒCƒ‹‚ÌƒeƒLƒXƒg
+    //JSONãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ†ã‚­ã‚¹ãƒˆ
     public string text;
 
-    //JSONƒtƒ@ƒCƒ‹‚ÌID
+    //JSONãƒ•ã‚¡ã‚¤ãƒ«ã®ID
     public string id;
 }
 
 /// <summary>
-/// ƒoƒgƒ‹‚Ìs“®’Ê’m‚ÌƒXƒNƒŠƒvƒg
-/// JSON‚©‚ç•ÏŠ·
+/// ãƒãƒˆãƒ«æ™‚ã®è¡Œå‹•é€šçŸ¥ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+/// JSONã‹ã‚‰å¤‰æ›
 /// </summary>
 public class BattleActionTextManager : MonoBehaviour
 {
-    //ƒoƒgƒ‹‚Ìs“®’Ê’m‚ÌƒXƒNƒŠƒvƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»—p
+    //ãƒãƒˆãƒ«æ™‚ã®è¡Œå‹•é€šçŸ¥ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ç”¨
     private static BattleActionTextManager instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static BattleActionTextManager Instance
     {
@@ -32,15 +32,15 @@ public class BattleActionTextManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("Jsonƒ[ƒh‚·‚éƒXƒNƒŠƒvƒg")]
+    [Tooltip("Jsonãƒ­ãƒ¼ãƒ‰ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
     private JsonLoadr jsonLoadr;
 
     [SerializeField]
-    [Tooltip("ƒeƒLƒXƒgƒEƒBƒ“ƒhƒE")]
+    [Tooltip("ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦")]
     private GameObject textWindow;
 
     /// <summary>
-    /// ƒeƒLƒXƒgƒEƒBƒ“ƒhƒE‚ÌƒQƒbƒ^[
+    /// ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject TextWindow
     {
@@ -48,14 +48,14 @@ public class BattleActionTextManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒoƒgƒ‹‚ÅƒLƒƒƒ‰‚Ìó‹µ‚ğ•\¦‚·‚éƒeƒLƒXƒg")]
+    [Tooltip("ãƒãƒˆãƒ«ã§ã‚­ãƒ£ãƒ©ã®çŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆ")]
     private TextMeshProUGUI characterBattleActionText;
 
-    //JSON‚©‚ç“Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğ‚¢‚ê‚éƒŠƒXƒgiC#Œ`®‚É•ÏŠ·‚µ‚½ƒf[ƒ^‚ğó‚¯æ‚éƒŠƒXƒgj
+    //JSONã‹ã‚‰èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã‚’ã„ã‚Œã‚‹ãƒªã‚¹ãƒˆï¼ˆC#å½¢å¼ã«å¤‰æ›ã—ãŸãƒ‡ãƒ¼ã‚¿ã‚’å—ã‘å–ã‚‹ãƒªã‚¹ãƒˆï¼‰
     private List<BattleText> battleTextConvertedList;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     private void Awake()
     {
@@ -79,41 +79,41 @@ public class BattleActionTextManager : MonoBehaviour
             if (dict != null && dict.ContainsKey("BattleTexts"))
             {
                 battleTextConvertedList = dict["BattleTexts"];
-                Debug.Log($"•ÏŠ·Š®—¹Iƒoƒgƒ‹ƒeƒLƒXƒgƒf[ƒ^”: {battleTextConvertedList.Count}");
+                Debug.Log($"å¤‰æ›å®Œäº†ï¼ãƒãƒˆãƒ«ãƒ†ã‚­ã‚¹ãƒˆãƒ‡ãƒ¼ã‚¿æ•°: {battleTextConvertedList.Count}");
             }
             else
             {
-                Debug.LogWarning("•ÏŠ·¸”sIƒf[ƒ^‚ª‹ó‚©ƒL[‚ªŠÔˆá‚Á‚Ä‚¢‚Ü‚·");
+                Debug.LogWarning("å¤‰æ›å¤±æ•—ï¼ãƒ‡ãƒ¼ã‚¿ãŒç©ºã‹ã‚­ãƒ¼ãŒé–“é•ã£ã¦ã„ã¾ã™");
             }
         }));
 
-        //ƒeƒLƒXƒgƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦
+        //ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’éè¡¨ç¤º
         textWindow.SetActive(false);
     }
 
     /// <summary>
-    /// ƒoƒgƒ‹’†‚Éó‹µ‚ğƒeƒLƒXƒg‚Å•\¦‚·‚éƒƒ\ƒbƒh
+    /// ãƒãƒˆãƒ«ä¸­ã«çŠ¶æ³ã‚’ãƒ†ã‚­ã‚¹ãƒˆã§è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="id">•\¦‚µ‚½‚¢ƒeƒLƒXƒg‚ÌJSONID</param>
+    /// <param name="id">è¡¨ç¤ºã—ãŸã„ãƒ†ã‚­ã‚¹ãƒˆã®JSONID</param>
     public void ShowBattleActionText(string id)
     {
-        //JSON‚©‚ç“Ç‚İ‚ñ‚¾ƒf[ƒ^‚ğ‚¢‚ê‚éƒŠƒXƒg‚©‚çid‚ğæ“¾
+        //JSONã‹ã‚‰èª­ã¿è¾¼ã‚“ã ãƒ‡ãƒ¼ã‚¿ã‚’ã„ã‚Œã‚‹ãƒªã‚¹ãƒˆã‹ã‚‰idã‚’å–å¾—
         BattleText battleText = battleTextConvertedList.Find(text => text.id == id);
 
         if (battleText != null)
         {
-            //ID‚ğ‚à‚Æ‚ÉƒeƒLƒXƒg‚ğ•\¦‚µƒeƒLƒXƒgƒEƒBƒ“ƒhƒE‚à•\¦
+            //IDã‚’ã‚‚ã¨ã«ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºã—ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚‚è¡¨ç¤º
             characterBattleActionText.text = battleText.text;
             textWindow.SetActive(true);
         }
         else
         {
-            Debug.LogWarning($"w’è‚³‚ê‚½ ID ({id}) ‚É‘Î‰‚·‚éƒeƒLƒXƒg‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ");
+            Debug.LogWarning($"æŒ‡å®šã•ã‚ŒãŸ ID ({id}) ã«å¯¾å¿œã™ã‚‹ãƒ†ã‚­ã‚¹ãƒˆãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“");
         }
     }
 
     /// <summary>
-    /// ƒeƒLƒXƒgƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦‚É‚·‚éƒƒ\ƒbƒh
+    /// ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’éè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void TextDelayHide()
     {

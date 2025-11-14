@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒ`ƒ…[ƒgƒŠƒAƒ‹ƒV[ƒ“‚ÉˆÚ“®‚·‚éƒ{ƒ^ƒ“ƒXƒNƒŠƒvƒg
+/// ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚·ãƒ¼ãƒ³ã«ç§»å‹•ã™ã‚‹ãƒœã‚¿ãƒ³ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class PushTutorial : MonoBehaviour
 {
     /// <summary>
-    /// ƒ`ƒ…[ƒgƒŠƒAƒ‹‚P‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒ`ƒ…[ƒgƒŠƒAƒ‹‚P‚ÌƒV[ƒ“‚ðƒ[ƒh
+    /// ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ï¼‘ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ï¼‘ã®ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void OnTutorial1Button()
     {
@@ -15,7 +15,7 @@ public class PushTutorial : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ`ƒ…[ƒgƒŠƒAƒ‹‚Q‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒ`ƒ…[ƒgƒŠƒAƒ‹‚Q‚ÌƒV[ƒ“‚ðƒ[ƒh
+    /// ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ï¼’ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ï¼’ã®ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void OnTutorial2Button()
     {

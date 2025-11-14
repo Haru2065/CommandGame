@@ -8,41 +8,41 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 public class JsonLoadr : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("ƒ[ƒh‚µ‚½‚¢Jsonƒtƒ@ƒCƒ‹‚ÌƒAƒhƒŒƒX")]
+    [Tooltip("ãƒ­ãƒ¼ãƒ‰ã—ãŸã„Jsonãƒ•ã‚¡ã‚¤ãƒ«ã®ã‚¢ãƒ‰ãƒ¬ã‚¹")]
     private string jsonLoadAddress;
 
     public IEnumerator LoadJsonText(Action<string> onSuccess)
     {
-        // w’è‚³‚ê‚½ƒAƒhƒŒƒXƒL[‚©‚çTextAsset‚ğ”ñ“¯Šú‚Åƒ[ƒh‚·‚é
+        // æŒ‡å®šã•ã‚ŒãŸã‚¢ãƒ‰ãƒ¬ã‚¹ã‚­ãƒ¼ã‹ã‚‰TextAssetã‚’éåŒæœŸã§ãƒ­ãƒ¼ãƒ‰ã™ã‚‹
         AsyncOperationHandle<TextAsset> handle = Addressables.LoadAssetAsync<TextAsset>(jsonLoadAddress);
 
-        //“Ç‚İ‚İ‚ªŠ®—¹‚·‚é‚Ü‚Å‚Ü‚Â
+        //èª­ã¿è¾¼ã¿ãŒå®Œäº†ã™ã‚‹ã¾ã§ã¾ã¤
         yield return handle;
 
-        //“Ç‚İ‚İ‚ª¬Œ÷‚µ‚½‚©ƒ`ƒFƒbƒN
+        //èª­ã¿è¾¼ã¿ãŒæˆåŠŸã—ãŸã‹ãƒã‚§ãƒƒã‚¯
         if (handle.Status == AsyncOperationStatus.Succeeded)
         {
-            //“Ç‚İ‚ñ‚¾TextAsset‚Ì’†g‚ğæ“¾‚·‚é
+            //èª­ã¿è¾¼ã‚“ã TextAssetã®ä¸­èº«ã‚’å–å¾—ã™ã‚‹
             string json = handle.Result.text;
 
-            //æ“¾‚µ‚½TextAsset‚Ì“à—e‚ğƒRƒ“ƒ\[ƒ‹‚ÅŠm”F
+            //å–å¾—ã—ãŸTextAssetã®å†…å®¹ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã§ç¢ºèª
             Debug.Log(json);
 
-            //­‚µ‘Ò‚Â
+            //å°‘ã—å¾…ã¤
             yield return null;
 
-            //¬Œ÷‚ğ•\¦
-            Debug.Log("¬Œ÷!");
+            //æˆåŠŸã‚’è¡¨ç¤º
+            Debug.Log("æˆåŠŸ!");
 
-            //¬Œ÷‚ÌƒR[ƒ‹ƒoƒbƒNiJsonUtility‚Å‚Ìƒp[ƒX‚â•\¦ˆ—‚ğŒÄ‚Ño‚·B
+            //æˆåŠŸæ™‚ã®ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ï¼ˆJsonUtilityã§ã®ãƒ‘ãƒ¼ã‚¹ã‚„è¡¨ç¤ºå‡¦ç†ã‚’å‘¼ã³å‡ºã™ã€‚
             onSuccess?.Invoke(json);
         }
         else
         {
-            Debug.Log($"Json‚Ìƒ[ƒh¸”s:{jsonLoadAddress}");
+            Debug.Log($"Jsonã®ãƒ­ãƒ¼ãƒ‰å¤±æ•—:{jsonLoadAddress}");
         }
 
-        //“Ç‚İ‚ñ‚¾ƒŠƒ\[ƒX‚ğ‰ğ•ú‚·‚é
+        //èª­ã¿è¾¼ã‚“ã ãƒªã‚½ãƒ¼ã‚¹ã‚’è§£æ”¾ã™ã‚‹
         Addressables.Release(handle);
     }
 }

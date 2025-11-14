@@ -2,15 +2,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­
+/// ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ã
 /// </summary>
 public class PushOpenStatusWindow : MonoBehaviour
 {
-    //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒXƒNƒŠƒvƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ãã‚¹ã‚¯ãƒªãƒ—ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     private static PushOpenStatusWindow instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static PushOpenStatusWindow Instance
     {
@@ -18,7 +18,7 @@ public class PushOpenStatusWindow : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³")]
     private Button statusWindowButton;
 
     private void Awake()
@@ -33,14 +33,14 @@ public class PushOpenStatusWindow : MonoBehaviour
         }
     }
 
-    //ƒ{ƒ^ƒ“‚ª‰Ÿ‚¹‚é‚æ‚¤‚É‚·‚éƒƒ\ƒbƒh
+    //ãƒœã‚¿ãƒ³ãŒæŠ¼ã›ã‚‹ã‚ˆã†ã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void CanPushStatusButton()
     {
-        //ƒ{ƒ^ƒ“‚ª‰Ÿ‚¹‚é‚æ‚¤‚É‚·‚é
+        //ãƒœã‚¿ãƒ³ãŒæŠ¼ã›ã‚‹ã‚ˆã†ã«ã™ã‚‹
         statusWindowButton.interactable = true;
     }
 
-    //ƒ{ƒ^ƒ“‚ª‰Ÿ‚¹‚È‚¢‚æ‚¤‚É“§–¾‚É‚·‚éƒƒ\ƒbƒh
+    //ãƒœã‚¿ãƒ³ãŒæŠ¼ã›ãªã„ã‚ˆã†ã«é€æ˜ã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     public void TransparentStatusButton()
     {
         statusWindowButton.interactable = false;
@@ -48,17 +48,17 @@ public class PushOpenStatusWindow : MonoBehaviour
     
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ğ‰Ÿ‚·‚ÆƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­
+    /// ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ã
     /// </summary>
     public void OnButton()
     {
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ•\¦‚·‚é
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºã™ã‚‹
         StatusWindow.Instance.OpenStatusWindow();
 
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚éƒ{ƒ^ƒ“‚ğ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         UIManager.Instance.CloseStatusWindowButton.SetActive(true);
 
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ”ñ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’éè¡¨ç¤º
         UIManager.Instance.OpenStatusWindowButton.SetActive(false);
     }
 }

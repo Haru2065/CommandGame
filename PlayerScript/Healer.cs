@@ -5,46 +5,46 @@ using UnityEngine;
 public class Healer : BasePlayerStatus
 {
     [SerializeField]
-    [Tooltip("‘ÎÛÒ‘I‘ğƒ}ƒl[ƒWƒƒ[")]
+    [Tooltip("å¯¾è±¡è€…é¸æŠãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼")]
     private HealTargetWindow healTargetWindow;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼")]
     private Attacker attacker;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼")]
     private Buffer buffer;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚ÌUŒ‚ƒGƒtƒFƒNƒg")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®æ”»æ’ƒã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject healerNormalEffect;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚ÌUŒ‚ƒeƒLƒXƒgƒGƒtƒFƒNƒg")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®æ”»æ’ƒãƒ†ã‚­ã‚¹ãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject healer_AttackTextEffect;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚Ì‰ñ•œƒGƒtƒFƒNƒg")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å›å¾©ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ")]
     private GameObject healer_HeelEffect;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚Ì‰ñ•œƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®å›å¾©ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®")]
     private Transform attacker_HeelEffect_SpawnPoint;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚Ì‰ñ•œƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®å›å¾©ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®")]
     private Transform buffer_HeelEffect_SpawnPoint;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚Ì‰ñ•œƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å›å¾©ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã•ã›ã‚‹ä½ç½®")]
     private Transform healer_HeelEffect_SpawnPoint;
 
-    //ƒq[ƒ‰[‚ªs“®‚µ‚½‚©
+    //ãƒ’ãƒ¼ãƒ©ãƒ¼ãŒè¡Œå‹•ã—ãŸã‹
     private bool isHealerAction;
 
     /// <summary>
-    /// ƒq[ƒ‰[‚Ìs“®ƒtƒ‰ƒO‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public bool IsHealerAction
     {
@@ -57,72 +57,72 @@ public class Healer : BasePlayerStatus
     // Start is called before the first frame update
     protected override void Start()
     {
-        //ƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         base.Start();
 
-        //ƒq[ƒ‰[‚Ìs“®ƒtƒ‰ƒO‚ğfalse‚É
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’falseã«
         isHealerAction = false;
 
-        //•’Ê‚Ìƒfƒoƒt‚Æ“ÁêƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚Ì‰Šú‰»
+        //æ™®é€šã®ãƒ‡ãƒãƒ•ã¨ç‰¹æ®Šãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–
         IsDebuff = false;
         IsSpecialDebuff = false;
 
         IsUseSkill = false;
 
-        //Å‰‚Í•KE‚Íg‚¦‚È‚¢‚æ‚¤‚É‚·‚é
+        //æœ€åˆã¯å¿…æ®ºã¯ä½¿ãˆãªã„ã‚ˆã†ã«ã™ã‚‹
         IsUseSpecial = true;
 
-        //•’Ê‚Ìƒfƒoƒt‚Æ“ÁêƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚Ì‰Šú‰»
+        //æ™®é€šã®ãƒ‡ãƒãƒ•ã¨ç‰¹æ®Šãƒ‡ãƒãƒ•ç¶™ç¶šã‚«ã‚¦ãƒ³ãƒˆã®åˆæœŸåŒ–
         DebuffCount = 0;
         SpecialDebuffCount = 0;
     }
 
     protected override void Update()
     {
-        //ƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ÌHP”•\¦
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã®HPæ•°è¡¨ç¤º
         PlayerHPUGUI.text = $"{PlayerCurrentHP}/ {PlayerMaxHP}";
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìs“®I—¹‚µ‚½‚©iƒq[ƒ‰[‚ªs“®‚µ‚½‚©j‚Ìƒtƒ‰ƒO‚ğƒŠƒZƒbƒg‚É‚·‚éƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•çµ‚äº†ã—ãŸã‹ï¼ˆãƒ’ãƒ¼ãƒ©ãƒ¼ãŒè¡Œå‹•ã—ãŸã‹ï¼‰ã®ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public override void ResetActionFlag()
     {
-        //ƒx[ƒX‚Ìƒƒ\ƒbƒh‚©‚çƒvƒŒƒCƒ„[s“®ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+        //ãƒ™ãƒ¼ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
         base.ResetActionFlag();
 
-        //ƒq[ƒ‰[‚Ìs“®ƒtƒ‰ƒO‚àfalse
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚‚false
         IsHealerAction = false;
     }
 
     /// <summary>
-    /// ƒpƒ‰ƒ[ƒ^‚ğİ’è‚·‚éƒƒ\ƒbƒh
+    /// ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected override void SetPlayerParameters()
     {
-        // LINQ‚ğg‚¢AƒvƒŒƒCƒ„[ƒf[ƒ^ƒx[ƒX‚©‚çPlayerID‚Æˆê’v‚·‚éƒvƒŒƒCƒ„[î•ñ‚ğæ“¾
+        // LINQã‚’ä½¿ã„ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‹ã‚‰PlayerIDã¨ä¸€è‡´ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ã‚’å–å¾—
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
 
-        // ˆê’v‚·‚éƒvƒŒƒCƒ„[î•ñ‚ªŒ©‚Â‚©‚Á‚½ê‡Aƒpƒ‰ƒ[ƒ^‚ğİ’è
+        // ä¸€è‡´ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ãŒè¦‹ã¤ã‹ã£ãŸå ´åˆã€ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’è¨­å®š
         if (playerData != null)
         {
 
-            //Å‘å‘Ì—Í‚Ìƒf[ƒ^‚ğ“Ç‚İ‚İ
+            //æœ€å¤§ä½“åŠ›ã®ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿
             PlayerMaxHP = playerData.PlayerMaxHPData;
 
-            //ƒq[ƒ‰[‚ÌŒ»İ‚ÌHP‚ğÅ‘å‚Éİ’è‚µ‚ÄHPƒo[‚àÅ‘å‚Éİ’è
+            //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ç¾åœ¨ã®HPã‚’æœ€å¤§ã«è¨­å®šã—ã¦HPãƒãƒ¼ã‚‚æœ€å¤§ã«è¨­å®š
             PlayerCurrentHP = PlayerMaxHP;
             PlayerHPBar.maxValue = PlayerCurrentHP;
             PlayerHPBar.value = PlayerCurrentHP;
             PlayerHPBar.minValue = 0;
 
-            //UŒ‚—Í‚ğƒq[ƒ‰[‚Ìƒf[ƒ^‚ÌUŒ‚—Í‚ğ“Ç‚İ‚Ş
+            //æ”»æ’ƒåŠ›ã‚’ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã®æ”»æ’ƒåŠ›ã‚’èª­ã¿è¾¼ã‚€
             AttackPower = playerData.PlayerAttackPowerData;
 
-            //‰ŠúUŒ‚—Í‚àƒq[ƒ‰[‚ÌUŒ‚—Í‚Éİ’è
+            //åˆæœŸæ”»æ’ƒåŠ›ã‚‚ãƒ’ãƒ¼ãƒ©ãƒ¼ã®æ”»æ’ƒåŠ›ã«è¨­å®š
             PlayerResetAttackPower = AttackPower;
 
-            //ƒq[ƒ‰[‚Ì‰ñ•œ—Í‚ğƒq[ƒ‰[‚Ìƒf[ƒ^‚Ì‰ñ•œ—Í‚©‚ç“Ç‚İ‚İ
+            //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å›å¾©åŠ›ã‚’ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿ã®å›å¾©åŠ›ã‹ã‚‰èª­ã¿è¾¼ã¿
             HealPower = playerData.HealPowerData;
 
             IsAlive = true;
@@ -130,50 +130,50 @@ public class Healer : BasePlayerStatus
     }
 
     /// <summary>
-    /// Josnƒf[ƒ^‚ª‚ ‚é‚É“Ç‚İ‚Şƒƒ\ƒbƒh
+    /// Josnãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹æ™‚ã«èª­ã¿è¾¼ã‚€ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="data">Json‚Ì•Û‘¶ƒf[ƒ^</param>
+    /// <param name="data">Jsonã®ä¿å­˜ãƒ‡ãƒ¼ã‚¿</param>
     protected override void ApplySaveData(PlayerSaveData data)
     {
-        //Šî–{ƒf[ƒ^‚ÍeƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh‚©‚çÀs
+        //åŸºæœ¬ãƒ‡ãƒ¼ã‚¿ã¯è¦ªã‚¯ãƒ©ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‹ã‚‰å®Ÿè¡Œ
         base.ApplySaveData(data);
 
-        //‰ñ•œ—Í‚ğƒZ[ƒuƒf[ƒ^‚©‚ç“Ç‚İ‚İ
+        //å›å¾©åŠ›ã‚’ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‹ã‚‰èª­ã¿è¾¼ã¿
         HealPower = data.healerHealPower_saveData;
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚Ì’ÊíUŒ‚
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®é€šå¸¸æ”»æ’ƒ
     /// </summary>
     public override void NormalAttack()
     {
-        //ƒvƒŒƒCƒ„[‚ª‘I‚ñ‚¾“G‚ğUŒ‚‘ÎÛ‚Éİ’è‚·‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒé¸ã‚“ã æ•µã‚’æ”»æ’ƒå¯¾è±¡ã«è¨­å®šã™ã‚‹
         BaseEnemyStatus target = PlayerTargetSelect.Instance.GetAttackTargetEnemy();
 
         if (target != null)
         {
-            //ƒq[ƒ‰[‚Ì’ÊíUŒ‚‰¹Ä¶
+            //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿ
             PlayerSE.Instance.Play_healerNormalAttackSE();
 
-            //ƒq[ƒ‰[‚Ì’ÊíUŒ‚‚ÌƒGƒtƒFƒNƒg‚ğ¶¬
+            //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®é€šå¸¸æ”»æ’ƒæ™‚ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
             GameObject effectInstance = Instantiate(healerNormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
             GameObject textEffectInstance = Instantiate(healer_AttackTextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-            //ƒ^[ƒQƒbƒg‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+            //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’ä¸ãˆã‚‹
             target.EnemyOnDamage(AttackPower);
 
-            //ƒq[ƒ‰[‚ÌƒGƒtƒFƒNƒg‚ğÁ‹
+            //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
             Destroy(effectInstance, 0.2f);
             Destroy(textEffectInstance, 4f);
         }
 
-        //(ƒq[ƒ‰[‚É‚ÍUŒ‚ƒXƒLƒ‹‚ª‚È‚¢‚½‚ßA’ÊíUŒ‚‚ÅƒŠƒZƒbƒgj
+        //(ãƒ’ãƒ¼ãƒ©ãƒ¼ã«ã¯æ”»æ’ƒã‚¹ã‚­ãƒ«ãŒãªã„ãŸã‚ã€é€šå¸¸æ”»æ’ƒã§ãƒªã‚»ãƒƒãƒˆï¼‰
         if (HasBuff)
         {
-            // LINQ‚ğg‚¢AƒvƒŒƒCƒ„[ƒf[ƒ^ƒx[ƒX‚©‚çPlayerID‚Æˆê’v‚·‚éƒvƒŒƒCƒ„[î•ñ‚ğæ“¾
+            // LINQã‚’ä½¿ã„ã€ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒ‡ãƒ¼ã‚¿ãƒ™ãƒ¼ã‚¹ã‹ã‚‰PlayerIDã¨ä¸€è‡´ã™ã‚‹ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æƒ…å ±ã‚’å–å¾—
             var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
 
-            //UŒ‚—Í‚ğæ‚èo‚µ‚½ƒf[ƒ^‚ÌUŒ‚—Í‚Éİ’è‚·‚é
+            //æ”»æ’ƒåŠ›ã‚’å–ã‚Šå‡ºã—ãŸãƒ‡ãƒ¼ã‚¿ã®æ”»æ’ƒåŠ›ã«è¨­å®šã™ã‚‹
             AttackPower = playerData.PlayerAttackPowerData;
 
             HasBuff = false;
@@ -185,15 +185,15 @@ public class Healer : BasePlayerStatus
 
             if (DebuffCount <= 0)
             {
-                // UŒ‚—Í‚ğŒ³‚Ì’l‚É–ß‚·
+                // æ”»æ’ƒåŠ›ã‚’å…ƒã®å€¤ã«æˆ»ã™
                 AttackPower = PlayerResetAttackPower;
 
                 IsDebuff = false;
 
-                // JSONƒtƒ@ƒCƒ‹‚Åİ’è‚³‚ê‚½ƒq[ƒ‰[‚Ìƒfƒoƒt‰ğœ’Ê’m‚ğ•\¦
+                // JSONãƒ•ã‚¡ã‚¤ãƒ«ã§è¨­å®šã•ã‚ŒãŸãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ‡ãƒãƒ•è§£é™¤é€šçŸ¥ã‚’è¡¨ç¤º
                 BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
 
-                //ƒfƒoƒt‰ğœ‚Ìó‹µƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚é
+                //ãƒ‡ãƒãƒ•è§£é™¤æ™‚ã®çŠ¶æ³ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
                 StartCoroutine(PlayerOffDebuffText());
             }
         }
@@ -204,29 +204,29 @@ public class Healer : BasePlayerStatus
 
             if (SpecialDebuffCount <= 0)
             {
-                // UŒ‚—Í‚ğŒ³‚Ì’l‚É–ß‚·
+                // æ”»æ’ƒåŠ›ã‚’å…ƒã®å€¤ã«æˆ»ã™
                 AttackPower = PlayerResetAttackPower;
 
                 IsSpecialDebuff = false;
 
-                // JSONƒtƒ@ƒCƒ‹‚Åİ’è‚³‚ê‚½ƒq[ƒ‰[‚Ì“Áêƒfƒoƒt‰ğœ’Ê’m‚ğ•\¦
+                // JSONãƒ•ã‚¡ã‚¤ãƒ«ã§è¨­å®šã•ã‚ŒãŸãƒ’ãƒ¼ãƒ©ãƒ¼ã®ç‰¹æ®Šãƒ‡ãƒãƒ•è§£é™¤é€šçŸ¥ã‚’è¡¨ç¤º
                 BattleActionTextManager.Instance.ShowBattleActionText("AttackerOffDebuff");
 
-                // ƒfƒoƒt‰ğœ‚Ìó‹µƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚é
+                // ãƒ‡ãƒãƒ•è§£é™¤æ™‚ã®çŠ¶æ³ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤ºã«ã™ã‚‹
                 StartCoroutine(PlayerOffDebuffText());
             }
         }
 
-        //ƒq[ƒ‰[‚Ìs“®ƒtƒ‰ƒO‚ğtrue‚É
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’trueã«
         IsHealerAction = true;
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚ÌƒXƒLƒ‹
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ã‚­ãƒ«
     /// </summary>
     public override void PlayerSkill()
     {
-        //‘ÎÛÒ‘I‘ğƒ}ƒl[ƒWƒƒ[‚©‚ç‰ñ•œ‘ÎÛÒ‘I‘ğ‰æ–Ê‚ğ•\¦
+        //å¯¾è±¡è€…é¸æŠãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰å›å¾©å¯¾è±¡è€…é¸æŠç”»é¢ã‚’è¡¨ç¤º
         healTargetWindow.ShowHealTargetWindow();
 
         if (IsDebuff)
@@ -251,7 +251,7 @@ public class Healer : BasePlayerStatus
 
             if (SpecialDebuffCount <= 0)
             {
-                //UŒ‚—Í‚ğŒ³‚Ì’l‚É–ß‚·
+                //æ”»æ’ƒåŠ›ã‚’å…ƒã®å€¤ã«æˆ»ã™
                 AttackPower = PlayerResetAttackPower;
 
                 IsSpecialDebuff = false;
@@ -263,18 +263,18 @@ public class Healer : BasePlayerStatus
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚Ì•KE‹Z
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å¿…æ®ºæŠ€
     /// </summary>
     public override void SpecialSkill()
     { 
 
-        //ƒq[ƒ‰[‚Ì•KE‚ÌŒø‰Ê‰¹Ä¶
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å¿…æ®ºã®åŠ¹æœéŸ³å†ç”Ÿ
         PlayerSE.Instance.Play_healerSpecialSE();
 
-        //¶¬‚µ‚½ƒGƒtƒFƒNƒg‚ğŠi”[‚·‚éƒŠƒXƒg
+        //ç”Ÿæˆã—ãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ ¼ç´ã™ã‚‹ãƒªã‚¹ãƒˆ
         List<GameObject> specialEffects = new List<GameObject>();
 
-        //ŠeƒŠƒXƒg‚ğŠi”[‚µAŠeƒLƒƒƒ‰‚ÌêŠ‚ÉƒGƒtƒFƒNƒg‚ğ¶¬
+        //å„ãƒªã‚¹ãƒˆã‚’æ ¼ç´ã—ã€å„ã‚­ãƒ£ãƒ©ã®å ´æ‰€ã«ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ
 
         if (attacker.IsAlive)
         {
@@ -293,12 +293,12 @@ public class Healer : BasePlayerStatus
 
         PlayerSE.Instance.Play_healerSkillSE();
 
-        //–¡•û‚ğ‘Sˆõ‰ñ•œ
+        //å‘³æ–¹ã‚’å…¨å“¡å›å¾©
         attacker.PlayerCurrentHP += HealPower;
         buffer.PlayerCurrentHP += HealPower;
         PlayerCurrentHP += HealPower;
 
-        //3•bŒã‘S‚Ä‚ÌƒGƒtƒFƒNƒg‚ğÁ‹
+        //3ç§’å¾Œå…¨ã¦ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
         foreach (var effect in specialEffects)
         {
             Destroy(effect, 3f);
@@ -335,72 +335,72 @@ public class Healer : BasePlayerStatus
         }
         IsUseSpecial = true;
 
-        //•KE§ŒÀƒJƒEƒ“ƒg‚ğ6ƒ^[ƒ“‚Éİ’è
+        //å¿…æ®ºåˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã‚’6ã‚¿ãƒ¼ãƒ³ã«è¨­å®š
         SpecialLimitCount = 6;
 
-        //ƒq[ƒ‰[‚Ìs“®ƒtƒ‰ƒO‚ğtrue
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’true
         IsHealerAction = true;
         IsPlayerAction = true;
     }
 
     /// <summary>
-    /// ‰ñ•œƒƒ\ƒbƒh
+    /// å›å¾©ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="target">‰ñ•œ‚·‚é‘ÎÛÒ</param>
+    /// <param name="target">å›å¾©ã™ã‚‹å¯¾è±¡è€…</param>
     public void OnHeal(BasePlayerStatus target)
     {
-        //‘ÎÛÒ‘I‘ğƒ}ƒl[ƒWƒƒ[‚©‚ç‘ÎÛ‘I‘ğƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦
+        //å¯¾è±¡è€…é¸æŠãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰å¯¾è±¡é¸æŠã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’éè¡¨ç¤º
         healTargetWindow.HideHealTargetWindow();
 
-        //ƒq[ƒ‰[‚ÌƒXƒLƒ‹Œø‰Ê‰¹Ä¶
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ã‚­ãƒ«åŠ¹æœéŸ³å†ç”Ÿ
         PlayerSE.Instance.Play_healerSkillSE();
 
         GameObject specialEffectInstance = Instantiate(healer_HeelEffect, target.transform.position, Quaternion.identity);
         Destroy(specialEffectInstance, 3f);
 
-        Debug.Log(target + "‚ÌHP" + target.PlayerCurrentHP);
+        Debug.Log(target + "ã®HP" + target.PlayerCurrentHP);
 
-        //‘I‘ğ‚µ‚½ƒ^[ƒQƒbƒg‚É‰ñ•œ
+        //é¸æŠã—ãŸã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«å›å¾©
         target.PlayerCurrentHP += HealPower;
 
-        Debug.Log(target + "‚ÌHP" + target.PlayerCurrentHP);
+        Debug.Log(target + "ã®HP" + target.PlayerCurrentHP);
 
-        //Å‘å‘Ì—Í‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é
+        //æœ€å¤§ä½“åŠ›ã‚’è¶…ãˆãªã„ã‚ˆã†ã«ã™ã‚‹
         if (target.PlayerCurrentHP > target.PlayerMaxHP)
         {
             target.PlayerCurrentHP = target.PlayerMaxHP;
 
         }
 
-        //‰ñ•œ‘ÎÛÒ‚ÌHPUI‚àXV
+        //å›å¾©å¯¾è±¡è€…ã®HPUIã‚‚æ›´æ–°
         target.PlayerHPUGUI.text = $"{target.PlayerCurrentHP}/ {target.PlayerMaxHP}";
 
-        //HPƒo[‚ğXV
+        //HPãƒãƒ¼ã‚’æ›´æ–°
         target.PlayerHPBar.value = target.PlayerCurrentHP;
 
         IsUseSkill = true;
 
-        //ƒXƒLƒ‹§ŒÀƒJƒEƒ“ƒg‚ğ‚Tƒ^[ƒ“‚Éİ’è
+        //ã‚¹ã‚­ãƒ«åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã‚’ï¼•ã‚¿ãƒ¼ãƒ³ã«è¨­å®š
         SkillLimitCount = 5;
 
-        //ƒq[ƒ‰[‚Ìs“®ƒtƒ‰ƒO‚ğtrue
+        //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’true
         IsHealerAction = true;
         IsPlayerAction = true;
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚Ìƒ_ƒ[ƒWƒƒ\ƒbƒh
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ€ãƒ¡ãƒ¼ã‚¸ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="damage">“G‚©‚ç‚Ìƒ_ƒ\ƒW—Êi“G‚ÌUŒ‚—Í)</param>
+    /// <param name="damage">æ•µã‹ã‚‰ã®ãƒ€ãƒ¡â€•ã‚¸é‡ï¼ˆæ•µã®æ”»æ’ƒåŠ›)</param>
     public override void PlayerOnDamage(int damage)
     {
         PlayerCurrentHP -= damage;
         PlayerHPBar.value = PlayerCurrentHP;
 
-        //0‚æ‚è‰º‚É‚Ís‚©‚È‚¢‚æ‚¤‚É‚·‚é
+        //0ã‚ˆã‚Šä¸‹ã«ã¯è¡Œã‹ãªã„ã‚ˆã†ã«ã™ã‚‹
         if (PlayerHPBar.value <= 0)
         {
-            //¶‘¶ƒŠƒXƒg‚©‚ç‚±‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹
+            //ç”Ÿå­˜ãƒªã‚¹ãƒˆã‹ã‚‰ã“ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
             BaseBattleManager.Instance.AlivePlayers.Remove(this);
 
             PlayerCurrentHP = 0;
@@ -411,13 +411,13 @@ public class Healer : BasePlayerStatus
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚ÌƒŒƒxƒ‹ƒAƒbƒvƒƒ\ƒbƒh
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public override void LevelUP()
     {
         base.LevelUP();
 
-        //‰ñ•œƒpƒ[‚ğ100ƒvƒ‰ƒX‚µ‚ÄƒŒƒxƒ‹ƒAƒbƒv
+        //å›å¾©ãƒ‘ãƒ¯ãƒ¼ã‚’100ãƒ—ãƒ©ã‚¹ã—ã¦ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—
         HealPower += 100;
     }
 }

@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒXƒe[ƒWƒ{ƒ^ƒ“‚ğ‘I‘ğ‚·‚éƒXƒNƒŠƒvƒg(ƒoƒgƒ‹ƒXƒe[ƒW‚Ìƒ{ƒ^ƒ“‚Ì‚İj
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ãƒœã‚¿ãƒ³ã‚’é¸æŠã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ(ãƒãƒˆãƒ«ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒœã‚¿ãƒ³ã®ã¿ï¼‰
 /// </summary>
 public class PushStageButton : MonoBehaviour
 {
     /// <summary>
-    /// ƒXƒe[ƒW1‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW1‚ÌƒV[ƒ“‚ğƒ[ƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸1ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸1ã®ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void PushStage1Button()
     {
@@ -15,7 +15,7 @@ public class PushStageButton : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒe[ƒW2‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW2‚ÌƒV[ƒ“‚ğƒ[ƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸2ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸2ã®ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void PushStage2Button()
     {
@@ -23,7 +23,7 @@ public class PushStageButton : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒe[ƒW3‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW3‚ÌƒV[ƒ“‚ğƒ[ƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¸3ã®ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸3ã®ã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void PushStage3Button()
     {

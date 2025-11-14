@@ -1,15 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌŒø‰Ê‰¹ƒ}ƒl[ƒWƒƒ[
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åŠ¹æœéŸ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼
 /// </summary>
 public class PlayerSE : MonoBehaviour
 {
-    //ƒvƒŒƒCƒ„[‚ÌŒø‰Ê‰¹‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»—p
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åŠ¹æœéŸ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ç”¨
     private static PlayerSE instance;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌŒø‰Ê‰¹‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åŠ¹æœéŸ³ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static PlayerSE Instance
     {
@@ -17,47 +17,47 @@ public class PlayerSE : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("Œø‰Ê‰¹‚ÌƒI[ƒfƒBƒIƒ\[ƒX")]
+    [Tooltip("åŠ¹æœéŸ³ã®ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚½ãƒ¼ã‚¹")]
     private AudioSource audioSource;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚Ì’ÊíUŒ‚‰¹")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®é€šå¸¸æ”»æ’ƒéŸ³")]
     private AudioClip attackerNormalAttackSE;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚ÌƒXƒLƒ‹UŒ‚‰¹")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¹ã‚­ãƒ«æ”»æ’ƒéŸ³")]
     private AudioClip attackerSkillSE;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚Ì•KEŒø‰Ê‰¹")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®å¿…æ®ºåŠ¹æœéŸ³")]
     private AudioClip attackerSpecialSE;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚Ì’ÊíUŒ‚‰¹")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®é€šå¸¸æ”»æ’ƒéŸ³")]
     private AudioClip bufferAttackSE;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌƒXƒe[ƒ^ƒXã¸‰¹")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ä¸Šæ˜‡éŸ³")]
     private AudioClip bufferUPStatusSE;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌƒXƒe[ƒ^ƒX“Á‘åã¸‰¹")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç‰¹å¤§ä¸Šæ˜‡éŸ³")]
     private AudioClip bufferSpecialSE;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚Ì’ÊíUŒ‚‰¹")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®é€šå¸¸æ”»æ’ƒéŸ³")]
     private AudioClip healerAttackSE;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚Ì’Êí‰ñ•œ‰¹")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®é€šå¸¸å›å¾©éŸ³")]
     private AudioClip healerNormalHealSE;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚Ì“Á‘å‰ñ•œ‰¹")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ç‰¹å¤§å›å¾©éŸ³")]
     private AudioClip healerSpecialSE;
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ÌŒø‰Ê‰¹ƒ}ƒl[ƒWƒƒ[‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®åŠ¹æœéŸ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     private void Awake()
     {
@@ -72,85 +72,85 @@ public class PlayerSE : MonoBehaviour
     }
     
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[‚Ì’ÊíUŒ‚‰¹Ä¶ƒƒ\ƒbƒh
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_AttackerNormalAttackSE()
     {
-        //’ÊíUŒ‚‰¹Ä¶
+        //é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(attackerNormalAttackSE);
     }
 
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[‚ÌƒXƒLƒ‹‰¹Ä¶ƒƒ\ƒbƒh
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¹ã‚­ãƒ«éŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_AttackerSkillSE()
     {
-        //ƒXƒLƒ‹‰¹Ä¶
+        //ã‚¹ã‚­ãƒ«éŸ³å†ç”Ÿ
         audioSource.PlayOneShot(attackerSkillSE);
 
         
     }
 
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[‚Ì•KE‰¹Ä¶ƒƒ\ƒbƒh
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®å¿…æ®ºéŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_AttackerSpecialSE()
     {
-        //•KE‰¹Ä¶
+        //å¿…æ®ºéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(attackerSpecialSE);
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚Ì’ÊíUŒ‚‰¹Ä¶ƒƒ\ƒbƒh
+    /// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_BufferNormalAttackSE()
     {
-        //’ÊíUŒ‚‰¹Ä¶
+        //é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(bufferAttackSE);
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚ÌƒXƒLƒ‹‰¹Ä¶ƒƒ\ƒbƒh
+    /// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ã‚¹ã‚­ãƒ«éŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_BufferSkillSE()
     {
-        //ƒXƒLƒ‹‰¹Ä¶
+        //ã‚¹ã‚­ãƒ«éŸ³å†ç”Ÿ
         audioSource.PlayOneShot(bufferUPStatusSE);
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚Ì•KE‰¹Ä¶ƒƒ\ƒbƒh
+    /// ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®å¿…æ®ºéŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_bufferSpecialSE()
     {
-        //•KE‰¹Ä¶
+        //å¿…æ®ºéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(bufferSpecialSE);
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚Ì’ÊíUŒ‚‚ğÄ¶
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®é€šå¸¸æ”»æ’ƒã‚’å†ç”Ÿ
     /// </summary>
     public void Play_healerNormalAttackSE()
     {
-        //’ÊíUŒ‚‰¹Ä¶
+        //é€šå¸¸æ”»æ’ƒéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(healerAttackSE);
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚ÌƒXƒLƒ‹‰¹Ä¶
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¹ã‚­ãƒ«éŸ³å†ç”Ÿ
     /// </summary>
     public void Play_healerSkillSE()
     {
-        //ƒXƒLƒ‹‰¹Ä¶
+        //ã‚¹ã‚­ãƒ«éŸ³å†ç”Ÿ
         audioSource.PlayOneShot(healerNormalHealSE);
     }
 
     /// <summary>
-    /// ƒq[ƒ‰[‚Ì•KE‰¹Ä¶
+    /// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å¿…æ®ºéŸ³å†ç”Ÿ
     /// </summary>
     public void Play_healerSpecialSE()
     {
-        //•KE‰¹Ä¶
+        //å¿…æ®ºéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(healerSpecialSE);
     }
 }

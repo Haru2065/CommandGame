@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// Ä’§íƒ{ƒ^ƒ“
+/// å†æŒ‘æˆ¦ãƒœã‚¿ãƒ³
 /// </summary>
 public class PushReTryButton : MonoBehaviour
 {
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW1ƒV[ƒ“‚ğÄƒŠƒ[ƒh
+    /// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸1ã‚·ãƒ¼ãƒ³ã‚’å†ãƒªãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void OnButtonReLoadStage1()
     {
@@ -15,7 +15,7 @@ public class PushReTryButton : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW2‚ÌƒV[ƒ“‚ğÄƒŠƒ[ƒh
+    /// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸2ã®ã‚·ãƒ¼ãƒ³ã‚’å†ãƒªãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void OnButtonReLoadStage2()
     {
@@ -23,7 +23,7 @@ public class PushReTryButton : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒW3‚ÌƒV[ƒ“‚ğÄƒŠƒ[ƒh
+    /// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸3ã®ã‚·ãƒ¼ãƒ³ã‚’å†ãƒªãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void OnButtonReLoadStage3()
     {

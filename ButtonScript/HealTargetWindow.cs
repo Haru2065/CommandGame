@@ -4,66 +4,66 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒq[ƒ‰[‚Ì‘ÎÛÒ‚ğ‘I‘ğ‚·‚éƒXƒNƒŠƒvƒg
+/// ãƒ’ãƒ¼ãƒ©ãƒ¼ã®å¯¾è±¡è€…ã‚’é¸æŠã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class HealTargetWindow : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("‰ñ•œƒ^[ƒQƒbƒgƒ{ƒ^ƒ“ƒAƒ^ƒbƒJ[")]
+    [Tooltip("å›å¾©ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒœã‚¿ãƒ³ã‚¢ã‚¿ãƒƒã‚«ãƒ¼")]
     private Button healTargetAttackerButton;
 
     [SerializeField]
-    [Tooltip("‰ñ•œƒ^[ƒQƒbƒgƒ{ƒ^ƒ“ƒoƒbƒtƒ@[")]
+    [Tooltip("å›å¾©ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒœã‚¿ãƒ³ãƒãƒƒãƒ•ã‚¡ãƒ¼")]
     private Button healTargetBufferButton;
 
     [SerializeField]
-    [Tooltip("‰ñ•œƒ^[ƒQƒbƒgƒ{ƒ^ƒ“ƒq[ƒ‰[")]
+    [Tooltip("å›å¾©ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒœã‚¿ãƒ³ãƒ’ãƒ¼ãƒ©ãƒ¼")]
     private Button healTargetHealerButton;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[")]
+    [Tooltip("ã‚¢ã‚¿ãƒƒã‚«ãƒ¼")]
     private Attacker attacker;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[")]
+    [Tooltip("ãƒãƒƒãƒ•ã‚¡ãƒ¼")]
     private Buffer buffer;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[")]
+    [Tooltip("ãƒ’ãƒ¼ãƒ©ãƒ¼")]
     private Healer healer;
 
     [SerializeField]
-    [Tooltip("‰ñ•œƒ^[ƒQƒbƒgƒEƒBƒ“ƒhƒE")]
+    [Tooltip("å›å¾©ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦")]
     private GameObject healTargetWindow;
 
     // Start is called before the first frame update
     void Start()
     {
-        //Å‰‚ÍŠeƒ{ƒ^ƒ“‚ğ”ñ•\¦
+        //æœ€åˆã¯å„ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤º
         healTargetAttackerButton.gameObject.SetActive(false);
         healTargetBufferButton.gameObject.SetActive(false);
         healTargetHealerButton.gameObject.SetActive(false);
 
-        //‘I‘ğƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦
+        //é¸æŠã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’éè¡¨ç¤º
         healTargetWindow.SetActive(false);
     }
 
     /// <summary>
-    /// ‰ñ•œ‘ÎÛÒ‚ğ‘I‘ğƒEƒBƒ“ƒhƒE‚ğ•\¦Aƒ{ƒ^ƒ“‚ğ‰Ÿ‚·ƒƒ\ƒbƒh
+    /// å›å¾©å¯¾è±¡è€…ã‚’é¸æŠã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤ºã€ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void ShowHealTargetWindow()
     {
-        //‘I‘ğƒEƒBƒ“ƒhƒE‚ğ•\¦
+        //é¸æŠã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º
         healTargetWindow.SetActive(true);
 
-        //Še‘ÎÛÒƒ{ƒ^ƒ“‚ğŠeƒLƒƒƒ‰‚ª¶‘¶‚µ‚Ä‚¢‚½‚ç•\¦‚·‚é
+        //å„å¯¾è±¡è€…ãƒœã‚¿ãƒ³ã‚’å„ã‚­ãƒ£ãƒ©ãŒç”Ÿå­˜ã—ã¦ã„ãŸã‚‰è¡¨ç¤ºã™ã‚‹
         healTargetAttackerButton.gameObject.SetActive(attacker.IsAlive);
         healTargetBufferButton.gameObject.SetActive(buffer.IsAlive);
         healTargetHealerButton.gameObject.SetActive(buffer.IsAlive);
 
 
 
-        //ŠeƒLƒƒƒ‰‚Ì‘ÎÛÒƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çA‚»‚Ì‘ÎÛÒ‚É‰ñ•œ‚ğÀs
+        //å„ã‚­ãƒ£ãƒ©ã®å¯¾è±¡è€…ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã€ãã®å¯¾è±¡è€…ã«å›å¾©ã‚’å®Ÿè¡Œ
         healTargetAttackerButton.onClick.AddListener(() => healer.OnHeal(attacker));
         healTargetBufferButton.onClick.AddListener(() => healer.OnHeal(buffer));
         healTargetHealerButton.onClick.AddListener(() => healer.OnHeal(healer));
@@ -72,19 +72,19 @@ public class HealTargetWindow : MonoBehaviour
 
 
     /// <summary>
-    /// ‘I‘ğƒEƒBƒ“ƒhƒE‚Æƒ{ƒ^ƒ“‚ğ”ñ•\¦‚É‚·‚éƒƒ\ƒbƒh
+    /// é¸æŠã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã¨ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void HideHealTargetWindow()
     {
-        //‘I‘ğƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦
+        //é¸æŠã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’éè¡¨ç¤º
         healTargetWindow.SetActive(false);
 
-        //ƒŠƒXƒi[‚Ìd•¡‚ğ–h‚®‚½‚ß‚Éíœ
+        //ãƒªã‚¹ãƒŠãƒ¼ã®é‡è¤‡ã‚’é˜²ããŸã‚ã«å‰Šé™¤
         healTargetAttackerButton.onClick.RemoveAllListeners();
         healTargetBufferButton.onClick.RemoveAllListeners();
         healTargetHealerButton.onClick.RemoveAllListeners();
 
-        //Še‘ÎÛÒƒ{ƒ^ƒ“‚ğ”ñ•\¦
+        //å„å¯¾è±¡è€…ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤º
         healTargetAttackerButton.gameObject.SetActive(false);
         healTargetBufferButton.gameObject.SetActive(false);
         healTargetHealerButton.gameObject.SetActive(false);

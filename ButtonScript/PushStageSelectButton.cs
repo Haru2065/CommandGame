@@ -2,12 +2,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒXƒe[ƒWƒZƒŒƒNƒgƒ{ƒ^ƒ“ƒXƒNƒŠƒvƒg
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆãƒœã‚¿ãƒ³ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class PushStageSelectButton : MonoBehaviour
 {
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒXƒe[ƒWƒZƒŒƒNƒgƒV[ƒ“‚ğƒ[ƒh
+    /// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆã‚·ãƒ¼ãƒ³ã‚’ãƒ­ãƒ¼ãƒ‰
     /// </summary>
     public void StageSelectButton()
     {

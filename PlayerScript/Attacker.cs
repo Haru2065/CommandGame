@@ -66,49 +66,51 @@ public class Attacker : BasePlayerStatus
     }
 
     /// <summary>
-    /// プレイヤーの行動終了したか（アタッカーが行動したか）のフラグをリセットにするメソッド
+    /// プレイヤーの行動フラグをリセットするメソッド
+    /// ターン終了時に呼び出され、次のターンに備えて行動フラグをfalseに戻します
     /// </summary>
     public override void ResetActionFlag()
     {
-        //ベースのメソッドからプレイヤー行動フラグをリセット
+        // 基底クラスのフラグをリセット
         base.ResetActionFlag();
 
-        //アタッカーの行動フラグもfalse
+        // アタッカー固有の行動フラグもリセット
         IsAttackerAction = false;
     }
 
     /// <summary>
-    /// パラメータを設定するメソッド
-    /// プレイヤーのデータベースから読み込み
+    /// アタッカーのパラメータを初期設定するメソッド
+    /// ScriptableObjectのデータベースから初期ステータスを読み込みます
+    /// セーブデータが存在しない場合に呼び出されます
     /// </summary>
     protected override void SetPlayerParameters()
     {
-        // LINQを使い、プレイヤーデータベースからPlayerIDと一致するプレイヤー情報を取得
+        // LINQを使用してデータベースから該当するプレイヤー情報を検索
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
 
-        // 一致するプレイヤー情報が見つかった場合、パラメータを設定
+        // データが見つかった場合、各パラメータを初期化
         if (playerData != null)
         {
-
-            //最大体力のデータを読み込み
+            // 最大HPをデータベースから読み込み
             PlayerMaxHP = playerData.PlayerMaxHPData;
 
-            //アタッカーの現在のHPを最大に設定してHPバーも最大に設定
+            // 現在のHPを最大HPに設定（バトル開始時は全回復状態）
             PlayerCurrentHP = PlayerMaxHP;
 
             Debug.Log($"PlayerCuurentHP:{PlayerCurrentHP},PlayerMaxHP:{PlayerMaxHP}");
             
+            // HPバーのUI設定（最大値、現在値、最小値）
             PlayerHPBar.maxValue = PlayerCurrentHP;
             PlayerHPBar.value = PlayerCurrentHP;
             PlayerHPBar.minValue = 0;
 
-            //攻撃力をアタッカーのデータの攻撃力を読み込む
+            // 攻撃力をデータベースから読み込み
             AttackPower = playerData.PlayerAttackPowerData;
 
-            //初期攻撃力もアタッカーの攻撃力に設定
+            // デバフ解除時の復元用に初期攻撃力を保存
             PlayerResetAttackPower = AttackPower;
 
-            //生存状態にする
+            // 生存フラグをtrueに設定
             IsAlive = true;
         }
     }
@@ -120,77 +122,83 @@ public class Attacker : BasePlayerStatus
     }
 
     /// <summary>
-    /// 通常攻撃
+    /// 通常攻撃を実行するメソッド
+    /// 選択中の敵に対して単体攻撃を行います（Aキーで実行）
     /// </summary>
     public override void NormalAttack()
     {
-        //プレイヤーが選んだ敵を攻撃対象に設定する
+        // プレイヤーが選択している敵をターゲットとして取得
         BaseEnemyStatus target = PlayerTargetSelect.Instance.GetAttackTargetEnemy();
 
+        // ターゲットが有効な場合のみ攻撃を実行
         if (target != null)
         {
-            //通常攻撃音再生
+            // 通常攻撃の効果音を再生
             PlayerSE.Instance.Play_AttackerNormalAttackSE();
 
-            //アタッカーの通常攻撃時のエフェクトを生成
+            // 攻撃エフェクトとテキストエフェクトを生成
             GameObject effectInstance = Instantiate(attacker_NormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
             GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-            //攻撃する対象の敵にダメージを与える
+            // ターゲットの敵にダメージを与える
             target.EnemyOnDamage(AttackPower);
 
-            //アタッカーのエフェクトを消去
+            // エフェクトを指定時間後に削除（0.2秒後に攻撃エフェクト、2秒後にテキスト）
             Destroy(effectInstance, 0.2f);
             Destroy(textEffectInstance, 2f);
         }
 
-        //アタッカーの行動フラグをtrueに
+        // アタッカーの行動完了フラグを立てる
         IsAttackerAction = true;
     }
 
     /// <summary>
-    /// アタッカースキル
+    /// アタッカーのスキル攻撃を実行するメソッド
+    /// 攻撃力を2倍にして2連続攻撃を行います（Sキーで実行）
+    /// 使用後は3ターン再使用不可になります
     /// </summary>
     public override void PlayerSkill()
     {
-        //攻撃力を２倍にする
+        // スキル発動時は攻撃力を2倍に強化
         AttackPower *= 2;
 
         Debug.Log("攻撃力" + AttackPower);
 
-        //プレイヤーが選んだ敵を攻撃対象に設定する
+        // プレイヤーが選択している敵をターゲットとして取得
         BaseEnemyStatus target = PlayerTargetSelect.Instance.GetAttackTargetEnemy();
 
-        //ターゲットが設定されていたら処理を実行
+        // ターゲットが有効な場合のみ攻撃を実行
         if (target != null)
         {
-            //アタッカーのスキル効果音再生
+            // スキル攻撃の効果音を再生
             PlayerSE.Instance.Play_AttackerSkillSE();
 
-            //アタッカーの攻撃エフェクトとテキストエフェクトを生成
+            // 1回目の攻撃エフェクトを生成
             GameObject effectInstance = Instantiate(attacker_NormalEffect, transform.position, Quaternion.identity);
             GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-            //遅れてもう一個エフェクトを生成
+            // 0.3秒後に2回目の攻撃エフェクトを遅延生成（2連続攻撃の演出）
             Invoke("DelayEffect", 0.3f);
 
+            // ターゲットに2倍の攻撃力でダメージを与える
             target.EnemyOnDamage(AttackPower);
 
-            //アタッカーのエフェクトを消去
+            // エフェクトを指定時間後に削除
             Destroy(effectInstance, 0.2f);
             Destroy(textEffectInstance, 4f);
         }
 
+        // 攻撃力を通常値に戻す（データベースから再読み込み）
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
         AttackPower = playerData.PlayerAttackPowerData;
 
-        //スキルを使ったかのフラグをtrue
+        // スキル使用フラグを立てる
         IsUseSkill = true;
 
-        //スキル使用制限カウントを3ターンに設定
+        // スキルの再使用待機ターン数を設定（3ターン後に再使用可能）
         SkillLimitCount = 3;
 
-        //アタッカーの行動フラグをtrue
+        // 行動完了フラグを立てる
         IsAttackerAction = true;
         IsPlayerAction = true;
     }
@@ -207,8 +215,8 @@ public class Attacker : BasePlayerStatus
             // 現在のターゲットとなる敵を取得
             BaseEnemyStatus enemy = targetEnemys[i];
 
-            //ターゲットとオブジェクトが存在しなかったら処理をスキップ
-            if (enemy == null && enemy.gameObject == null) continue;
+            //ターゲットまたはオブジェクトが存在しなかったら処理をスキップ
+            if (enemy == null || enemy.gameObject == null) continue;
 
             //アタッカー必殺攻撃音声再生
             PlayerSE.Instance.Play_AttackerSpecialSE();
@@ -270,7 +278,7 @@ public class Attacker : BasePlayerStatus
     public override void PlayerOnDamage(int damage)
     {
         PlayerCurrentHP -= damage;
-　　　　PlayerHPBar.value = PlayerCurrentHP;
+    PlayerHPBar.value = PlayerCurrentHP;
 
         //もし現在のHPとHPバーが0になったら生存フラグをfalseに
         if (PlayerCurrentHP <= 0)
@@ -317,8 +325,9 @@ public class Attacker : BasePlayerStatus
 
     /// <summary>
     /// エフェクトの生成位置を取得するメソッド
+    /// 敵のインデックスに対応するスポーン位置を返します
     /// </summary>
-    /// <param name="index">エフェクトを生成するインデックス</param>
+    /// <param name="index">エフェクトを生成する敵のインデックス（0-2）</param>
     /// <returns>対応するスポーンポイントのTransform。範囲外の場合はnullを返す。</returns>
     private Transform GetSpawnPoint(int index)
     {
@@ -326,9 +335,9 @@ public class Attacker : BasePlayerStatus
         {
             case 0: return specialAttackEffect_SpawnPoint1;
 
-            case 2: return specialAttackEffect_SpawnPoint2;
+            case 1: return specialAttackEffect_SpawnPoint2;
 
-            case 3: return specialAttackEffect_SpawnPoint3;
+            case 2: return specialAttackEffect_SpawnPoint3;
 
             default: return null;
         }

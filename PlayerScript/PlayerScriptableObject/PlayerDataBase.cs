@@ -2,11 +2,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ÌƒXƒNƒŠƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚ğì¬
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚¯ãƒªã‚¿ãƒ–ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆ
 /// </summary>
 [CreateAssetMenu(fileName ="PlayerDataBase",menuName = "ScriptableObject/PlayerDataBase")]
 public class PlayerDataBase : ScriptableObject
 {
-    //ƒvƒŒƒCƒ„[‚Ìƒpƒ‰ƒ[ƒ^‚ÌƒŠƒXƒg
+    //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ãƒªã‚¹ãƒˆ
     public List<PlayerParameters> PlayerParameters = new List<PlayerParameters>();
 }

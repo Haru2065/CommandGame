@@ -1,18 +1,18 @@
 using System;
 
 /// <summary>
-/// プレイヤーのパラメータの保存データ
+/// 繝励Ξ繧､繝､繝ｼ縺ｮ繝代Λ繝｡繝ｼ繧ｿ縺ｮ菫晏ｭ倥ョ繝ｼ繧ｿ
 /// </summary>
 [Serializable]
 public class PlayerSaveData
 {
-    //プレイヤーのIDセーブデータ
+    //繝励Ξ繧､繝､繝ｼ縺ｮID繧ｻ繝ｼ繝悶ョ繝ｼ繧ｿ
     public string playerID_SaveData;
 
-    //プレイヤーのレベルセーブデータ
+    //繝励Ξ繧､繝､繝ｼ縺ｮ繝ｬ繝吶Ν繧ｻ繝ｼ繝悶ョ繝ｼ繧ｿ
     public int level_SaveData;
 
-    //プレイヤーの攻撃力と最大体力のセーブデータ
+    //繝励Ξ繧､繝､繝ｼ縺ｮ謾ｻ謦�蜉帙→譛螟ｧ菴灘鴨縺ｮ繧ｻ繝ｼ繝悶ョ繝ｼ繧ｿ
     public int attackPower_SaveData;
     public int playerMaxHP_SaveData;
 
