@@ -2,19 +2,19 @@ using TMPro;
 using UnityEngine;
 
 /// <summary>
-/// HPマネージャー
+/// HP繝槭ロ繝ｼ繧ｸ繝｣繝ｼ
 /// </summary>
 public class HPManager : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("アタッカー")]
+    [Tooltip("繧｢繧ｿ繝�繧ｫ繝ｼ")]
     private Attacker attacker;
 
     [SerializeField]
-    [Tooltip("バッファー")]
+    [Tooltip("繝舌ャ繝輔ぃ繝ｼ")]
     private Buffer buffer;
 
     [SerializeField]
-    [Tooltip("ヒーラー")]
+    [Tooltip("繝偵�ｼ繝ｩ繝ｼ")]
     private Healer healer;
 }

@@ -1,15 +1,15 @@
 using UnityEngine;
 
 /// <summary>
-/// UIŠÖŒW‚ğˆêŠ‡ŠÇ—
+/// UIé–¢ä¿‚ã‚’ä¸€æ‹¬ç®¡ç†
 /// </summary>
 public class UIManager : MonoBehaviour
 {
-    //UIƒ}ƒl[ƒWƒƒ[‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‰»—p
+    //UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ç”¨
     private static UIManager instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static UIManager Instance
     {
@@ -17,7 +17,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// UIƒ}ƒl[ƒWƒƒ[‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     void Awake()
     {
@@ -32,10 +32,10 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[‚Ìƒ^[ƒ“UI")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¿ãƒ¼ãƒ³UI")]
     private GameObject playerTurnUI;
     /// <summary>
-    /// ƒvƒŒƒCƒ„[ƒ^[ƒ“‚ÌUI‚ÌƒQƒbƒ^[
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³ã®UIã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject PlayerTurnUI
     {
@@ -50,11 +50,11 @@ public class UIManager : MonoBehaviour
 
 
     [SerializeField]
-    [Tooltip("“G‚Ìƒ^[ƒ“UI")]
+    [Tooltip("æ•µã®ã‚¿ãƒ¼ãƒ³UI")]
     private GameObject enemyTurnUI;
 
     /// <summary>
-    /// “G‚Ìƒ^[ƒ“‚ÌUI‚ÌƒQƒbƒ^[
+    /// æ•µã®ã‚¿ãƒ¼ãƒ³ã®UIã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject EnemyTurnUI
     {
@@ -62,55 +62,55 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒL[ƒ{[ƒhA")]
+    [Tooltip("ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰A")]
     private GameObject aKey;
 
     [SerializeField]
-    [Tooltip("ƒL[ƒ{[ƒhS")]
+    [Tooltip("ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰S")]
     private GameObject sKey;
 
     [SerializeField]
-    [Tooltip("ƒL[ƒ{[ƒhF")]
+    [Tooltip("ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰F")]
     private GameObject fKey;
 
     [SerializeField]
-    [Tooltip("’ÊíUŒ‚UI")]
+    [Tooltip("é€šå¸¸æ”»æ’ƒUI")]
     private GameObject attackUI;
 
     [SerializeField]
-    [Tooltip("ƒXƒLƒ‹UI")]
+    [Tooltip("ã‚¹ã‚­ãƒ«UI")]
     private GameObject skillUI;
 
     [SerializeField]
-    [Tooltip("•KEUI")]
+    [Tooltip("å¿…æ®ºUI")]
     private GameObject specialUI;
 
     [SerializeField]
-    [Tooltip("ƒQ[ƒ€ƒNƒŠƒAUI")]
+    [Tooltip("ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢UI")]
     private GameObject gameClearUI;
 
     [SerializeField]
-    [Tooltip("ƒQ[ƒ€ƒI[ƒo[UI")]
+    [Tooltip("ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UI")]
     private GameObject gameOverUI;
 
     [SerializeField]
-    [Tooltip("I—¹ƒ{ƒ^ƒ“")]
+    [Tooltip("çµ‚äº†ãƒœã‚¿ãƒ³")]
     private GameObject exitButton;
 
     [SerializeField]
-    [Tooltip("Ä’§íƒ{ƒ^ƒ“")]
+    [Tooltip("å†æŒ‘æˆ¦ãƒœã‚¿ãƒ³")]
     private GameObject reTryButton;
 
     [SerializeField]
-    [Tooltip("ƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³")]
     private GameObject titleButton;
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦")]
     private GameObject statusWindow;
 
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ÌƒQƒbƒ^[
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject StatusWindow
     {
@@ -118,11 +118,11 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³")]
     private GameObject openStatusWindowButton;
 
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“‚ÌƒQƒbƒ^[
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject OpenStatusWindowButton
     {
@@ -131,11 +131,11 @@ public class UIManager : MonoBehaviour
 
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚éƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ãƒœã‚¿ãƒ³")]
     private GameObject closeStatusWindowButton;
 
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚éƒ{ƒ^ƒ“‚ÌƒQƒbƒ^[
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ãƒœã‚¿ãƒ³ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject CloseStatusWindowButton
     {
@@ -143,27 +143,27 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒ|[ƒY’†‚Ìƒpƒlƒ‹")]
+    [Tooltip("ãƒãƒ¼ã‚ºä¸­ã®ãƒ‘ãƒãƒ«")]
     private GameObject pausePanel;
 
     [SerializeField]
-    [Tooltip("ƒ|[ƒY’†‚ÌI—¹ƒ{ƒ^ƒ“")]
+    [Tooltip("ãƒãƒ¼ã‚ºä¸­ã®çµ‚äº†ãƒœã‚¿ãƒ³")]
     private GameObject pauseExitButton;
 
     [SerializeField]
-    [Tooltip("ƒ|[ƒY’†‚Ìƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“")]
+    [Tooltip("ãƒãƒ¼ã‚ºä¸­ã®ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³")]
     private GameObject pauseTitleButton;
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒWƒZƒŒƒNƒg‰æ–Êƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ãƒœã‚¿ãƒ³")]
     private GameObject stageSelectButton;
 
     [SerializeField]
-    [Tooltip("ƒXƒLƒ‹§ŒÀƒJƒEƒ“ƒg‚ÌƒeƒLƒXƒg")]
+    [Tooltip("ã‚¹ã‚­ãƒ«åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     private GameObject skillLimitCountText;
 
     /// <summary>
-    /// ƒAƒ^ƒbƒJ[‚ÌƒXƒLƒ‹§ŒÀƒJƒEƒ“ƒg‚ÌƒeƒLƒXƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¹ã‚­ãƒ«åˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject SkillLimitCountText
     {
@@ -172,11 +172,11 @@ public class UIManager : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("•KE§ŒÀƒJƒEƒ“ƒg‚ÌƒeƒLƒXƒg")]
+    [Tooltip("å¿…æ®ºåˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆ")]
     private GameObject specialLimitCountText;
 
     /// <summary>
-    /// •KE§ŒÀƒJƒEƒ“ƒg‚ÌƒeƒLƒXƒg‚ÌƒQƒbƒ^[ƒZƒbƒ^[
+    /// å¿…æ®ºåˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆã®ã‚²ãƒƒã‚¿ãƒ¼ã‚»ãƒƒã‚¿ãƒ¼
     /// </summary>
     public GameObject SpecialLimitCountText
     {
@@ -185,25 +185,25 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// UIƒ}ƒl[ƒWƒƒ[‚ÌUI‚ğˆê“xA”ñ•\¦‚É‚·‚éƒƒ\ƒbƒh
+    /// UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®UIã‚’ä¸€åº¦ã€éè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void StartUI()
     {
-        //ƒvƒŒƒCƒ„[ƒ^[ƒ“UI‚Æ“G‚Ìƒ^[ƒ“UI‚ğ”ñ•\¦‚Å‰Šú‰»
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³UIã¨æ•µã®ã‚¿ãƒ¼ãƒ³UIã‚’éè¡¨ç¤ºã§åˆæœŸåŒ–
         playerTurnUI.SetActive(false);
         enemyTurnUI.SetActive(false);
 
-        //ƒNƒŠƒA‚ÆƒQ[ƒ€ƒI[ƒo[UI‚ğ”ñ•\¦‚Å‰Šú‰»
+        //ã‚¯ãƒªã‚¢ã¨ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIã‚’éè¡¨ç¤ºã§åˆæœŸåŒ–
         gameClearUI.SetActive(false);
         gameOverUI.SetActive(false);
 
-        //Ä’§í‚ÆI—¹ƒ{ƒ^ƒ“‚Æƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“‚ÆƒXƒe[ƒWƒZƒŒƒNƒgƒ{ƒ^ƒ“‚ğ”ñ•\¦‚Å‰Šú‰»
+        //å†æŒ‘æˆ¦ã¨çµ‚äº†ãƒœã‚¿ãƒ³ã¨ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³ã¨ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤ºã§åˆæœŸåŒ–
         exitButton.SetActive(false);
         reTryButton.SetActive(false);
         titleButton.SetActive(false);
         stageSelectButton.SetActive(false);
 
-        /*ŠeƒvƒŒƒCƒ„[ƒ^[ƒ“‚É•\¦‚³‚ê‚éUI‚ğ”ñ•\¦‚Å‰Šú‰»*/
+        /*å„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³æ™‚ã«è¡¨ç¤ºã•ã‚Œã‚‹UIã‚’éè¡¨ç¤ºã§åˆæœŸåŒ–*/
         aKey.SetActive(false);
         sKey.SetActive(false);
         fKey.SetActive(false);
@@ -212,16 +212,16 @@ public class UIManager : MonoBehaviour
         skillUI.SetActive(false);
         specialUI.SetActive(false);
 
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’éè¡¨ç¤º
         statusWindow.SetActive(false);
 
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚éƒ{ƒ^ƒ“‚ğ”ñ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤º
         closeStatusWindowButton.SetActive(false);
 
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         closeStatusWindowButton.SetActive(true);
 
-        //ƒ|[ƒY’†‚É•\¦‚·‚éƒpƒlƒ‹Aƒ{ƒ^ƒ“‚ğ”ñ•\¦
+        //ãƒãƒ¼ã‚ºä¸­ã«è¡¨ç¤ºã™ã‚‹ãƒ‘ãƒãƒ«ã€ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤º
         pausePanel.SetActive(false);
         pauseExitButton.SetActive(false);
         pauseTitleButton.SetActive(false);
@@ -231,7 +231,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‘€ì‚·‚éUI‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã™ã‚‹UIã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void StartPlayerTurnUI()
     {
@@ -245,7 +245,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// “G‚Ìƒ^[ƒ“‚É“ü‚é‚ÉƒvƒŒƒCƒ„[‚ª‘€ì‚·‚éUI‚ğ”ñ•\¦‚É‚·‚éƒƒ\ƒbƒh
+    /// æ•µã®ã‚¿ãƒ¼ãƒ³ã«å…¥ã‚‹æ™‚ã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã™ã‚‹UIã‚’éè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void StartEnemyTurnUI()
     {
@@ -259,7 +259,7 @@ public class UIManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒQ[ƒ€ƒNƒŠƒA‚É•\¦‚·‚éƒƒ\ƒbƒh
+    /// ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢æ™‚ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void GameClearUI()
     {
@@ -271,17 +271,17 @@ public class UIManager : MonoBehaviour
         skillUI.SetActive(false);
         specialUI.SetActive(false);
 
-        //ƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“AI—¹ƒ{ƒ^ƒ“AƒXƒe[ƒWƒZƒŒƒNƒgƒ{ƒ^ƒ“‚ğ•\¦
+        //ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³ã€çµ‚äº†ãƒœã‚¿ãƒ³ã€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         exitButton.SetActive(true);
         titleButton.SetActive(true);
         stageSelectButton.SetActive(true);
 
-        //ƒQ[ƒ€ƒNƒŠƒAUI‚ğ•\¦
+        //ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢UIã‚’è¡¨ç¤º
         gameClearUI.SetActive(true);
     }
 
     /// <summary>
-    /// ƒQ[ƒ€ƒI[ƒo[‚É•\¦‚·‚éƒƒ\ƒbƒh
+    /// ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼æ™‚ã«è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void GameOverUI()
     {
@@ -293,49 +293,49 @@ public class UIManager : MonoBehaviour
         skillUI.SetActive(false);
         specialUI.SetActive(false);
 
-        //I—¹AÄ’§íAƒ^ƒCƒgƒ‹AƒXƒe[ƒWƒZƒŒƒNƒgƒ{ƒ^ƒ“‚ğ•\¦
+        //çµ‚äº†ã€å†æŒ‘æˆ¦ã€ã‚¿ã‚¤ãƒˆãƒ«ã€ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         exitButton.SetActive(true);
         titleButton.SetActive(true);
         reTryButton.SetActive(true);
         stageSelectButton.SetActive(true);
 
-        //ƒQ[ƒ€ƒI[ƒo[UI‚ğ•\¦
+        //ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIã‚’è¡¨ç¤º
         gameOverUI.SetActive(true);
     }
 
     /// <summary>
-    /// ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğ•Â‚¶‚éƒƒ\ƒbƒh
+    /// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void CloseStatusWindow()
     {
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚Æ•Â‚¶‚éƒ{ƒ^ƒ“‚ğ”ñ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã¨é–‰ã˜ã‚‹ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤º
         statusWindow.SetActive(false);
         closeStatusWindowButton.SetActive(false);
 
-        //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ•\¦
+        //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         openStatusWindowButton.SetActive(true);
     }
 
     /// <summary>
-    /// ’†’f‰æ–Ê‚ğ•\¦‚·‚éƒƒ\ƒbƒh
+    /// ä¸­æ–­ç”»é¢ã‚’è¡¨ç¤ºã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void ShowPauseMode()
     {
         pausePanel.SetActive(true);
 
-        //ƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“I—¹ƒ{ƒ^ƒ“•\¦
+        //ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³çµ‚äº†ãƒœã‚¿ãƒ³è¡¨ç¤º
         pauseTitleButton.SetActive(true);
         pauseExitButton.SetActive(true);
     }
 
     /// <summary>
-    /// ƒ|[ƒY‰æ–Ê‚ğ”ñ•\¦‚É‚·‚éƒƒ\ƒbƒh
+    /// ãƒãƒ¼ã‚ºç”»é¢ã‚’éè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void HidePauseMode()
     {
         pausePanel.SetActive(false);
 
-        //ƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“I—¹ƒ{ƒ^ƒ“”ñ•\¦
+        //ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³çµ‚äº†ãƒœã‚¿ãƒ³éè¡¨ç¤º
         pauseTitleButton.SetActive(false);
         pauseExitButton.SetActive(false);
     }

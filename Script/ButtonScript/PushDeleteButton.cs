@@ -1,22 +1,22 @@
 using UnityEngine;
 
 /// <summary>
-/// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒZ[ƒuƒf[ƒ^‚ðÁ‹Ž‚·‚éƒXƒNƒŠƒvƒg
+/// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’æ¶ˆåŽ»ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class PushDeleteButton : MonoBehaviour
 {
     /// <summary>
-    /// Á‹Žƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+    /// æ¶ˆåŽ»ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã¨ãã®å‡¦ç†
     /// </summary>
    public void PushDeleteSavedata()
    {
-        //ŠeƒZ[ƒuƒf[ƒ^‚ðÁ‹Ž
+        //å„ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’æ¶ˆåŽ»
         SaveManager.DeleteSaveData("StageSaveData.json");
         SaveManager.DeleteSaveData("Attacker_save.json");
         SaveManager.DeleteSaveData("Buffer_save.json");
         SaveManager.DeleteSaveData("Healer_save.json");
 
-        //ƒZ[ƒuƒf[ƒ^Á‹Žƒ{ƒ^ƒ“‚ð”ñ•\Ž¦
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿æ¶ˆåŽ»ãƒœã‚¿ãƒ³ã‚’éžè¡¨ç¤º
         SaveUIControl.Instance.HideSaveDeleteButton();
    }
 }

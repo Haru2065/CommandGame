@@ -1,16 +1,16 @@
 using UnityEngine;
 
 /// <summary>
-/// ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ð•Â‚¶‚éƒ{ƒ^ƒ“
+/// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹ãƒœã‚¿ãƒ³
 /// </summary>
 public class PushCloseStatusWindow : MonoBehaviour
 {
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ð‰Ÿ‚·‚ÆƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ð•Â‚¶‚é
+    /// ãƒœã‚¿ãƒ³ã‚’æŠ¼ã™ã¨ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‰ã˜ã‚‹
     /// </summary>
     public void OnButton()
     { 
-        //UIƒ}ƒl[ƒWƒƒ[‚©‚çƒXƒe[ƒ^ƒX‚ð”ñ•\Ž¦‚É‚·‚é
+        //UIãƒžãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’éžè¡¨ç¤ºã«ã™ã‚‹
         UIManager.Instance.CloseStatusWindow();
     }
 }

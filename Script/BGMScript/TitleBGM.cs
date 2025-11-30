@@ -2,16 +2,16 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹BGM‚ğ§Œä‚·‚éƒXƒNƒŠƒvƒg
-/// ƒXƒe[ƒWƒZƒŒƒNƒg‰æ–Ê‚ÉˆÚ“®‚µ‚Ä‚àBGM‚Í–Â‚è‘±‚¯‚é
+/// ã‚¿ã‚¤ãƒˆãƒ«BGMã‚’åˆ¶å¾¡ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã«ç§»å‹•ã—ã¦ã‚‚BGMã¯é³´ã‚Šç¶šã‘ã‚‹
 /// </summary>
 public class TitleBGM : MonoBehaviour
 {
-    //ƒ^ƒCƒgƒ‹BGM‚ğ§ŒäƒXƒNƒŠƒvƒgƒCƒ“ƒXƒ^ƒ“ƒX‰»—p
+    //ã‚¿ã‚¤ãƒˆãƒ«BGMã‚’åˆ¶å¾¡ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ç”¨
     private static TitleBGM instance;
 
     /// <summary>
-    /// ƒ^ƒCƒgƒ‹BGM§ŒäƒXƒNƒŠƒvƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// ã‚¿ã‚¤ãƒˆãƒ«BGMåˆ¶å¾¡ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     private void Awake()
     {
@@ -19,10 +19,10 @@ public class TitleBGM : MonoBehaviour
         {
             instance = this;
             
-            //ƒCƒ“ƒXƒ^ƒ“ƒX‚ª”jŠü‚³‚ê‚È‚¢ƒIƒuƒWƒFƒNƒg‚É‚·‚é
+            //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒç ´æ£„ã•ã‚Œãªã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã™ã‚‹
             DontDestroyOnLoad(gameObject);
         }
-        //Šù‚ÉƒCƒ“ƒXƒ^ƒ“ƒX‚ª‘¶İ‚·‚éê‡”jŠü‚·‚é
+        //æ—¢ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå­˜åœ¨ã™ã‚‹å ´åˆç ´æ£„ã™ã‚‹
         else
         {
             Destroy(gameObject);
@@ -32,31 +32,31 @@ public class TitleBGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //ƒXƒe[ƒW1‚È‚ç”jŠü
+        //ã‚¹ãƒ†ãƒ¼ã‚¸1ãªã‚‰ç ´æ£„
         if (SceneManager.GetActiveScene().name == "Stage1")
         {
             Destroy(gameObject);
         }
 
-        //ƒXƒe[ƒW2‚È‚ç”jŠü
+        //ã‚¹ãƒ†ãƒ¼ã‚¸2ãªã‚‰ç ´æ£„
         else if (SceneManager.GetActiveScene().name == "Stage2")
         {
             Destroy(gameObject);
         }
 
-        //ƒXƒe[ƒW3‚È‚ç”jŠü
+        //ã‚¹ãƒ†ãƒ¼ã‚¸3ãªã‚‰ç ´æ£„
         else if (SceneManager.GetActiveScene().name == "Stage3")
         {
             Destroy(gameObject);
         }
 
-        //ƒ`ƒ…[ƒgƒŠƒAƒ‹1‚È‚ç”jŠü
+        //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«1ãªã‚‰ç ´æ£„
         else if(SceneManager.GetActiveScene().name == "Tutorial1")
         {
             Destroy(gameObject);
         }
         
-        //ƒ`ƒ…[ƒgƒŠƒAƒ‹2‚È‚ç”jŠü
+        //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«2ãªã‚‰ç ´æ£„
         else if (SceneManager.GetActiveScene().name == "Tutorial2")
         {
             Destroy(gameObject);

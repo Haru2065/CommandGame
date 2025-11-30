@@ -17,7 +17,7 @@ public class Skeleton : BaseEnemyStatus
 
     [SerializeField]
     [Tooltip("スケルトンのHPバー")]
-    public Slider SkeltonHPBar;
+    public Slider SkeletonHPBar;
 
     
 
@@ -57,11 +57,11 @@ public class Skeleton : BaseEnemyStatus
             EnemyCurrentHP = EnemyMaxHP;
 
             //スケルトンのHPバーを最大体力に設定
-            SkeltonHPBar.maxValue = EnemyCurrentHP;
-            SkeltonHPBar.value = EnemyCurrentHP;
+            SkeletonHPBar.maxValue = EnemyCurrentHP;
+            SkeletonHPBar.value = EnemyCurrentHP;
 
             //スケルトンのHPバーの最小は０に設定
-            SkeltonHPBar.minValue = 0;
+            SkeletonHPBar.minValue = 0;
 
             //スケルトンの攻撃力をエネミーデータの攻撃力に設定
             EnemyAttackPower = enemyData.EnemyAttackPowerData;
@@ -269,7 +269,7 @@ public class Skeleton : BaseEnemyStatus
             EnemyCurrentHP = 0;
 
             // UI更新
-            SkeltonHPBar.value = EnemyCurrentHP;
+            SkeletonHPBar.value = EnemyCurrentHP;
             enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
 
             //生存フラグをfalse
@@ -288,7 +288,7 @@ public class Skeleton : BaseEnemyStatus
         else
         {
             // 通常のダメージ時のUI更新
-            SkeltonHPBar.value = EnemyCurrentHP;
+            SkeletonHPBar.value = EnemyCurrentHP;
             enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
         }
     }

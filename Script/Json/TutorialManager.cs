@@ -5,95 +5,95 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 /// <summary>
-/// Jsonƒtƒ@ƒCƒ‹‚Ìidî•ñ‚Ætextî•ñ
+/// Jsonãƒ•ã‚¡ã‚¤ãƒ«ã®idæƒ…å ±ã¨textæƒ…å ±
 /// </summary>
 [Serializable]
 public class TutorialText
 {
-    //ƒ`ƒ…[ƒgƒŠƒAƒ‹‚ÌID
+    //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®ID
     public string id;
 
-    //ƒ`ƒ…[ƒgƒŠƒAƒ‹‚ÌƒeƒLƒXƒg
+    //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®ãƒ†ã‚­ã‚¹ãƒˆ
     public string text;
 }
 
 /// <summary>
-/// Addressables‚Åƒ[ƒh‚µ‚½Json‚ğC#‚É•ÏŠ·‚µ‚½Œã‚É•\¦‚·‚éƒXƒNƒŠƒvƒg
+/// Addressablesã§ãƒ­ãƒ¼ãƒ‰ã—ãŸJsonã‚’C#ã«å¤‰æ›ã—ãŸå¾Œã«è¡¨ç¤ºã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public abstract class TutorialManager : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("Jsonƒ[ƒh‚·‚éƒXƒNƒŠƒvƒg")]
-    private JsonLoadr jsonLoder;
+    [Tooltip("Jsonãƒ­ãƒ¼ãƒ‰ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ")]
+    private JsonLoader jsonLoader;
 
     [SerializeField]
-    [Tooltip("“Ç‚İ‚İ‚½‚¢Json‚ğ“ü—Í")]
+    [Tooltip("èª­ã¿è¾¼ã¿ãŸã„Jsonã‚’å…¥åŠ›")]
     private string ScenarioJsonKey;
 
     [SerializeField]
-    [Tooltip("ƒeƒLƒXƒgƒEƒBƒ“ƒhƒE")]
+    [Tooltip("ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦")]
     protected GameObject TextWindow;
 
     [SerializeField]
-    [Tooltip("Jsonƒtƒ@ƒCƒ‹‚ğ•\¦‚·‚éUGUI")]
+    [Tooltip("Jsonãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹UGUI")]
     protected TextMeshProUGUI TutorialTextUGUI;
 
-    //•ÏŠ·‚µ‚½ƒeƒLƒXƒg‚ğ‡”Ô‚É•\¦‚·‚éƒŠƒXƒg
+    //å¤‰æ›ã—ãŸãƒ†ã‚­ã‚¹ãƒˆã‚’é †ç•ªã«è¡¨ç¤ºã™ã‚‹ãƒªã‚¹ãƒˆ
     protected List<TutorialText> tutorialList;
 
-    //•\¦ƒCƒ“ƒfƒbƒNƒX
+    //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
     protected int currentIndex;
 
     // Start is called before the first frame update
     protected virtual void Start()
     {
-        //Json“Ç‚İ‚İƒXƒNƒŠƒvƒg‚©‚çƒ[ƒhŠJn
-        //ó‚¯æ‚Á‚½Json‚ğƒp[ƒX
-        StartCoroutine(jsonLoder.LoadJsonText(json =>
+        //Jsonèª­ã¿è¾¼ã¿ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‹ã‚‰ãƒ­ãƒ¼ãƒ‰é–‹å§‹
+        //å—ã‘å–ã£ãŸJsonã‚’ãƒ‘ãƒ¼ã‚¹
+        StartCoroutine(jsonLoader.LoadJsonText(json =>
         {
-            //Json‘S‘Ì‚ğDictionary‚É•ÏŠ·
+            //Jsonå…¨ä½“ã‚’Dictionaryã«å¤‰æ›
             var dict = JsonConvert.DeserializeObject<Dictionary<string, List<TutorialText>>>(json);
 
-            //jsonƒL[‚ª‚ ‚ê‚Î•\¦ƒŠƒXƒg‚É‘ã“ü
+            //jsonã‚­ãƒ¼ãŒã‚ã‚Œã°è¡¨ç¤ºãƒªã‚¹ãƒˆã«ä»£å…¥
             if (dict.TryGetValue(ScenarioJsonKey, out tutorialList))
             {
                 currentIndex = 0;
 
-                //ƒeƒLƒXƒgƒEƒBƒ“ƒhƒE‚ğ•\¦
+                //ãƒ†ã‚­ã‚¹ãƒˆã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’è¡¨ç¤º
                 TextWindow.SetActive(true);
 
-                //ƒ`ƒ…[ƒgƒŠƒAƒ‹ƒeƒLƒXƒg‚ğ•\¦€”õ
+                //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤ºæº–å‚™
                 StartTutorial();
             }
             else
             {
-                Debug.LogWarning($"w’è‚µ‚½ƒL[‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½B{ScenarioJsonKey}");
+                Debug.LogWarning($"æŒ‡å®šã—ãŸã‚­ãƒ¼ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸã€‚{ScenarioJsonKey}");
             }
         }));
     }
 
     /// <summary>
-    /// ƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ•\¦€”õ‚·‚éƒƒ\ƒbƒh
+    /// ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’è¡¨ç¤ºæº–å‚™ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected void StartTutorial()
     {
-        //‚à‚µ“Ç‚İ‚ñ‚¾ƒŠƒXƒg‚ª‹ó‚¾‚Á‚½‚çŒx•¶‚ğo‚·
+        //ã‚‚ã—èª­ã¿è¾¼ã‚“ã ãƒªã‚¹ãƒˆãŒç©ºã ã£ãŸã‚‰è­¦å‘Šæ–‡ã‚’å‡ºã™
         if (tutorialList.Count == 0)
         {
-            Debug.LogWarning("ƒ`ƒ…[ƒgƒŠƒAƒ‹ƒeƒLƒXƒg‚ª“Ç‚İ‚Ü‚ê‚Ä‚¢‚Ü‚¹‚ñ!");
+            Debug.LogWarning("ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ãƒ†ã‚­ã‚¹ãƒˆãŒèª­ã¿è¾¼ã¾ã‚Œã¦ã„ã¾ã›ã‚“!");
             return;
         }
 
-        //ƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ•\¦(Å‰‚Íid;Welcome‚©‚ç•\¦
+        //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’è¡¨ç¤º(æœ€åˆã¯id;Welcomeã‹ã‚‰è¡¨ç¤º
         ShowTutorialText(tutorialList[currentIndex]);
     }
 
     /// <summary>
-    /// ƒeƒLƒXƒgƒNƒŠƒbƒN‘€ì
+    /// ãƒ†ã‚­ã‚¹ãƒˆã‚¯ãƒªãƒƒã‚¯æ“ä½œ
     /// </summary>
     protected void Update()
     {
-        //ƒ}ƒEƒX¶ƒNƒŠƒbƒN‚³‚ê‚½‚çƒeƒLƒXƒg‚Ì•\¦‚ği‚ß‚é
+        //ãƒã‚¦ã‚¹å·¦ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚‰ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’é€²ã‚ã‚‹
         if (Input.GetMouseButtonDown(0))
         {
             OnClickNextText();
@@ -101,23 +101,23 @@ public abstract class TutorialManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒNƒŠƒbƒN‚³‚ê‚½‚çƒeƒLƒXƒg‚Ì•\¦‚ği‚ß‚éƒƒ\ƒbƒh
+    /// ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚‰ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’é€²ã‚ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected virtual void OnClickNextText()
     {
-        //•\¦ƒCƒ“ƒfƒbƒNƒX‚ğŸ‚Éi‚ß‚é
+        //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ¬¡ã«é€²ã‚ã‚‹
         currentIndex++;
 
-        //•\¦ƒCƒ“ƒfƒbƒNƒX‚ªÅŒã‚Ü‚Å•\¦‚·‚é‚Ü‚Å•\¦
+        //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒæœ€å¾Œã¾ã§è¡¨ç¤ºã™ã‚‹ã¾ã§è¡¨ç¤º
         if (currentIndex < tutorialList.Count)
         {
-            //•\¦ƒCƒ“ƒfƒbƒNƒX‚Ì”‚É“ü‚Á‚Ä‚¢‚éJsonƒeƒLƒXƒg‚ğ•\¦
+            //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®æ•°ã«å…¥ã£ã¦ã„ã‚‹Jsonãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤º
             ShowTutorialText(tutorialList[currentIndex]);
         }
     }
 
     /// <summary>
-    /// •ÏŠ·‚µ‚½JsonƒVƒiƒŠƒI‚ğ•\¦
+    /// å¤‰æ›ã—ãŸJsonã‚·ãƒŠãƒªã‚ªã‚’è¡¨ç¤º
     /// </summary>
     public abstract void ShowTutorialText(TutorialText texts);
 }

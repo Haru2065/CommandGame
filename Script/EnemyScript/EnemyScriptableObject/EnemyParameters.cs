@@ -2,21 +2,21 @@ using System;
 using UnityEngine;
 
 /// <summary>
-/// �G�̃f�[�^�x�[�X�ŗ��p����p�����[�^
+/// 敵のデータベースで利用するパラメータ
 /// </summary>
 [Serializable]
 public class EnemyParameters
 {
-    [Tooltip("�GID")]
+    [Tooltip("敵ID")]
     public string EnemyNameData;
 
-    [Tooltip("�G�̍ő�̗�")]
+    [Tooltip("敵の最大体力")]
     public int EnemyMaxHPData;
 
     [SerializeField]
-    [Tooltip("�G�̍U����")]
+    [Tooltip("敵の攻撃力")]
     public int EnemyAttackPowerData;
 
-    [Tooltip("�f�o�t��")]
+    [Tooltip("デバフ力")]
     public int DebuffPowerData;
 }

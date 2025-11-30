@@ -4,36 +4,36 @@ using UnityEngine.SceneManagement;
 public class Stage1TutorialManager : TutorialManager
 {
     [SerializeField]
-    [Tooltip("ƒ^[ƒ“‚ÌƒGƒtƒFƒNƒg‚ğ•\¦‚·‚é‰æ‘œ")]
+    [Tooltip("ã‚¿ãƒ¼ãƒ³ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’è¡¨ç¤ºã™ã‚‹ç”»åƒ")]
     private GameObject turnEffectImage;
 
     [SerializeField]
-    [Tooltip("“G‚Ìƒ^[ƒQƒbƒg‚ğ‘I‚ñ‚Å‚¢‚é‰æ‘œ")]
+    [Tooltip("æ•µã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’é¸ã‚“ã§ã„ã‚‹ç”»åƒ")]
     private GameObject enemyTargetImage;
 
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[‚Ì‘€ìƒL[‚Ì‰æ‘œ")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®æ“ä½œã‚­ãƒ¼ã®ç”»åƒ")]
     private GameObject keyBordImage;
 
     [SerializeField]
-    [Tooltip("ƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒXĞ‰î‚Ì‰æ‘œ")]
+    [Tooltip("ã‚­ãƒ£ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç´¹ä»‹ã®ç”»åƒ")]
     private GameObject statusCharaImage;
 
     [SerializeField]
-    [Tooltip("ƒvƒŒƒCƒ„[‚ÌƒXƒe[ƒ^ƒX‚ğŠJ‚­ƒ{ƒ^ƒ“‚Ì‰æ‘œ")]
+    [Tooltip("ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’é–‹ããƒœã‚¿ãƒ³ã®ç”»åƒ")]
     private GameObject statusButtonImage;
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        //‘S‚Ä‚Ìà–¾‰æ‘œ‚ğ”ñ•\¦
+        //å…¨ã¦ã®èª¬æ˜ç”»åƒã‚’éè¡¨ç¤º
         HideStartImage();
 
         base.Start();
     }
     
     /// <summary>
-    /// ‘S‚Ä‚Ìà–¾‰æ‘œ‚ğ”ñ•\¦‚É‚·‚éƒƒ\ƒbƒh
+    /// å…¨ã¦ã®èª¬æ˜ç”»åƒã‚’éè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     void HideStartImage()
     {
@@ -48,41 +48,41 @@ public class Stage1TutorialManager : TutorialManager
 
 
     /// <summary>
-    /// ƒNƒŠƒbƒN‚³‚ê‚½‚çƒeƒLƒXƒg‚Ì•\¦‚ği‚ß‚éƒƒ\ƒbƒh
+    /// ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚‰ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’é€²ã‚ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected override void OnClickNextText()
     {
-        //•\¦ƒCƒ“ƒfƒbƒNƒX‚ğŸ‚Éi‚ß‚é
+        //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ¬¡ã«é€²ã‚ã‚‹
         currentIndex++;
 
-        //•\¦ƒCƒ“ƒfƒbƒNƒX‚ªÅŒã‚Ü‚Å•\¦‚·‚é‚Ü‚Å•\¦
+        //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒæœ€å¾Œã¾ã§è¡¨ç¤ºã™ã‚‹ã¾ã§è¡¨ç¤º
         if (currentIndex < tutorialList.Count)
         {
-            //•\¦ƒCƒ“ƒfƒbƒNƒX‚Ì”‚É“ü‚Á‚Ä‚¢‚éJsonƒeƒLƒXƒg‚ğ•\¦
+            //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®æ•°ã«å…¥ã£ã¦ã„ã‚‹Jsonãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤º
             ShowTutorialText(tutorialList[currentIndex]);
         }
 
-        //ÅŒã‚Ü‚Å•\¦‚µ‚½‚çI—¹
+        //æœ€å¾Œã¾ã§è¡¨ç¤ºã—ãŸã‚‰çµ‚äº†
         else
         {
-            Debug.Log("ƒ`ƒ…[ƒgƒŠƒAƒ‹I—¹!");
+            Debug.Log("ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«çµ‚äº†!");
 
-            //ÅŒã‚Ü‚Å•\¦‚µ‚½‚ç©“®“G‚ÉƒXƒe[ƒWƒZƒŒƒNƒg‰æ–Ê‚ÉˆÚ“®
+            //æœ€å¾Œã¾ã§è¡¨ç¤ºã—ãŸã‚‰è‡ªå‹•æ•µã«ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã«ç§»å‹•
             SceneManager.LoadScene("StageSelect");
 
         }
     }
 
     /// <summary>
-    /// JSON‚Ìƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ•\¦ƒRƒ“ƒgƒ[ƒ‹‚·‚éƒƒ\ƒbƒh
+    /// JSONã®ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’è¡¨ç¤ºã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="scenarios">Json‚Ìƒ`ƒ…[ƒgƒŠƒAƒ‹</param>
+    /// <param name="scenarios">Jsonã®ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«</param>
     public override void ShowTutorialText(TutorialText scenarios)
     {
-        //Json‚É‘‚©‚ê‚½ƒeƒLƒXƒg•”•ª‚ğUI‚Æ‚µ‚Ä•\¦
+        //Jsonã«æ›¸ã‹ã‚ŒãŸãƒ†ã‚­ã‚¹ãƒˆéƒ¨åˆ†ã‚’UIã¨ã—ã¦è¡¨ç¤º
         TutorialTextUGUI.text = scenarios.text;
 
-        //ƒ`ƒ…[ƒgƒŠƒAƒ‹‚Ìid‚ğ’²‚×‚Ä‚»‚ê‚É‰‚¶‚ÄƒeƒLƒXƒg‚ÆUI‚ğ•\¦
+        //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®idã‚’èª¿ã¹ã¦ãã‚Œã«å¿œã˜ã¦ãƒ†ã‚­ã‚¹ãƒˆã¨UIã‚’è¡¨ç¤º
         switch (scenarios.id)
         {
             case "Welocome":
@@ -90,7 +90,7 @@ public class Stage1TutorialManager : TutorialManager
 
             case "Battle_1":
 
-                //ƒoƒgƒ‹à–¾‚P‚Ì‚Éƒ^[ƒ“ƒGƒtƒFƒNƒg‚Ì‰æ‘œ‚ğ•\¦
+                //ãƒãƒˆãƒ«èª¬æ˜ï¼‘ã®æ™‚ã«ã‚¿ãƒ¼ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”»åƒã‚’è¡¨ç¤º
                 turnEffectImage.SetActive(true);
                 break;
 
@@ -102,13 +102,13 @@ public class Stage1TutorialManager : TutorialManager
 
             case "Operation_1":
 
-                //‚±‚±‚Åƒ^[ƒ“ƒGƒtƒFƒNƒg‚Ì‰æ‘œ‚ğ”ñ•\¦
+                //ã“ã“ã§ã‚¿ãƒ¼ãƒ³ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ç”»åƒã‚’éè¡¨ç¤º
                 turnEffectImage.SetActive(false);
                 break;
 
             case "Operation_2":
 
-                //‘€ìà–¾‚Q‚Å‘€ì•û–@‰æ‘œ‚ğ•\¦
+                //æ“ä½œèª¬æ˜ï¼’ã§æ“ä½œæ–¹æ³•ç”»åƒã‚’è¡¨ç¤º
                 keyBordImage.SetActive(true);
                 break;
 
@@ -117,7 +117,7 @@ public class Stage1TutorialManager : TutorialManager
 
             case "Operation_4":
 
-                //‘€ì•û–@‰æ‘œ‚ğ”ñ•\¦‚É‚µ‚Ä“Gƒ^[ƒQƒbƒg‚ğ•\¦
+                //æ“ä½œæ–¹æ³•ç”»åƒã‚’éè¡¨ç¤ºã«ã—ã¦æ•µã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¡¨ç¤º
                 keyBordImage.SetActive(false);
                 enemyTargetImage.SetActive(true);
 
@@ -125,13 +125,13 @@ public class Stage1TutorialManager : TutorialManager
 
             case "Status_1":
 
-                //“Gƒ^[ƒQƒbƒg‚ğ”ñ•\¦
+                //æ•µã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’éè¡¨ç¤º
                 enemyTargetImage.SetActive(false);
                 break;
 
             case "Status_2":
 
-                //ƒXƒe[ƒ^ƒXĞ‰î‚Ì‰æ‘œ‚ğ•\¦
+                //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç´¹ä»‹ã®ç”»åƒã‚’è¡¨ç¤º
                 statusCharaImage.SetActive(true);
                 break;
 
@@ -140,14 +140,14 @@ public class Stage1TutorialManager : TutorialManager
                 break;
             case "Status_4":
 
-                ////ƒXƒe[ƒ^ƒXĞ‰î‚Ì‰æ‘œ‚ğ”ñ•\¦‚É‚µAƒXƒe[ƒ^ƒXƒ{ƒ^ƒ“‚ğ•\¦
+                ////ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ç´¹ä»‹ã®ç”»åƒã‚’éè¡¨ç¤ºã«ã—ã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
                 statusCharaImage.SetActive(false);
                 statusButtonImage.SetActive(true);
                 break;
 
             case "End":
 
-                //‘S‚Ä‚Ì‰æ‘œ”ñ•\¦
+                //å…¨ã¦ã®ç”»åƒéè¡¨ç¤º
                 statusButtonImage.SetActive(false);
                 statusCharaImage.SetActive(false);
                 break;

@@ -2,34 +2,34 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// ƒvƒŒƒCƒ„[‚ª“G‚ÉUŒ‚‚·‚é‘ÎÛ‚ğ‘I‘ğ‚·‚éƒXƒNƒŠƒvƒg
+/// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ•µã«æ”»æ’ƒã™ã‚‹å¯¾è±¡ã‚’é¸æŠã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class PlayerTargetSelect : MonoBehaviour
 {
-    //‚±‚ÌƒXƒNƒŠƒvƒg‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    //ã“ã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     private static PlayerTargetSelect instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static PlayerTargetSelect Instance
     {
         get => instance;
     }
 
-    //“G‚ÌUŒ‚‚·‚éƒ^[ƒQƒbƒg
+    //æ•µã®æ”»æ’ƒã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
     private BaseEnemyStatus attackTarget;
 
     
-    [Tooltip("ŠJn‚Ì‚İg—pƒoƒgƒ‹ŠJn‚Éİ’è‚·‚éƒ^[ƒQƒbƒg")]
+    [Tooltip("é–‹å§‹æ™‚ã®ã¿ä½¿ç”¨ãƒãƒˆãƒ«é–‹å§‹æ™‚ã«è¨­å®šã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ")]
     public List<BaseEnemyStatus> StartSetTargets;
 
     /// <summary>
-    /// ƒVƒ“ƒOƒ‹ƒgƒ“ƒpƒ^[ƒ“‚ÅƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³ãƒ‘ã‚¿ãƒ¼ãƒ³ã§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     private void Awake()
     {
-        //ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚È‚¯‚ê‚ÎƒCƒ“ƒXƒ^ƒ“ƒX‰»
+        //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒãªã‘ã‚Œã°ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
         if (instance == null)
         {
             instance = this;
@@ -42,11 +42,11 @@ public class PlayerTargetSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒoƒgƒ‹ŠJn‚ÉUŒ‚‘ÎÛ‚ğİ’è‚·‚éƒƒ\ƒbƒh
+    /// ãƒãƒˆãƒ«é–‹å§‹æ™‚ã«æ”»æ’ƒå¯¾è±¡ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void SetStartBattleTarget()
     {
-        //‰Šúİ’è‚·‚éƒ^[ƒQƒbƒgƒŠƒXƒg‚É‚ ‚ê‚ÎƒŠƒXƒg‚Ì—v‘f‚P‚Â–Ú‚Ì“G‚ğƒ^[ƒQƒbƒg‚Æ‚µ‚Äİ’è
+        //åˆæœŸè¨­å®šã™ã‚‹ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒªã‚¹ãƒˆã«ã‚ã‚Œã°ãƒªã‚¹ãƒˆã®è¦ç´ ï¼‘ã¤ç›®ã®æ•µã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦è¨­å®š
         if (StartSetTargets.Count > 0)
         {
             SetTarget(StartSetTargets[0]);
@@ -54,48 +54,48 @@ public class PlayerTargetSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª“G‚ÉUŒ‚‚·‚é‘ÎÛ‚ğİ’è‚·‚éƒƒ\ƒbƒh
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ•µã«æ”»æ’ƒã™ã‚‹å¯¾è±¡ã‚’è¨­å®šã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="newTarget">V‚µ‚­İ’è‚·‚éUŒ‚‘ÎÛ</param>
+    /// <param name="newTarget">æ–°ã—ãè¨­å®šã™ã‚‹æ”»æ’ƒå¯¾è±¡</param>
     public void SetTarget(BaseEnemyStatus newTarget)
     {
-        //“G‚ÌUŒ‚‘ÎÛ‚ªŠù‚Éİ’è‚³‚ê‚Ä‚¢‚½‚çUI‚ğ”ñ•\¦
+        //æ•µã®æ”»æ’ƒå¯¾è±¡ãŒæ—¢ã«è¨­å®šã•ã‚Œã¦ã„ãŸã‚‰UIã‚’éè¡¨ç¤º
         if(attackTarget != null)
         {
             attackTarget.ShowTargetUI(false);
         }
 
-        //UŒ‚‘ÎÛ‚ğV‚µ‚¢ƒ^[ƒQƒbƒg‚Éİ’è
+        //æ”»æ’ƒå¯¾è±¡ã‚’æ–°ã—ã„ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«è¨­å®š
         attackTarget = newTarget;
 
-        //ƒ^[ƒQƒbƒgUI‚ğ•\¦
+        //ã‚¿ãƒ¼ã‚²ãƒƒãƒˆUIã‚’è¡¨ç¤º
         attackTarget.ShowTargetUI(true);
-        Debug.Log("ƒ^[ƒQƒbƒg‚ğ•ÏX‚µ‚Ü‚µ‚½");
+        Debug.Log("ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’å¤‰æ›´ã—ã¾ã—ãŸ");
     }
 
     /// <summary>
-    /// w’è‚µ‚½“G‚ª“|‚ê‚½ê‡‚Éƒ^[ƒQƒbƒg‚ğÄ‘I‘ğ‚·‚éƒƒ\ƒbƒh
+    /// æŒ‡å®šã—ãŸæ•µãŒå€’ã‚ŒãŸå ´åˆã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’å†é¸æŠã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="deadEnemy">“|‚³‚ê‚½“G</param>
+    /// <param name="deadEnemy">å€’ã•ã‚ŒãŸæ•µ</param>
     public void RemoveSetTarget(BaseEnemyStatus deadEnemy)
     {
-        // ƒŠƒXƒg‚É‘¶İ‚·‚éê‡A“|‚ê‚½“G‚ğƒ^[ƒQƒbƒgƒŠƒXƒg‚©‚çíœ
+        // ãƒªã‚¹ãƒˆã«å­˜åœ¨ã™ã‚‹å ´åˆã€å€’ã‚ŒãŸæ•µã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒªã‚¹ãƒˆã‹ã‚‰å‰Šé™¤
         if (StartSetTargets.Contains(deadEnemy))
         {
             StartSetTargets.Remove(deadEnemy);
         }
 
-        // Œ»İ‚ÌUŒ‚‘ÎÛ‚ª“|‚³‚ê‚½“G‚¾‚Á‚½ê‡AŸ‚Ìƒ^[ƒQƒbƒg‚ğŒˆ’è‚·‚é
+        // ç¾åœ¨ã®æ”»æ’ƒå¯¾è±¡ãŒå€’ã•ã‚ŒãŸæ•µã ã£ãŸå ´åˆã€æ¬¡ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’æ±ºå®šã™ã‚‹
         if (attackTarget == deadEnemy)
         {
             if (StartSetTargets.Count > 0)
             {
-                // ƒŠƒXƒg‚Ìæ“ª‚ğV‚µ‚¢ƒ^[ƒQƒbƒg‚Æ‚µ‚Äİ’è
+                // ãƒªã‚¹ãƒˆã®å…ˆé ­ã‚’æ–°ã—ã„ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ã—ã¦è¨­å®š
                 SetTarget(StartSetTargets[0]);
             }
             else
             {
-                // ‚·‚×‚Ä‚Ì“G‚ª“|‚³‚ê‚½ê‡Aƒ^[ƒQƒbƒgUI‚ğ”ñ•\¦‚É‚·‚é
+                // ã™ã¹ã¦ã®æ•µãŒå€’ã•ã‚ŒãŸå ´åˆã€ã‚¿ãƒ¼ã‚²ãƒƒãƒˆUIã‚’éè¡¨ç¤ºã«ã™ã‚‹
                 attackTarget.ShowTargetUI(false);
             }
         }
@@ -103,9 +103,9 @@ public class PlayerTargetSelect : MonoBehaviour
     }
 
     /// <summary>
-    /// İ’è‚µ‚½ƒ^[ƒQƒbƒg‚ğæ“¾‚·‚éƒƒ\ƒbƒh
+    /// è¨­å®šã—ãŸã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’å–å¾—ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <returns>æ“¾‚µ‚½ƒ^[ƒQƒbƒg‚Ì’l‚ğŠeƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ÌƒXƒe[ƒ^ƒX‚É“n‚·</returns>
+    /// <returns>å–å¾—ã—ãŸã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®å€¤ã‚’å„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚­ãƒ£ãƒ©ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã«æ¸¡ã™</returns>
     public BaseEnemyStatus GetAttackTargetEnemy()
     {
         return attackTarget;

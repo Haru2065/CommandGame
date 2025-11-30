@@ -3,40 +3,40 @@ using System.IO;
 using UnityEngine;
 
 /// <summary>
-/// ƒXƒe[ƒW‚Ì‰ğ•úó‹µ‚É‰‚¶‚Äƒ{ƒ^ƒ“‚ğ•\¦”ñ•\¦‚·‚éƒXƒNƒŠƒvƒg
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ã®è§£æ”¾çŠ¶æ³ã«å¿œã˜ã¦ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤ºéè¡¨ç¤ºã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
 /// </summary>
 public class StageSelectManager : MonoBehaviour
 {
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒW2ƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¸2ãƒœã‚¿ãƒ³")]
     private GameObject stage2Button;
 
     [SerializeField]
-    [Tooltip("ƒ`ƒ…[ƒgƒŠƒAƒ‹2ƒ{ƒ^ƒ“")]
+    [Tooltip("ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«2ãƒœã‚¿ãƒ³")]
     private GameObject tutorial2Button;
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒW3ƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¸3ãƒœã‚¿ãƒ³")]
     private GameObject stage3Button;
 
-    //ƒXƒe[ƒW2‚ª‰ğ•ú‚³‚ê‚½‚©‚Ç‚¤‚©
+    //ã‚¹ãƒ†ãƒ¼ã‚¸2ãŒè§£æ”¾ã•ã‚ŒãŸã‹ã©ã†ã‹
     private bool isStage2Unlocked;
 
-    //ƒXƒe[ƒW3‚ª‰ğ•ú‚³‚ê‚½‚©‚Ç‚¤‚©
+    //ã‚¹ãƒ†ãƒ¼ã‚¸3ãŒè§£æ”¾ã•ã‚ŒãŸã‹ã©ã†ã‹
     private bool isStage3Unlocked;
 
     // Start is called before the first frame update
     void Start()
     {
-        //ƒXƒe[ƒW2,3‚Ìƒ{ƒ^ƒ“Aƒ`ƒ…[ƒgƒŠƒAƒ‹2ƒ{ƒ^ƒ“‚ğ”ñ•\¦‚É‚·‚é
+        //ã‚¹ãƒ†ãƒ¼ã‚¸2,3ã®ãƒœã‚¿ãƒ³ã€ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«2ãƒœã‚¿ãƒ³ã‚’éè¡¨ç¤ºã«ã™ã‚‹
         tutorial2Button.SetActive(false);
         stage2Button.SetActive(false);
         stage3Button.SetActive(false);
 
-        //ƒXƒe[ƒW‚ÌƒZ[ƒuƒf[ƒ^‚ğ“Ç‚İ‚Ş
+        //ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
         string path = Application.persistentDataPath + $"/StageSaveData.Json";
 
-        //ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚é‚È‚çƒXƒe[ƒWƒf[ƒ^‚ğƒ[ƒh
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚‹ãªã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ­ãƒ¼ãƒ‰
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
@@ -47,7 +47,7 @@ public class StageSelectManager : MonoBehaviour
         }
         else
         {
-            //ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚µ‚È‚¢ê‡‚ÍƒXƒe[ƒW2,3‚Í‰ğ•ú‚³‚ê‚Ä‚¢‚È‚¢
+            //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯ã‚¹ãƒ†ãƒ¼ã‚¸2,3ã¯è§£æ”¾ã•ã‚Œã¦ã„ãªã„
             isStage2Unlocked = false;
             isStage3Unlocked = false;
         }
@@ -56,7 +56,7 @@ public class StageSelectManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //‚à‚µƒXƒe[ƒW2‚ª‰ğ•ú‚³‚ê‚Ä‚¢‚½‚çƒ{ƒ^ƒ“‚ğ•\¦
+        //ã‚‚ã—ã‚¹ãƒ†ãƒ¼ã‚¸2ãŒè§£æ”¾ã•ã‚Œã¦ã„ãŸã‚‰ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         if (isStage2Unlocked)
         {
             tutorial2Button.SetActive(true);
@@ -68,7 +68,7 @@ public class StageSelectManager : MonoBehaviour
             stage2Button.SetActive(false);
         }
 
-        //‚à‚µƒXƒe[ƒW3‚ª‰ğ•ú‚³‚ê‚Ä‚¢‚½‚çƒ{ƒ^ƒ“‚ğ•\¦
+        //ã‚‚ã—ã‚¹ãƒ†ãƒ¼ã‚¸3ãŒè§£æ”¾ã•ã‚Œã¦ã„ãŸã‚‰ãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         if (isStage3Unlocked)
         {
             stage3Button.SetActive(true);

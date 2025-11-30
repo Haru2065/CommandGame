@@ -96,10 +96,10 @@ public class Dragon : BaseEnemyStatus
         turnCount++;
 
         //
-        int puttern = (turnCount - 1) % 3;
+        int pattern = (turnCount - 1) % 3;
 
         //攻撃パターン
-        switch (puttern)
+        switch (pattern)
         {
             //パターン1ランダムに敵に攻撃を行う
             case 0:

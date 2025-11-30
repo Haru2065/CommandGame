@@ -1,16 +1,16 @@
 using UnityEngine;
 
 /// <summary>
-/// ƒXƒ^[ƒgƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒZ[ƒuƒf[ƒ^‚ª‚ ‚ê‚ÎƒZ[ƒuƒf[ƒ^‚ð‘I‘ð‚·‚éƒXƒNƒŠƒvƒg
-/// ƒZ[ƒuƒf[ƒ^‚ª‚ ‚ê‚ÎƒZ[ƒuƒf[ƒ^‚ðÁ‹Ž‚·‚éƒ{ƒ^ƒ“‚à•\Ž¦
+/// ã‚¹ã‚¿ãƒ¼ãƒˆãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’é¸æŠžã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆ
+/// ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚Œã°ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’æ¶ˆåŽ»ã™ã‚‹ãƒœã‚¿ãƒ³ã‚‚è¡¨ç¤º
 /// </summary>
 public class SaveUIControl : MonoBehaviour
 {
-    //SaveUIControl‚ÌƒCƒ“ƒXƒ^ƒ“ƒX
+    //SaveUIControlã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
     private static SaveUIControl instance;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static SaveUIControl Instance
     {
@@ -18,11 +18,11 @@ public class SaveUIControl : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("ƒZ[ƒuƒf[ƒ^Á‹Žƒ{ƒ^ƒ“")]
+    [Tooltip("ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿æ¶ˆåŽ»ãƒœã‚¿ãƒ³")]
     private GameObject deleteButton;
 
     /// <summary>
-    /// ƒCƒ“ƒXƒ^ƒ“ƒX‰»ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚È‚¯‚ê‚ÎƒIƒuƒWƒFƒNƒg‚ðÁ‹Ž
+    /// ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒãªã‘ã‚Œã°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆåŽ»
     /// </summary>
     void Awake()
     {
@@ -38,12 +38,12 @@ public class SaveUIControl : MonoBehaviour
 
     void Start()
     {
-        // ƒZ[ƒuƒf[ƒ^‚ª‚ ‚éŽž‚ÍƒZ[ƒuƒf[ƒ^‘I‘ðƒ{ƒ^ƒ“‚ð•\Ž¦
+        // ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒã‚ã‚‹æ™‚ã¯ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿é¸æŠžãƒœã‚¿ãƒ³ã‚’è¡¨ç¤º
         if (SaveManager.HasAnySaveData())
         {
             deleteButton.SetActive(true);
         }
-        //‚È‚¯‚ê‚ÎƒZ[ƒuƒf[ƒ^‘I‘ðƒ{ƒ^ƒ“‚ð”ñ•\Ž¦
+        //ãªã‘ã‚Œã°ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿é¸æŠžãƒœã‚¿ãƒ³ã‚’éžè¡¨ç¤º
         else
         {
             deleteButton.SetActive(false);
@@ -51,7 +51,7 @@ public class SaveUIControl : MonoBehaviour
     }
 
     /// <summary>
-    /// Á‹Žƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çÁ‹Žƒ{ƒ^ƒ“‚ð”ñ•\Ž¦‚É‚·‚éƒƒ\ƒbƒh
+    /// æ¶ˆåŽ»ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰æ¶ˆåŽ»ãƒœã‚¿ãƒ³ã‚’éžè¡¨ç¤ºã«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void HideSaveDeleteButton()
     {

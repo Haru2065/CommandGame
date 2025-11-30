@@ -2,15 +2,15 @@ using JetBrains.Annotations;
 using UnityEngine;
 
 /// <summary>
-/// “G‚ÌŒø‰Ê‰¹
+/// æ•µã®åŠ¹æœéŸ³
 /// </summary>
 public class EnemySE : MonoBehaviour
 {
-    //“G‚ÌŒø‰Ê‰¹‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»—p
+    //æ•µã®åŠ¹æœéŸ³ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–ç”¨
     private static EnemySE instance;
 
     /// <summary>
-    /// “G‚ÌŒø‰Ê‰¹ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌƒQƒbƒ^[
+    /// æ•µã®åŠ¹æœéŸ³ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ã‚²ãƒƒã‚¿ãƒ¼
     /// </summary>
     public static EnemySE Instance
     {
@@ -18,46 +18,46 @@ public class EnemySE : MonoBehaviour
     }
 
     [SerializeField]
-    [Tooltip("Œø‰Ê‰¹—p‚ÌƒI[ƒfƒBƒIƒ\[ƒX")]
+    [Tooltip("åŠ¹æœéŸ³ç”¨ã®ã‚ªãƒ¼ãƒ‡ã‚£ã‚ªã‚½ãƒ¼ã‚¹")]
     private AudioSource audioSource;
 
     [SerializeField]
-    [Tooltip("ƒXƒ‰ƒCƒ€‚ÌUŒ‚‰¹")]
+    [Tooltip("ã‚¹ãƒ©ã‚¤ãƒ ã®æ”»æ’ƒéŸ³")]
     private AudioClip slimeAttackSE;
 
     [SerializeField]
-    [Tooltip("ƒXƒPƒ‹ƒgƒ“‚ÌUŒ‚‰¹")]
+    [Tooltip("ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®æ”»æ’ƒéŸ³")]
     private AudioClip skeletonAttackSE;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚Ì–Â‚«º‰¹")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®é³´ãå£°éŸ³")]
     private AudioClip dragonRoarSE;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚Ì’P‘ÌUŒ‚‰¹")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®å˜ä½“æ”»æ’ƒéŸ³")]
     private AudioClip dragonSingleAttackSE;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚ÌƒuƒŒƒXUŒ‚‰¹")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ–ãƒ¬ã‚¹æ”»æ’ƒéŸ³")]
     private AudioClip dragonBreathSE;
 
     [SerializeField]
-    [Tooltip("ƒhƒ‰ƒSƒ“‚Ì•KEUŒ‚‰¹")]
+    [Tooltip("ãƒ‰ãƒ©ã‚´ãƒ³ã®å¿…æ®ºæ”»æ’ƒéŸ³")]
     private AudioClip dragonSpecialAttackSE;
 
 
     /// <summary>
-    /// “G‚ÌŒø‰Ê‰¹ƒ}ƒl[ƒWƒƒ[‚ğƒCƒ“ƒXƒ^ƒ“ƒX‰»
+    /// æ•µã®åŠ¹æœéŸ³ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚’ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹åŒ–
     /// </summary>
     void Awake()
     {
-        //ƒCƒ“ƒXƒ^ƒ“ƒX‚ª‚È‚¯‚ê‚ÎƒCƒ“ƒXƒ^ƒ“ƒX
+        //ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒãªã‘ã‚Œã°ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
         if (instance == null)
         {
 
             instance = this;
         }
-        //‚ ‚ê‚ÎƒIƒuƒWƒFƒNƒg‚ğÁ‹
+        //ã‚ã‚Œã°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æ¶ˆå»
         else
         {
             Destroy(gameObject);
@@ -65,56 +65,56 @@ public class EnemySE : MonoBehaviour
     }
 
     /// <summary>
-    /// ƒXƒ‰ƒCƒ€‚ÌUŒ‚‰¹‚ğÄ¶ƒƒ\ƒbƒh
+    /// ã‚¹ãƒ©ã‚¤ãƒ ã®æ”»æ’ƒéŸ³ã‚’å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    public void Play_slimeAttackSE()
+    public void Play_SlimeAttackSE()
     {
-        //ƒXƒ‰ƒCƒ€‚ÌUŒ‚‰¹Ä¶
+        //ã‚¹ãƒ©ã‚¤ãƒ ã®æ”»æ’ƒéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(slimeAttackSE);
     }
 
     /// <summary>
-    /// ƒXƒPƒ‹ƒgƒ“‚ÌUŒ‚‰¹‚ğÄ¶ƒƒ\ƒbƒh
+    /// ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®æ”»æ’ƒéŸ³ã‚’å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_SkeletonAttackSE()
     {
-        //ƒXƒPƒ‹ƒgƒ“‚ÌUŒ‚‰¹Ä¶
+        //ã‚¹ã‚±ãƒ«ãƒˆãƒ³ã®æ”»æ’ƒéŸ³å†ç”Ÿ
         audioSource.PlayOneShot(skeletonAttackSE);
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ì–Â‚«ºÄ¶ƒƒ\ƒbƒh
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®é³´ãå£°å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    public void Play_DragonRourSE()
+    public void Play_DragonRoarSE()
     {
-        //ƒhƒ‰ƒSƒ“‚Ì–Â‚«º‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®é³´ãå£°ã‚’å†ç”Ÿ
         audioSource.PlayOneShot(dragonRoarSE);
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ì’P‘ÌUŒ‚‰¹Ä¶ƒƒ\ƒbƒh
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®å˜ä½“æ”»æ’ƒéŸ³å†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_DragonSingleAttackSE()
     {
-        //ƒhƒ‰ƒSƒ“‚Ì’P‘ÌUŒ‚‰¹‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®å˜ä½“æ”»æ’ƒéŸ³ã‚’å†ç”Ÿ
         audioSource.PlayOneShot(dragonSingleAttackSE);
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚ÌƒuƒŒƒXUŒ‚Ä¶ƒƒ\ƒbƒh
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ–ãƒ¬ã‚¹æ”»æ’ƒå†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_DragonBreathSE()
     {
-        //ƒhƒ‰ƒSƒ“‚ÌƒuƒŒƒXUŒ‚‰¹‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®ãƒ–ãƒ¬ã‚¹æ”»æ’ƒéŸ³ã‚’å†ç”Ÿ
         audioSource.PlayOneShot(dragonBreathSE);
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒSƒ“‚Ì•KEUŒ‚Ä¶ƒƒ\ƒbƒh
+    /// ãƒ‰ãƒ©ã‚´ãƒ³ã®å¿…æ®ºæ”»æ’ƒå†ç”Ÿãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     public void Play_DragonSpecialAttackSE()
     {
-        //ƒhƒ‰ƒSƒ“‚Ì•KEUŒ‚‰¹‚ğÄ¶
+        //ãƒ‰ãƒ©ã‚´ãƒ³ã®å¿…æ®ºæ”»æ’ƒéŸ³ã‚’å†ç”Ÿ
         audioSource.PlayOneShot(dragonSpecialAttackSE); 
     }
 }

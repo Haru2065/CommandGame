@@ -6,35 +6,35 @@ using System.Threading;
 using System;
 
 /// <summary>
-/// ƒXƒe[ƒW‚P‚Ìƒoƒgƒ‹ƒVƒXƒeƒ€
+/// ã‚¹ãƒ†ãƒ¼ã‚¸ï¼‘ã®ãƒãƒˆãƒ«ã‚·ã‚¹ãƒ†ãƒ 
 /// </summary>
 public class Stage1BattleSystem : BaseBattleManager
 {
     [SerializeField]
-    [Tooltip("ƒXƒ‰ƒCƒ€1")]
+    [Tooltip("ã‚¹ãƒ©ã‚¤ãƒ 1")]
     private Slime slime1;
 
     [SerializeField]
-    [Tooltip("ƒXƒ‰ƒCƒ€‚Q")]
+    [Tooltip("ã‚¹ãƒ©ã‚¤ãƒ ï¼’")]
     private Slime slime2;
 
     [SerializeField]
-    [Tooltip("ƒXƒ‰ƒCƒ€‚R")]
+    [Tooltip("ã‚¹ãƒ©ã‚¤ãƒ ï¼“")]
     private Slime slime3;
 
     // Start is called before the first frame update
     protected override async void Start()
     {
-        //ƒx[ƒX‚Ìƒoƒgƒ‹ƒ}ƒl[ƒWƒƒ[‚©‚ç‹¤’Ê‚Ì‰Šú‰»ˆ—‚ğs‚¤
+        //ãƒ™ãƒ¼ã‚¹ã®ãƒãƒˆãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰å…±é€šã®åˆæœŸåŒ–å‡¦ç†ã‚’è¡Œã†
         base.Start();
 
-        //ƒLƒƒƒ“ƒZƒ‹ƒg[ƒNƒ“ƒ\[ƒX‚ğ¶¬
+        //ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒˆãƒ¼ã‚¯ãƒ³ã‚½ãƒ¼ã‚¹ã‚’ç”Ÿæˆ
         cts = new CancellationTokenSource();        
 
-        // ƒXƒe[ƒW‚ÌƒZ[ƒuƒf[ƒ^‚ğ“Ç‚İ‚Ş
+        // ã‚¹ãƒ†ãƒ¼ã‚¸ã®ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã‚€
         string path = Application.persistentDataPath + $"/StageSaveData.Json";
 
-        //ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚·‚é‚È‚çƒXƒe[ƒWƒf[ƒ^‚ğƒ[ƒh
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã™ã‚‹ãªã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã‚’ãƒ­ãƒ¼ãƒ‰
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
@@ -42,33 +42,33 @@ public class Stage1BattleSystem : BaseBattleManager
             LoadStageData(saveData);
         }
 
-        //ƒZ[ƒuƒf[ƒ^‚ª‘¶İ‚µ‚È‚¢‚È‚çƒXƒe[ƒWƒf[ƒ^‚ğ‰Šú‰»
+        //ã‚»ãƒ¼ãƒ–ãƒ‡ãƒ¼ã‚¿ãŒå­˜åœ¨ã—ãªã„ãªã‚‰ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã‚’åˆæœŸåŒ–
         else
         {
             IsUnlockStage2 = false;
         }
 
-        //Å‰‚Ì“G‚Éƒ^[ƒQƒbƒg‚ğİ’è
+        //æœ€åˆã®æ•µã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’è¨­å®š
         PlayerTargetSelect.Instance.SetStartBattleTarget();
 
-        //ƒ|[ƒY‰æ–Ê‚ÍŠJ‚¯‚È‚¢ó‘Ô‚É‚·‚é
+        //ãƒãƒ¼ã‚ºç”»é¢ã¯é–‹ã‘ãªã„çŠ¶æ…‹ã«ã™ã‚‹
         canPoseMode = false;
 
-        //ƒAƒ^ƒbƒJ[Aƒoƒbƒtƒ@[Aƒq[ƒ‰[‚ª•KE‚ğg‚¦‚éó‘Ô‚É‚·‚é
+        //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã€ãƒãƒƒãƒ•ã‚¡ãƒ¼ã€ãƒ’ãƒ¼ãƒ©ãƒ¼ãŒå¿…æ®ºã‚’ä½¿ãˆã‚‹çŠ¶æ…‹ã«ã™ã‚‹
         attacker.IsUseSpecial = false;
         buffer.IsUseSpecial = false;
         healer.IsUseSpecial = false;
 
-        //ƒoƒgƒ‹ƒ‹[ƒvŠJn
+        //ãƒãƒˆãƒ«ãƒ«ãƒ¼ãƒ—é–‹å§‹
         await BattleLoop(cts.Token);
     }
 
     protected override void Update()
     {
-        //ƒ|[ƒY‰æ–Ê‚Ìˆ—
+        //ãƒãƒ¼ã‚ºç”»é¢ã®å‡¦ç†
         base.Update();
 
-        // ‚à‚µI—¹ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çˆÀ‘S‚ÉI—¹‚·‚é‚½‚ß‚ÉƒLƒƒƒ“ƒZƒ‹ˆ—‚ğs‚¤
+        // ã‚‚ã—çµ‚äº†ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰å®‰å…¨ã«çµ‚äº†ã™ã‚‹ãŸã‚ã«ã‚­ãƒ£ãƒ³ã‚»ãƒ«å‡¦ç†ã‚’è¡Œã†
         if (pushExitButton.IsQuitGame)
         {
             cts.Cancel();
@@ -77,97 +77,97 @@ public class Stage1BattleSystem : BaseBattleManager
     }
 
     /// <summary>
-    /// UniTaskƒoƒgƒ‹‚Ìƒ‹[ƒvˆ—
+    /// UniTaskãƒãƒˆãƒ«ã®ãƒ«ãƒ¼ãƒ—å‡¦ç†
     /// </summary>
-    /// <param name="token">ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—/param>
-    /// <returns>ƒvƒŒƒCƒ„[‚ªs“®‚·‚é‚Ü‚Å‘Ò‚Â</returns>
+    /// <param name="token">ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†/param>
+    /// <returns>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¡Œå‹•ã™ã‚‹ã¾ã§å¾…ã¤</returns>
     async UniTask BattleLoop(CancellationToken token)
     {
-        // €–SƒLƒƒƒ‰‚Ìs“®ƒtƒ‰ƒO‚ğtrue‚É‚µ‚Äƒ^[ƒ“‚ğƒXƒLƒbƒv
+        // æ­»äº¡ã‚­ãƒ£ãƒ©ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’trueã«ã—ã¦ã‚¿ãƒ¼ãƒ³ã‚’ã‚¹ã‚­ãƒƒãƒ—
         if (!attacker.IsAlive) attacker.IsPlayerAction = true;
         if (!buffer.IsAlive) buffer.IsPlayerAction = true;
         if (!healer.IsAlive) healer.IsPlayerAction = true;
 
-        //ƒQ[ƒ€ƒNƒŠƒAEƒQ[ƒ€ƒI[ƒo[‚Ìƒtƒ‰ƒO‚ªtrue‚È‚çƒ‹[ƒv‚ğ~‚ß‚ÄƒLƒƒƒ“ƒZƒ‹‚·‚é
+        //ã‚²ãƒ¼ãƒ ã‚¯ãƒªã‚¢ãƒ»ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ã®ãƒ•ãƒ©ã‚°ãŒtrueãªã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã¦ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã™ã‚‹
         while (!(isGameClear || token.IsCancellationRequested))
         {
             if (IsPlayerTurn)
             {
-                //UIƒ}ƒl[ƒWƒƒ[‚©‚çƒvƒŒƒCƒ„[ƒ^[ƒ“•\¦
+                //UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³è¡¨ç¤º
                 UIManager.Instance.PlayerTurnUI.SetActive(true);
 
-                //1ƒtƒŒ[ƒ€‘Ò‚ÂiƒLƒƒƒ“ƒZƒ‹ƒg[ƒNƒ“‚ªŒÄ‚Î‚ê‚½‚çƒLƒƒƒ“ƒZƒ‹j
+                //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤ï¼ˆã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒˆãƒ¼ã‚¯ãƒ³ãŒå‘¼ã°ã‚ŒãŸã‚‰ã‚­ãƒ£ãƒ³ã‚»ãƒ«ï¼‰
                 await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                //UIƒ}ƒl[ƒWƒƒ[‚©‚çƒvƒŒƒCƒ„[ƒ^[ƒ“”ñ•\¦
+                //UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³éè¡¨ç¤º
                 UIManager.Instance.PlayerTurnUI.SetActive(false);
 
-                //UIƒ}ƒl[ƒWƒƒ[‚©‚çƒvƒŒƒCƒ„[ƒ^[ƒ“‚É•\¦‚·‚éUI‚ğ•\¦
+                //UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³æ™‚ã«è¡¨ç¤ºã™ã‚‹UIã‚’è¡¨ç¤º
                 UIManager.Instance.StartPlayerTurnUI();
 
-                //ƒAƒ^ƒbƒJ[‚ª¶‘¶‚µ‚Ä‚¢‚½‚çˆ—‚ğÀs
+                //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ãŒç”Ÿå­˜ã—ã¦ã„ãŸã‚‰å‡¦ç†ã‚’å®Ÿè¡Œ
                 if (attacker.IsAlive)
                 {
-                    //s“®ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
-                   @attacker.ResetActionFlag();
+                    //è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
+                   ã€€attacker.ResetActionFlag();
 
-                    //w’è‚µ‚½ˆÊ’u‚Éƒ^[ƒ“ŠJnƒGƒtƒFƒNƒg¶¬
+                    //æŒ‡å®šã—ãŸä½ç½®ã«ã‚¿ãƒ¼ãƒ³é–‹å§‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
                     StartCoroutine(ShowStartTurnEffect(FirstTurnEffect_SpawnPoint));
 
-                    //1ƒtƒŒ[ƒ€‘Ò‚Â
+                    //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                    //ƒAƒ^ƒbƒJ[‚Ìƒ^[ƒ“ŠJn’Ê’m•\¦
+                    //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹é€šçŸ¥è¡¨ç¤º
                     BattleActionTextManager.Instance.ShowBattleActionText("AttackerTurnText");
 
-                    //ƒAƒ^ƒbƒJ[‚Ìƒ^[ƒ“ŠJn’Ê’m”ñ•\¦
+                    //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹é€šçŸ¥éè¡¨ç¤º
                     StartCoroutine(HidePlayerActionText());
 
-                    //1ƒtƒŒ[ƒ€‘Ò‚Â
+                    //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                    //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ‰Ÿ‚¹‚é‚æ‚¤‚É‚·‚é
+                    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’æŠ¼ã›ã‚‹ã‚ˆã†ã«ã™ã‚‹
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
-                    //ƒAƒ^ƒbƒJ[ƒ^[ƒ“ŠJn(ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—)
+                    //ã‚¢ã‚¿ãƒƒã‚«ãƒ¼ã‚¿ãƒ¼ãƒ³é–‹å§‹(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†)
                     await PlayerTurnAction(attacker, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    //“G‚Ì¶‘¶ó‹µ‚ğŠm”Fi¶‘¶ƒŠƒXƒg‚ª‹ó‚È‚çƒ‹[ƒv‚ğ~‚ß‚éj
+                    //æ•µã®ç”Ÿå­˜çŠ¶æ³ã‚’ç¢ºèªï¼ˆç”Ÿå­˜ãƒªã‚¹ãƒˆãŒç©ºãªã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã‚‹ï¼‰
                     if (GameClearCheck())
                     {
                         return;
                     }
 
-                    //ƒXƒe[ƒ^ƒXƒ{ƒ^ƒ“‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ‰Ÿ‚¹‚È‚¢‚æ‚¤‚É‚·‚é
+                    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒœã‚¿ãƒ³ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’æŠ¼ã›ãªã„ã‚ˆã†ã«ã™ã‚‹
                     PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
 
                 if (buffer.IsAlive)
                 {
-                    //s“®ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+                    //è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
                     buffer.ResetActionFlag();
 
-                    //w’è‚µ‚½ˆÊ’u‚Éƒ^[ƒ“ŠJnƒGƒtƒFƒNƒg¶¬
+                    //æŒ‡å®šã—ãŸä½ç½®ã«ã‚¿ãƒ¼ãƒ³é–‹å§‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
                     StartCoroutine(ShowStartTurnEffect(SecondTurnEffect_SpawnPoint));
 
-                    //1ƒtƒŒ[ƒ€‘Ò‚Â(ƒLƒƒƒ“ƒZƒ‹ƒg[ƒNƒ“‚ªŒÄ‚Î‚ê‚½‚çƒLƒƒƒ“ƒZƒ‹)
+                    //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒˆãƒ¼ã‚¯ãƒ³ãŒå‘¼ã°ã‚ŒãŸã‚‰ã‚­ãƒ£ãƒ³ã‚»ãƒ«)
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                    //ƒoƒbƒtƒ@[‚Ìƒ^[ƒ“ŠJn’Ê’m•\¦
+                    //ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹é€šçŸ¥è¡¨ç¤º
                     BattleActionTextManager.Instance.ShowBattleActionText("BufferTurnText");
 
-                    //ƒoƒbƒtƒ@[‚Ìƒ^[ƒ“ŠJn’Ê’m”ñ•\¦
+                    //ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹é€šçŸ¥éè¡¨ç¤º
                     StartCoroutine(HidePlayerActionText());
 
-                    //1ƒtƒŒ[ƒ€‘Ò‚Â(ƒLƒƒƒ“ƒZƒ‹ƒg[ƒNƒ“‚ªŒÄ‚Î‚ê‚½‚çƒLƒƒƒ“ƒZƒ‹j
+                    //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒˆãƒ¼ã‚¯ãƒ³ãŒå‘¼ã°ã‚ŒãŸã‚‰ã‚­ãƒ£ãƒ³ã‚»ãƒ«ï¼‰
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
-                    //ƒoƒbƒtƒ@[‚Ìƒ^[ƒ“ŠJn(ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—)
+                    //ãƒãƒƒãƒ•ã‚¡ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†)
                     await PlayerTurnAction(buffer, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    //“G‚Ì¶‘¶ó‹µ‚ğŠm”Fi¶‘¶ƒŠƒXƒg‚ª‹ó‚È‚çƒ‹[ƒv‚ğ~‚ß‚éj
+                    //æ•µã®ç”Ÿå­˜çŠ¶æ³ã‚’ç¢ºèªï¼ˆç”Ÿå­˜ãƒªã‚¹ãƒˆãŒç©ºãªã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã‚‹ï¼‰
                     if (GameClearCheck())
                     {
                         return;
@@ -177,82 +177,82 @@ public class Stage1BattleSystem : BaseBattleManager
 
                 if (healer.IsAlive)
                 {
-                    //s“®ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+                    //è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’ãƒªã‚»ãƒƒãƒˆ
                     healer.ResetActionFlag();
 
-                    //w’è‚µ‚½ˆÊ’u‚Éƒ^[ƒ“ŠJnƒGƒtƒFƒNƒg¶¬
+                    //æŒ‡å®šã—ãŸä½ç½®ã«ã‚¿ãƒ¼ãƒ³é–‹å§‹ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç”Ÿæˆ
                     StartCoroutine(ShowStartTurnEffect(ThirdTurnEffect_SpawnPoint));
 
-                    //1ƒtƒŒ[ƒ€‘Ò‚Â(ƒLƒƒƒ“ƒZƒ‹ƒg[ƒNƒ“‚ªŒÄ‚Î‚ê‚½‚çƒLƒƒƒ“ƒZƒ‹)
+                    //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ãƒˆãƒ¼ã‚¯ãƒ³ãŒå‘¼ã°ã‚ŒãŸã‚‰ã‚­ãƒ£ãƒ³ã‚»ãƒ«)
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                    //ƒq[ƒ‰[‚Ìƒ^[ƒ“ŠJn’Ê’m•\¦
+                    //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹é€šçŸ¥è¡¨ç¤º
                     BattleActionTextManager.Instance.ShowBattleActionText("HealerTurnText");
 
-                    //ƒq[ƒ‰[‚Ìƒ^[ƒ“ŠJn’Ê’m”ñ•\¦
+                    //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹é€šçŸ¥éè¡¨ç¤º
                     StartCoroutine(HidePlayerActionText());
 
-                    //1ƒtƒŒ[ƒ€‘Ò‚Â
+                    //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
                     await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                    //ƒXƒe[ƒ^ƒXƒEƒBƒ“ƒhƒE‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ‰Ÿ‚¹‚é‚æ‚¤‚É‚·‚é
+                    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’æŠ¼ã›ã‚‹ã‚ˆã†ã«ã™ã‚‹
                     PushOpenStatusWindow.Instance.CanPushStatusButton();
 
-                    //ƒq[ƒ‰[‚Ìƒ^[ƒ“ŠJn(ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—j
+                    //ãƒ’ãƒ¼ãƒ©ãƒ¼ã®ã‚¿ãƒ¼ãƒ³é–‹å§‹(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†ï¼‰
                     await PlayerTurnAction(healer, KeyCode.A, KeyCode.S, KeyCode.F, token);
 
-                    //“G‚Ì¶‘¶ó‹µ‚ğŠm”Fi¶‘¶ƒŠƒXƒg‚ª‹ó‚È‚çƒ‹[ƒv‚ğ~‚ß‚éj
+                    //æ•µã®ç”Ÿå­˜çŠ¶æ³ã‚’ç¢ºèªï¼ˆç”Ÿå­˜ãƒªã‚¹ãƒˆãŒç©ºãªã‚‰ãƒ«ãƒ¼ãƒ—ã‚’æ­¢ã‚ã‚‹ï¼‰
                     if (GameClearCheck())
                     {
                         return;
                     }
 
-                    //ƒXƒe[ƒ^ƒXƒ{ƒ^ƒ“‚ğŠJ‚­ƒ{ƒ^ƒ“‚ğ‰Ÿ‚¹‚È‚¢‚æ‚¤‚É‚·‚é
+                    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒœã‚¿ãƒ³ã‚’é–‹ããƒœã‚¿ãƒ³ã‚’æŠ¼ã›ãªã„ã‚ˆã†ã«ã™ã‚‹
                     PushOpenStatusWindow.Instance.TransparentStatusButton();
                 }
             }
 
-            //“G‚Ìƒ^[ƒ“
+            //æ•µã®ã‚¿ãƒ¼ãƒ³
             else
             {
-                //ŠeƒvƒŒƒCƒ„[‚Ìs“®ƒtƒ‰ƒO‚ğfalse‚É‚·‚é
+                //å„ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’falseã«ã™ã‚‹
                 attacker.IsAttackerAction = false;
                 buffer.IsBufferAction = false;
                 healer.IsHealerAction = false;
 
-                //UIƒ}ƒl[ƒWƒƒ[‚©‚ç“Gƒ^[ƒ“UI‚ğ•\¦
+                //UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰æ•µã‚¿ãƒ¼ãƒ³UIã‚’è¡¨ç¤º
                 UIManager.Instance.EnemyTurnUI.SetActive(true);
 
                 await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-                //UIƒ}ƒl[ƒWƒƒ[‚©‚ç“Gƒ^[ƒ“UI‚ğ”ñ•\¦
+                //UIãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‹ã‚‰æ•µã‚¿ãƒ¼ãƒ³UIã‚’éè¡¨ç¤º
                 UIManager.Instance.EnemyTurnUI.SetActive(false);
 
-                //“Gƒ^[ƒ“ŠJn
+                //æ•µã‚¿ãƒ¼ãƒ³é–‹å§‹
                 await EnemyTurn(token);
             }
         }
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[ƒ^[ƒ“‚Ì‹¤’Êˆ—
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³ã®å…±é€šå‡¦ç†
     /// </summary>
-    /// <param name="player">ƒvƒŒƒCƒ„[‚ÌƒNƒ‰ƒX–¼</param>
-    /// <param name="offDebuffTextID">ƒfƒoƒt‰ğœƒeƒLƒXƒg</param>
-    /// <param name="normalKey">’ÊíUŒ‚ƒL[</param>
-    /// <param name="skillKey">ƒXƒLƒ‹ƒL[</param>
-    /// <param name="specialKey">•KEƒL[</param>
-    /// <param name="token">ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—</param>
-    /// <returns>ƒvƒŒƒCƒ„[‚ªs“®‚·‚é‚Ü‚Åˆ—‚ğ‘Ò‚Â</returns>
+    /// <param name="player">ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¯ãƒ©ã‚¹å</param>
+    /// <param name="offDebuffTextID">ãƒ‡ãƒãƒ•è§£é™¤ãƒ†ã‚­ã‚¹ãƒˆ</param>
+    /// <param name="normalKey">é€šå¸¸æ”»æ’ƒã‚­ãƒ¼</param>
+    /// <param name="skillKey">ã‚¹ã‚­ãƒ«ã‚­ãƒ¼</param>
+    /// <param name="specialKey">å¿…æ®ºã‚­ãƒ¼</param>
+    /// <param name="token">ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†</param>
+    /// <returns>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¡Œå‹•ã™ã‚‹ã¾ã§å‡¦ç†ã‚’å¾…ã¤</returns>
     protected override async UniTask PlayerTurnAction(BasePlayerStatus player, KeyCode normalKey, KeyCode skillKey, KeyCode specialKey, CancellationToken token)
     {
-        //ƒvƒŒƒCƒ„[‚Ìs“®ƒtƒ‰ƒO‚ªtrue‚É‚È‚é‚Ü‚Åƒ‹[ƒv‚µ‘±‚¯‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®è¡Œå‹•ãƒ•ãƒ©ã‚°ãŒtrueã«ãªã‚‹ã¾ã§ãƒ«ãƒ¼ãƒ—ã—ç¶šã‘ã‚‹
         while (!player.IsPlayerAction)
         {
-            //ƒ|[ƒY‰æ–Ê‚ÉØ‚è‘Ö‚¦‰Â”\‚É‚·‚é
+            //ãƒãƒ¼ã‚ºç”»é¢ã«åˆ‡ã‚Šæ›¿ãˆå¯èƒ½ã«ã™ã‚‹
             canPoseMode = true;
 
-            //‚¢‚¸‚ê‚©‚ÌƒL[‚ª‰Ÿ‚³‚ê‚é‚Ü‚Å‘Ò‚Â(’ÊíAƒXƒLƒ“A•KE)
+            //ã„ãšã‚Œã‹ã®ã‚­ãƒ¼ãŒæŠ¼ã•ã‚Œã‚‹ã¾ã§å¾…ã¤(é€šå¸¸ã€ã‚¹ã‚­ãƒ³ã€å¿…æ®º)
             await UniTask.WaitUntil(() =>
                 Input.GetKeyDown(normalKey) ||
                 Input.GetKeyDown(skillKey) ||
@@ -261,44 +261,44 @@ public class Stage1BattleSystem : BaseBattleManager
 
             if (Input.GetKeyDown(normalKey))
             {
-                //ƒvƒŒƒCƒ„[‚Ì’ÊíUŒ‚Às
+                //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®é€šå¸¸æ”»æ’ƒå®Ÿè¡Œ
                 player.NormalAttack();
 
-                //’ÊíUŒ‚‚Å‚Í‚·‚®‚ÉƒvƒŒƒCƒ„[s“®ƒtƒ‰ƒO‚ğtrue‚É‚·
+                //é€šå¸¸æ”»æ’ƒã§ã¯ã™ãã«ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼è¡Œå‹•ãƒ•ãƒ©ã‚°ã‚’trueã«ã™
                 player.IsPlayerAction = true;
             }
             else if (Input.GetKeyDown(skillKey))
             {
-                //ƒvƒŒƒCƒ„[‚ÌƒXƒLƒ‹‚ğÀs
+                //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ã‚¹ã‚­ãƒ«ã‚’å®Ÿè¡Œ
                 player.PlayerSkill();
                 break;
             }
             else if (Input.GetKeyDown(specialKey))
             {
-                    //•KE§ŒÀƒtƒ‰ƒO‚ªfalse‚È‚çƒXƒyƒVƒƒƒ‹‚ğÀs
+                    //å¿…æ®ºåˆ¶é™ãƒ•ãƒ©ã‚°ãŒfalseãªã‚‰ã‚¹ãƒšã‚·ãƒ£ãƒ«ã‚’å®Ÿè¡Œ
                     player.SpecialSkill();
                     break;
             }
         }
 
-        //ƒvƒŒƒCƒ„[ƒ^[ƒ“‚ªI—¹‚µ‚½‚çƒ|[ƒY‰æ–Ê‚É‚ÍØ‚è‘Ö‚¦‚ê‚È‚­‚·‚é
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³ãŒçµ‚äº†ã—ãŸã‚‰ãƒãƒ¼ã‚ºç”»é¢ã«ã¯åˆ‡ã‚Šæ›¿ãˆã‚Œãªãã™ã‚‹
         if (player.IsPlayerAction)
         {
-            //ƒvƒŒƒCƒ„[‚Ì•KE§ŒÀƒJƒEƒ“ƒg‚ÌƒeƒLƒXƒg‚ğ”ñ•\¦
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å¿…æ®ºåˆ¶é™ã‚«ã‚¦ãƒ³ãƒˆã®ãƒ†ã‚­ã‚¹ãƒˆã‚’éè¡¨ç¤º
             UIManager.Instance.SpecialLimitCountText.SetActive(false);
             canPoseMode = false;
         }
 
-        //1ƒtƒŒ[ƒ€‘Ò‚Â(ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—j
+        //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤(ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†ï¼‰
         await UniTask.Delay(TimeSpan.FromSeconds(TurnDelay), cancellationToken: token);
 
-        //TryCatch‚ğg‚¢ƒGƒ‰[‚ğ–h‚®
+        //TryCatchã‚’ä½¿ã„ã‚¨ãƒ©ãƒ¼ã‚’é˜²ã
         try
         {
-            //ƒvƒŒƒCƒ„[‚ªs“®‚ğI—¹‚·‚é‚Ü‚Åˆ—‚ğ‘Ò‚Â
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒè¡Œå‹•ã‚’çµ‚äº†ã™ã‚‹ã¾ã§å‡¦ç†ã‚’å¾…ã¤
             await UniTask.WaitUntil(() => player.IsPlayerAction, cancellationToken: token);
 
-            //ƒvƒŒƒCƒ„[‘S‘Ì‚Ìs“®‚ªI‚í‚Á‚½‚çƒvƒŒƒCƒ„[ƒ^[ƒ“I—¹
+            //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼å…¨ä½“ã®è¡Œå‹•ãŒçµ‚ã‚ã£ãŸã‚‰ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚¿ãƒ¼ãƒ³çµ‚äº†
             if (attacker.IsPlayerAction && buffer.IsPlayerAction && healer.IsPlayerAction)
             {
                 IsPlayerTurn = false;
@@ -306,41 +306,41 @@ public class Stage1BattleSystem : BaseBattleManager
         }
         catch (OperationCanceledException)
         {
-            Debug.Log("ƒLƒƒƒ“ƒZƒ‹‚³‚ê‚½");
+            Debug.Log("ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã•ã‚ŒãŸ");
         }
 
-        //1ƒtƒŒ[ƒ€‘Ò‚Â
+        //1ãƒ•ãƒ¬ãƒ¼ãƒ å¾…ã¤
         await UniTask.Yield();
     }
 
     /// <summary>
-    /// ƒ†ƒjƒ^ƒXƒN“G‚Ìƒ^[ƒ“
+    /// ãƒ¦ãƒ‹ã‚¿ã‚¹ã‚¯æ•µã®ã‚¿ãƒ¼ãƒ³
     /// </summary>
-    /// <param name="token">ƒLƒƒƒ“ƒZƒ‹‚Å‚«‚éˆ—/param>
-    /// <returns>ƒ†ƒjƒ^ƒXƒN‚ğ~‚ß‚éˆ—</returns>
+    /// <param name="token">ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã§ãã‚‹å‡¦ç†/param>
+    /// <returns>ãƒ¦ãƒ‹ã‚¿ã‚¹ã‚¯ã‚’æ­¢ã‚ã‚‹å‡¦ç†</returns>
     async UniTask EnemyTurn(CancellationToken token)
     {
         if (slime1.EnemyIsAlive)
         {
-            //ƒXƒ‰ƒCƒ€1ƒ^[ƒ“
+            //ã‚¹ãƒ©ã‚¤ãƒ 1ã‚¿ãƒ¼ãƒ³
             await SlimeTurn(slime1, token);
             
         }
         if (slime2.EnemyIsAlive)
         {
-            //ƒXƒ‰ƒCƒ€2ƒ^[ƒ“
+            //ã‚¹ãƒ©ã‚¤ãƒ 2ã‚¿ãƒ¼ãƒ³
             await SlimeTurn(slime2, token);
         }
 
         if (slime3.EnemyIsAlive)
         {
-            //ƒXƒ‰ƒCƒ€3ƒ^[ƒ“
+            //ã‚¹ãƒ©ã‚¤ãƒ 3ã‚¿ãƒ¼ãƒ³
             await SlimeTurn(slime3, token);
         }
 
         GameOverCheck();
 
-        // ‘SƒXƒ‰ƒCƒ€‚ªs“®‚µI‚¦‚½Œã‚Å‘S–Åƒ`ƒFƒbƒN
+        // å…¨ã‚¹ãƒ©ã‚¤ãƒ ãŒè¡Œå‹•ã—çµ‚ãˆãŸå¾Œã§å…¨æ»…ãƒã‚§ãƒƒã‚¯
         if (isGameOver)
         {
             return;
@@ -348,72 +348,72 @@ public class Stage1BattleSystem : BaseBattleManager
 
 
 
-        //“G‚Ìƒ^[ƒ“I—¹
+        //æ•µã®ã‚¿ãƒ¼ãƒ³çµ‚äº†
         IsPlayerTurn = true;
     }
 
     /// <summary>
-    /// ƒXƒ‰ƒCƒ€ƒ^[ƒ“ˆ—
+    /// ã‚¹ãƒ©ã‚¤ãƒ ã‚¿ãƒ¼ãƒ³å‡¦ç†
     /// </summary>
-    /// <param name="slime">ƒXƒ‰ƒCƒ€‚ÌƒXƒe[ƒ^ƒX</param>
+    /// <param name="slime">ã‚¹ãƒ©ã‚¤ãƒ ã®ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹</param>
     /// <returns></returns>
     async UniTask SlimeTurn(Slime slime, CancellationToken token)
     {
-        //ƒXƒ‰ƒCƒ€‚ÌUŒ‚ŠJn
+        //ã‚¹ãƒ©ã‚¤ãƒ ã®æ”»æ’ƒé–‹å§‹
         await slime.SlimeAction();
 
         await UniTask.Yield();
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‘S–Å‚ğŠm”F‚µAƒQ[ƒ€ƒI[ƒo[ˆ—‚ğÀs‚·‚éB
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå…¨æ»…ã‚’ç¢ºèªã—ã€ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
     /// </summary>
-    /// <returns>‘S–Å‚µ‚Ä‚¢‚½‚çtrue</returns>
+    /// <returns>å…¨æ»…ã—ã¦ã„ãŸã‚‰true</returns>
     protected override bool GameClearCheck()
     {
-        //“G¶‘¶ƒŠƒXƒg‚ª‹ó‚É‚È‚Á‚½‚ç’l‚ğ•Ô‚·
+        //æ•µç”Ÿå­˜ãƒªã‚¹ãƒˆãŒç©ºã«ãªã£ãŸã‚‰å€¤ã‚’è¿”ã™
         if (aliveEnemies.Count == 0)
         {
             isGameClear = true;
 
             if (!IsUnlockStage2)
             {
-                //ƒXƒe[ƒW3‚ğ‰ğ•ú
+                //ã‚¹ãƒ†ãƒ¼ã‚¸3ã‚’è§£æ”¾
                 IsUnlockStage2 = true;
 
-                //ƒXƒe[ƒWƒf[ƒ^‚ğ•Û‘¶
+                //ã‚¹ãƒ†ãƒ¼ã‚¸ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜
                 SaveManager.SaveStage();
             }
 
-            //2•b’x‚ê‚ÄƒNƒŠƒAUI‚ğ•\¦‚µAƒŒƒxƒ‹ƒAƒbƒvˆ—‚ğs‚¤
+            //2ç§’é…ã‚Œã¦ã‚¯ãƒªã‚¢UIã‚’è¡¨ç¤ºã—ã€ãƒ¬ãƒ™ãƒ«ã‚¢ãƒƒãƒ—å‡¦ç†ã‚’è¡Œã†
             Invoke("DelayGameClearUI", 2);
             return true;
         }
-        //“G‚ª¶‚«‚Ä‚¢‚é‚Ì‚Åfalse‚ğ•Ô‚·
+        //æ•µãŒç”Ÿãã¦ã„ã‚‹ã®ã§falseã‚’è¿”ã™
         return false;
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚ª‘S–Å‚ğŠm”F‚µAƒQ[ƒ€ƒI[ƒo[ˆ—‚ğÀs‚·‚éB
+    /// ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒå…¨æ»…ã‚’ç¢ºèªã—ã€ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼å‡¦ç†ã‚’å®Ÿè¡Œã™ã‚‹ã€‚
     /// </summary>
-    /// <returns>‘S–Å‚µ‚Ä‚¢‚½‚çtrue</returns>
+    /// <returns>å…¨æ»…ã—ã¦ã„ãŸã‚‰true</returns>
     protected override bool GameOverCheck()
     {
-        //ƒvƒŒƒCƒ„[‚Ì¶‘¶ƒŠƒXƒg‚ª‹ó‚É‚È‚Á‚½‚ç’l‚ğ•Ô‚·
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ç”Ÿå­˜ãƒªã‚¹ãƒˆãŒç©ºã«ãªã£ãŸã‚‰å€¤ã‚’è¿”ã™
         if (alivePlayers.Count == 0)
         {
             isGameOver = true;
 
-            //2•b’x‚ê‚ÄƒQ[ƒ€ƒI[ƒo[‚t‚h‚ğ•\¦
+            //2ç§’é…ã‚Œã¦ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼ï¼µï¼©ã‚’è¡¨ç¤º
             Invoke("DelayGameOverUI", 2);
             return true;
         }
-        //ƒvƒŒƒCƒ„[‚ª¶‚«‚Ä‚¢‚é‚Ì‚Åfalse‚ğ•Ô‚·
+        //ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒç”Ÿãã¦ã„ã‚‹ã®ã§falseã‚’è¿”ã™
         return false;
     }
 
     /// <summary>
-    /// ’x‚ê‚ÄƒQ[ƒ€ƒI[ƒo[UI‚ğ•\¦‚·‚éˆ—B
+    /// é…ã‚Œã¦ã‚²ãƒ¼ãƒ ã‚ªãƒ¼ãƒãƒ¼UIã‚’è¡¨ç¤ºã™ã‚‹å‡¦ç†B
     /// </summary>
     void DelayGameOverUI()
     {

@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 /// <summary>
-/// ƒ^ƒCƒgƒ‹ƒ{ƒ^ƒ“
+/// ã‚¿ã‚¤ãƒˆãƒ«ãƒœã‚¿ãƒ³
 /// </summary>
 public class PushTitleButton : MonoBehaviour
 {
     /// <summary>
-    /// ƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚çƒ^ƒCƒgƒ‹ƒV[ƒ“‚ÉˆÚ“®
+    /// ãƒœã‚¿ãƒ³ãŒæŠ¼ã•ã‚ŒãŸã‚‰ã‚¿ã‚¤ãƒˆãƒ«ã‚·ãƒ¼ãƒ³ã«ç§»å‹•
     /// </summary>
     public void OnButton()
     {

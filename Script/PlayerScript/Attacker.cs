@@ -134,7 +134,7 @@ public class Attacker : BasePlayerStatus
 
             //アタッカーの通常攻撃時のエフェクトを生成
             GameObject effectInstance = Instantiate(attacker_NormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
-            GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
+            GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEffect_SpawnPoint.position, Quaternion.identity);
 
             //攻撃する対象の敵にダメージを与える
             target.EnemyOnDamage(AttackPower);
@@ -169,7 +169,7 @@ public class Attacker : BasePlayerStatus
 
             //アタッカーの攻撃エフェクトとテキストエフェクトを生成
             GameObject effectInstance = Instantiate(attacker_NormalEffect, transform.position, Quaternion.identity);
-            GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
+            GameObject textEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEffect_SpawnPoint.position, Quaternion.identity);
 
             //遅れてもう一個エフェクトを生成
             Invoke("DelayEffect", 0.3f);
@@ -308,7 +308,7 @@ public class Attacker : BasePlayerStatus
     {
         //アタッカーのエフェクトとテキストエフェクトを遅れて生成
         GameObject EffectInstance = Instantiate(attacker_NormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
-        GameObject TextEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
+        GameObject TextEffectInstance = Instantiate(attacker_TextEffect, PlayerTextEffect_SpawnPoint.position, Quaternion.identity);
 
         //遅れてエフェクトを消去
         Destroy(EffectInstance, 0.2f);

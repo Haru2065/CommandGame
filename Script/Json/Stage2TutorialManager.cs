@@ -4,17 +4,17 @@ using UnityEngine.SceneManagement;
 public class Stage2TutorialManager : TutorialManager
 {
     [SerializeField]
-    [Tooltip("ŠeƒLƒƒƒ‰‚Ìs“®§ŒÀà–¾‰æ‘œ")]
+    [Tooltip("å„ã‚­ãƒ£ãƒ©ã®è¡Œå‹•åˆ¶é™èª¬æ˜ç”»åƒ")]
     private GameObject actionCountImage;
 
     [SerializeField]
-    [Tooltip("ƒXƒe[ƒ^ƒXó‹µ‚ğà–¾‚·‚é‰æ‘œ")]
+    [Tooltip("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹çŠ¶æ³ã‚’èª¬æ˜ã™ã‚‹ç”»åƒ")]
     private GameObject statusWindowImage;
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        //Šeà–¾‰æ‘œ‚ğ”ñ•\¦ 
+        //å„èª¬æ˜ç”»åƒã‚’éè¡¨ç¤º 
         actionCountImage.SetActive(false);
         statusWindowImage.SetActive(false);
 
@@ -22,41 +22,41 @@ public class Stage2TutorialManager : TutorialManager
     }
 
     /// <summary>
-    /// ƒNƒŠƒbƒN‚³‚ê‚½‚çƒeƒLƒXƒg‚Ì•\¦‚ği‚ß‚éƒƒ\ƒbƒh
+    /// ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸã‚‰ãƒ†ã‚­ã‚¹ãƒˆã®è¡¨ç¤ºã‚’é€²ã‚ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
     protected override void OnClickNextText()
     {
-        //•\¦ƒCƒ“ƒfƒbƒNƒX‚ğŸ‚Éi‚ß‚é
+        //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã‚’æ¬¡ã«é€²ã‚ã‚‹
         currentIndex++;
 
-        //•\¦ƒCƒ“ƒfƒbƒNƒX‚ªÅŒã‚Ü‚Å•\¦‚·‚é‚Ü‚Å•\¦
+        //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãŒæœ€å¾Œã¾ã§è¡¨ç¤ºã™ã‚‹ã¾ã§è¡¨ç¤º
         if (currentIndex < tutorialList.Count)
         {
-            //•\¦ƒCƒ“ƒfƒbƒNƒX‚Ì”‚É“ü‚Á‚Ä‚¢‚éJsonƒeƒLƒXƒg‚ğ•\¦
+            //è¡¨ç¤ºã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®æ•°ã«å…¥ã£ã¦ã„ã‚‹Jsonãƒ†ã‚­ã‚¹ãƒˆã‚’è¡¨ç¤º
             ShowTutorialText(tutorialList[currentIndex]);
         }
 
-        //ÅŒã‚Ü‚Å•\¦‚µ‚½‚çI—¹
+        //æœ€å¾Œã¾ã§è¡¨ç¤ºã—ãŸã‚‰çµ‚äº†
         else
         {
-            Debug.Log("ƒ`ƒ…[ƒgƒŠƒAƒ‹I—¹!");
+            Debug.Log("ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«çµ‚äº†!");
 
-            //ÅŒã‚Ü‚Å•\¦‚µ‚½‚ç©“®“G‚ÉƒXƒe[ƒWƒZƒŒƒNƒg‰æ–Ê‚ÉˆÚ“®
+            //æœ€å¾Œã¾ã§è¡¨ç¤ºã—ãŸã‚‰è‡ªå‹•æ•µã«ã‚¹ãƒ†ãƒ¼ã‚¸ã‚»ãƒ¬ã‚¯ãƒˆç”»é¢ã«ç§»å‹•
             SceneManager.LoadScene("StageSelect");
 
         }
     }
 
     /// <summary>
-    /// JSON‚Ìƒ`ƒ…[ƒgƒŠƒAƒ‹‚ğ•\¦ƒRƒ“ƒgƒ[ƒ‹‚·‚éƒƒ\ƒbƒh
+    /// JSONã®ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’è¡¨ç¤ºã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰
     /// </summary>
-    /// <param name="scenarios">Json‚Ìƒ`ƒ…[ƒgƒŠƒAƒ‹</param>
+    /// <param name="scenarios">Jsonã®ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«</param>
     public override void ShowTutorialText(TutorialText scenarios)
     {
-        //Json‚É‘‚©‚ê‚½ƒeƒLƒXƒg•”•ª‚ğUI‚Æ‚µ‚Ä•\¦
+        //Jsonã«æ›¸ã‹ã‚ŒãŸãƒ†ã‚­ã‚¹ãƒˆéƒ¨åˆ†ã‚’UIã¨ã—ã¦è¡¨ç¤º
         TutorialTextUGUI.text = scenarios.text;
 
-        //ƒ`ƒ…[ƒgƒŠƒAƒ‹‚Ìid‚ğ’²‚×‚Ä‚»‚ê‚É‰‚¶‚ÄƒeƒLƒXƒg‚ÆUI‚ğ•\¦
+        //ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã®idã‚’èª¿ã¹ã¦ãã‚Œã«å¿œã˜ã¦ãƒ†ã‚­ã‚¹ãƒˆã¨UIã‚’è¡¨ç¤º
         switch (scenarios.id)
         {
             case "welcome":
@@ -71,13 +71,13 @@ public class Stage2TutorialManager : TutorialManager
 
             case "DebuffEnemy_3":
 
-                ////ƒXƒe[ƒ^ƒXó‹µ‚ğà–¾‚·‚é‰æ‘œ‚ğ•\¦
+                ////ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹çŠ¶æ³ã‚’èª¬æ˜ã™ã‚‹ç”»åƒã‚’è¡¨ç¤º
                 statusWindowImage.SetActive(true);
                 break;
 
             case "DebuffEnemy_4":
 
-                //ƒXƒe[ƒ^ƒXó‹µ‚ğà–¾‚·‚é‰æ‘œ‚ğ”ñ•\¦
+                //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹çŠ¶æ³ã‚’èª¬æ˜ã™ã‚‹ç”»åƒã‚’éè¡¨ç¤º
                 statusWindowImage.SetActive(false);
                 break;
 
@@ -86,7 +86,7 @@ public class Stage2TutorialManager : TutorialManager
 
             case "End":
 
-                //ŠeƒLƒƒƒ‰‚Ìs“®§ŒÀà–¾‰æ‘œ
+                //å„ã‚­ãƒ£ãƒ©ã®è¡Œå‹•åˆ¶é™èª¬æ˜ç”»åƒ
                 actionCountImage.SetActive(true);
                 break;
 
