@@ -13,7 +13,7 @@ public class Buffer : BasePlayerStatus
     // Constants for magic numbers
     private const float EFFECT_DESTROY_TIME_SHORT = 0.2f;
     private const float EFFECT_DESTROY_TIME_MEDIUM = 3f;
-    private const int EFFECT_DESTROY_TIME_LONG = 4;
+    private const float EFFECT_DESTROY_TIME_LONG = 4f;
     private const int SKILL_LIMIT_TURNS = 3;
     private const int SPECIAL_LIMIT_TURNS = 6;
     private const int LEVEL_UP_BUFF_POWER_INCREASE = 100;

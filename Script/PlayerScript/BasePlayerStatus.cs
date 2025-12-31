@@ -385,7 +385,7 @@ public abstract class BasePlayerStatus : MonoBehaviour
         playerMaxHP += LEVEL_UP_MAX_HP_INCREASE;
 
         //���x�����v���X����
-        level++;;
+        level++;
 
     }
     
