@@ -11,6 +11,17 @@ using UnityEngine.UI;
 /// </summary>
 public class Skeleton : BaseEnemyStatus
 {
+    // Constants for magic numbers
+    private const int SKELETON_MAX_HP_DISPLAY = 2500;
+    private const float ACTION_WAIT_TIME = 2f;
+    private const float EFFECT_DESTROY_TIME = 2f;
+    private const int DEBUFF_PROBABILITY_PERCENT = 50;
+    private const int SPECIAL_DEBUFF_PROBABILITY_PERCENT = 10;
+    private const int DEBUFF_DURATION_TURNS = 3;
+    private const int SPECIAL_DEBUFF_DURATION_TURNS = 5;
+    private const int MIN_ATTACK_POWER_DEBUFF = 50;
+    private const int MIN_ATTACK_POWER_SPECIAL_DEBUFF = 20;
+
     [SerializeField]
     [Tooltip("スケルトンのデバフパワー")]
     private int debuffPower;

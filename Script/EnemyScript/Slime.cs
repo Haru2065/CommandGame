@@ -8,26 +8,31 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒXƒ‰ƒCƒ€ƒXƒe[ƒ^ƒXƒXƒNƒŠƒvƒg
+/// ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½g
 /// </summary>
 public class Slime : BaseEnemyStatus
 {
+    // Constants for magic numbers
+    private const int SLIME_MAX_HP_DISPLAY = 2500;
+    private const float ACTION_WAIT_TIME = 2f;
+    private const float EFFECT_DESTROY_TIME = 2f;
+
     [SerializeField]
-    [Tooltip("ƒXƒ‰ƒCƒ€HPƒo[")]
+    [Tooltip("ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½HPï¿½oï¿½[")]
     private Slider slimeHPBar;
 
     // Start is called before the first frame update
     void Start()
     {
-        //“G‚Ìƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ï¿½Gï¿½Ìƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½İ’ï¿½
         SetEnemyParameters();
 
-        //ƒXƒ‰ƒCƒ€‚ğ¶‘¶ó‘Ô‚É
+        //ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ğ¶‘ï¿½ï¿½ï¿½Ô‚ï¿½
         EnemyIsAlive = true;
     }
 
     /// <summary>
-    /// ƒXƒ‰ƒCƒ€‚ÌHP‚ğ•\¦‚·‚éˆ—
+    /// ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½HPï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½éˆï¿½ï¿½
     /// </summary>
     protected override void Update()
     {
@@ -35,133 +40,133 @@ public class Slime : BaseEnemyStatus
     }
 
     /// <summary>
-    /// ƒpƒ‰ƒ[ƒ^‚ğİ’è‚·‚éƒƒ\ƒbƒh
-    /// “G‚Ìƒf[ƒ^ƒx[ƒX‚©‚ç“Ç‚İ‚±‚İ
+    /// ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½İ’è‚·ï¿½éƒï¿½\ï¿½bï¿½h
+    /// ï¿½Gï¿½Ìƒfï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½Ç‚İ‚ï¿½ï¿½ï¿½
     /// </summary>
     protected override void SetEnemyParameters()
     {
-        //ƒŠƒ“ƒN‹@”\‚ğg‚Á‚ÄA“G‚Ìƒf[ƒ^ƒx[ƒX‚ÌÅ‰‚Ì—v‘f‚©‚ç“G‚ÌID‚ğæ“¾
+        //ï¿½ï¿½ï¿½ï¿½ï¿½Nï¿½@ï¿½\ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ÄAï¿½Gï¿½Ìƒfï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½ÌÅï¿½ï¿½Ì—vï¿½fï¿½ï¿½ï¿½ï¿½Gï¿½ï¿½IDï¿½ï¿½ï¿½æ“¾
         var enemyData = EnemyDataBase.EnemyParameters.FirstOrDefault(e => e.EnemyNameData == EnemyID);
 
-        //‡’v‚·‚ê‚Îƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½ï¿½Îƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½İ’ï¿½
         if (enemyData != null)
         {
-            //Œ»İ‚ÌHP‚ğ“Gƒf[ƒ^‚Éİ’è‚³‚ê‚Ä‚¢‚éÅ‘å‘Ì—Í‚É‚·‚é
+            //ï¿½ï¿½ï¿½İ‚ï¿½HPï¿½ï¿½Gï¿½fï¿½[ï¿½^ï¿½Éİ’è‚³ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Å‘ï¿½Ì—Í‚É‚ï¿½ï¿½ï¿½
             EnemyMaxHP = enemyData.EnemyMaxHPData;
             
-            //Œ»İ‚Ì“G‚Ì‘Ì—Í‚àÅ‘å‚Éİ’è
+            //ï¿½ï¿½ï¿½İ‚Ì“Gï¿½Ì‘Ì—Í‚ï¿½ï¿½Å‘ï¿½Éİ’ï¿½
             EnemyCurrentHP = EnemyMaxHP;
 
-            //ƒXƒ‰ƒCƒ€‚ÌHPƒo[‚ğÅ‘å‘Ì—Í‚Éİ’è
+            //ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½HPï¿½oï¿½[ï¿½ï¿½ï¿½Å‘ï¿½Ì—Í‚Éİ’ï¿½
             slimeHPBar.maxValue = EnemyCurrentHP;
             slimeHPBar.value = EnemyCurrentHP;
 
-            //ƒXƒ‰ƒCƒ€‚ÌHPƒo[‚ÌÅ¬‚Í‚O‚Éİ’è
+            //ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ï¿½HPï¿½oï¿½[ï¿½ÌÅï¿½ï¿½Í‚Oï¿½Éİ’ï¿½
             slimeHPBar.minValue = 0;
 
-            //ƒXƒ‰ƒCƒ€‚ÌUŒ‚—Í‚ğƒGƒlƒ~[ƒf[ƒ^‚ÌUŒ‚—Í‚Éİ’è
+            //ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ÌUï¿½ï¿½ï¿½Í‚ï¿½ï¿½Gï¿½lï¿½~ï¿½[ï¿½fï¿½[ï¿½^ï¿½ÌUï¿½ï¿½ï¿½Í‚Éİ’ï¿½
             EnemyAttackPower = enemyData.EnemyAttackPowerData;
         }
         else
         {
-            Debug.LogError($"{EnemyID} ‚Ìƒf[ƒ^‚ªƒf[ƒ^ƒx[ƒX‚É‘¶İ‚µ‚Ü‚¹‚ñI");
+            Debug.LogError($"{EnemyID} ï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½É‘ï¿½ï¿½İ‚ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½I");
         }
     }
 
     /// <summary>
-    /// ƒXƒ‰ƒCƒ€‚Ìƒ^[ƒ“‚És“®‚·‚éƒƒ\ƒbƒh
+    /// ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒ^ï¿½[ï¿½ï¿½ï¿½Ésï¿½ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
     /// </summary>
     public async UniTask SlimeAction()
     {
-        //ƒ‰ƒ“ƒ_ƒ€‚ÅƒvƒŒƒCƒ„[‚ÉUŒ‚‚·‚é‘ÎÛ‚ğ‘I‘ğ‚µ‚ÄUŒ‚‚·‚éƒƒ\ƒbƒh‚ğÀs
+        //ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½Åƒvï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ÉUï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎÛ‚ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ÄUï¿½ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½ï¿½ï¿½s
         RandomSelect();
         
-        //ƒXƒ‰ƒCƒ€‚ÌUŒ‚Œø‰Ê‰¹Ä¶
+        //ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ÌUï¿½ï¿½ï¿½ï¿½ï¿½Ê‰ï¿½ï¿½Äï¿½
         EnemySE.Instance.Play_slimeAttackSE();
 
-        //2ƒtƒŒ[ƒ€‘Ò‚Â
+        //2ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ò‚ï¿½
         await UniTask.Delay(TimeSpan.FromSeconds(2f));
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Éƒ‰ƒ“ƒ_ƒ€‚ÅUŒ‚‚·‚éƒƒ\ƒbƒh
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Éƒï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ÅUï¿½ï¿½ï¿½ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
     /// </summary>
     public override BasePlayerStatus RandomSelect()
     {
-        //ˆê“x¶‘¶‚µ‚Ä‚¢‚éƒLƒƒƒ‰‚Ì‚İ‚ÅƒŠƒXƒg‚ğ®—‚·‚é
+        //ï¿½ï¿½xï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ì‚İ‚Åƒï¿½ï¿½Xï¿½gï¿½ğ®—ï¿½ï¿½ï¿½ï¿½ï¿½
         List<BasePlayerStatus> TargetAlivePlayers = StartAlivePlayers.FindAll(player => player.IsAlive);
 
-        //ƒŠƒXƒg‚ÉƒLƒƒƒ‰‚ª‚¢‚ê‚ÎÀs
+        //ï¿½ï¿½ï¿½Xï¿½gï¿½ÉƒLï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Îï¿½ï¿½s
         if (TargetAlivePlayers.Count > 0)
         {
-            //ƒŠƒXƒg‚Ì’†‚É‚ ‚éƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ğ‘I‘ğ‚µ‚Äƒ^[ƒQƒbƒg‚Éİ’è
+            //ï¿½ï¿½ï¿½Xï¿½gï¿½Ì’ï¿½ï¿½É‚ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½Äƒ^ï¿½[ï¿½Qï¿½bï¿½gï¿½Éİ’ï¿½
             BasePlayerStatus target = TargetAlivePlayers[UnityEngine.Random.Range(0, TargetAlivePlayers.Count)];
 
-            Debug.Log(target.PlayerID + "‚ÉUŒ‚");
+            Debug.Log(target.PlayerID + "ï¿½ÉUï¿½ï¿½");
 
-            //ƒ^[ƒQƒbƒg‚ÌˆÊ’u‚ÉƒGƒtƒFƒNƒg‚ğ¶¬
+            //ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ÌˆÊ’uï¿½ÉƒGï¿½tï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½
             GameObject effectInstance = Instantiate(OnlyAttackEffect, target.transform.position, Quaternion.identity);
 
             target.PlayerOnDamage(EnemyAttackPower);
 
-            //2ƒtƒŒ[ƒ€ŒãƒGƒtƒFƒNƒg‚ğÁ‹
+            //2ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Destroy(effectInstance, 2f);
 
-            //İ’è‚µ‚½ƒ^[ƒQƒbƒg‚ğ•Ô‚·
+            //ï¿½İ’è‚µï¿½ï¿½ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½Ô‚ï¿½
             return target;
         }
         else
         {
-            Debug.Log("UŒ‚‘ÎÛ‚ª‚¢‚Ü‚¹‚ñ");
+            Debug.Log("ï¿½Uï¿½ï¿½ï¿½ÎÛ‚ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½");
             return null;
         }
     }
 
     /// <summary>
-    /// ƒXƒ‰ƒCƒ€‚Ìƒ_ƒ[ƒWˆ—
+    /// ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½Ìƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½
     /// </summary>
-    /// <param name="damage">ƒvƒŒƒCƒ„[‚©‚ç‚ÌUŒ‚ƒ_ƒ[ƒW”</param>
+    /// <param name="damage">ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ÌUï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½</param>
     public override void EnemyOnDamage(int damage)
     {
         EnemyCurrentHP -= damage;
 
         if (EnemyCurrentHP <= 0)
         {
-            //Œ»İ‚ÌHP‚ğ‚O‚Éİ’è‚µ‚ÄHPBar‚àXV
+            //ï¿½ï¿½ï¿½İ‚ï¿½HPï¿½ï¿½ï¿½Oï¿½Éİ’è‚µï¿½ï¿½HPBarï¿½ï¿½ï¿½Xï¿½V
             EnemyCurrentHP = 0;
 
-            // UIXV
+            // UIï¿½Xï¿½V
             slimeHPBar.value = EnemyCurrentHP;
             enemyHPUGUI.text = $"{EnemyCurrentHP}/2500";
 
-            //¶‘¶ƒtƒ‰ƒO‚ğfalse
+            //ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½false
             EnemyIsAlive = false;
 
-            //¶‘¶ƒŠƒXƒg‚Æ‰Šúƒ^[ƒQƒbƒg‚ğİ’è‚·‚éƒŠƒXƒg‚ÌÁ‹
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½gï¿½Æï¿½ï¿½ï¿½ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½İ’è‚·ï¿½éƒŠï¿½Xï¿½gï¿½Ìï¿½ï¿½ï¿½
             Stage1BattleSystem.Instance.aliveEnemies.Remove(this);
             PlayerTargetSelect.Instance.RemoveSetTarget(this);
 
-            //ƒAƒ^ƒbƒJ[‚Ì‘S‘ÌUŒ‚‚ÌƒŠƒXƒg‚©‚çíœ
+            //ï¿½Aï¿½^ï¿½bï¿½Jï¿½[ï¿½Ì‘Sï¿½ÌUï¿½ï¿½ï¿½Ìƒï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½ï¿½íœ
             Attacker.RemoveDeadEnemies();
 
-            //©g‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚éƒR[ƒ‹ƒ`ƒ“ƒXƒ^[ƒg
+            //ï¿½ï¿½ï¿½gï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½ï¿½ï¿½`ï¿½ï¿½ï¿½Xï¿½^ï¿½[ï¿½g
             StartCoroutine(DestroyObject());
         }
         else
         {
-            // ’Êí‚Ìƒ_ƒ[ƒW‚ÌUIXV
+            // ï¿½Êï¿½Ìƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½ï¿½UIï¿½Xï¿½V
             slimeHPBar.value = EnemyCurrentHP;
             enemyHPUGUI.text = $"{EnemyCurrentHP}/2000";
         }
     }
 
     /// <summary>
-    /// ƒIƒuƒWƒFƒNƒg‚ğÁ‹‚·‚éƒR[ƒ‹ƒ`ƒ“
+    /// ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Rï¿½[ï¿½ï¿½ï¿½`ï¿½ï¿½
     /// </summary>
-    /// <returns>1ƒtƒŒ[ƒ€‘Ò‚Â</returns>
+    /// <returns>1ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Ò‚ï¿½</returns>
     protected override IEnumerator DestroyObject()
     {
-        //ƒXƒ‰ƒCƒ€‚ÌƒIƒuƒWƒFƒNƒg‚ğÁ‹
+        //ï¿½Xï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½ÌƒIï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         Destroy(gameObject);
         
         yield return null;

@@ -4,57 +4,65 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /// <summary>
-/// ƒoƒbƒtƒ@[‚ÌƒXƒe[ƒ^ƒX
-/// ƒXƒNƒŠƒvƒ^ƒuƒ‹ƒIƒuƒWƒFƒNƒg‚©‚çƒf[ƒ^‚ğ“Ç‚İ‚Ş
-/// ƒx[ƒXƒvƒŒƒCƒ„[ƒXƒe[ƒ^ƒX‚ğŒp³
+/// ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ÌƒXï¿½eï¿½[ï¿½^ï¿½X
+/// ï¿½Xï¿½Nï¿½ï¿½ï¿½vï¿½^ï¿½uï¿½ï¿½ï¿½Iï¿½uï¿½Wï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
+/// ï¿½xï¿½[ï¿½Xï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Xï¿½eï¿½[ï¿½^ï¿½Xï¿½ï¿½ï¿½pï¿½ï¿½
 /// </summary>
 public class Buffer : BasePlayerStatus
 {
+    // Constants for magic numbers
+    private const float EFFECT_DESTROY_TIME_SHORT = 0.2f;
+    private const float EFFECT_DESTROY_TIME_MEDIUM = 3f;
+    private const int EFFECT_DESTROY_TIME_LONG = 4;
+    private const int SKILL_LIMIT_TURNS = 3;
+    private const int SPECIAL_LIMIT_TURNS = 6;
+    private const int LEVEL_UP_BUFF_POWER_INCREASE = 100;
+
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[ƒ^[ƒQƒbƒgƒ}ƒl[ƒWƒƒ[")]
+    [Tooltip("ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½}ï¿½lï¿½[ï¿½Wï¿½ï¿½ï¿½[")]
     private BuffTargetWindow bufferTargetWindow;
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[")]
+    [Tooltip("ï¿½Aï¿½^ï¿½bï¿½Jï¿½[")]
     private Attacker attacker;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[")]
+    [Tooltip("ï¿½qï¿½[ï¿½ï¿½ï¿½[")]
     private Healer healer;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚Ì’ÊíUŒ‚ƒGƒtƒFƒNƒg")]
+    [Tooltip("ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ì’Êï¿½Uï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½g")]
     private GameObject bufferNormalEffect;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌƒXƒLƒ‹ƒGƒtƒFƒNƒg")]
+    [Tooltip("ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ÌƒXï¿½Lï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½g")]
     private GameObject bufferSkillEffect;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌƒeƒLƒXƒgƒGƒtƒFƒNƒg")]
+    [Tooltip("ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìƒeï¿½Lï¿½Xï¿½gï¿½Gï¿½tï¿½Fï¿½Nï¿½g")]
     private GameObject bufferTextEffect;
 
 
     [SerializeField]
-    [Tooltip("ƒAƒ^ƒbƒJ[‚ÌƒoƒtƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ï¿½Aï¿½^ï¿½bï¿½Jï¿½[ï¿½Ìƒoï¿½tï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u")]
     private Transform attacker_BuffEffect_SpawnPoint;
 
     [SerializeField]
-    [Tooltip("ƒoƒbƒtƒ@[‚ÌƒoƒtƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìƒoï¿½tï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u")]
     private Transform buffer_BuffEffect_SpawnPoint;
 
     [SerializeField]
-    [Tooltip("ƒq[ƒ‰[‚ÌƒoƒtƒGƒtƒFƒNƒg‚ğ•\¦‚³‚¹‚éˆÊ’u")]
+    [Tooltip("ï¿½qï¿½[ï¿½ï¿½ï¿½[ï¿½Ìƒoï¿½tï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½\ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê’u")]
     private Transform healer_BuffEffect_SpawnPoint;
 
-    //ƒoƒbƒtƒ@[‚Ìs“®‚ªI—¹‚µ‚½‚©
+    //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìsï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public bool IsBufferAction;
 
 
     // Start is called before the first frame update
     protected override void Start()
     {
-        //ƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½İ’ï¿½
         base.Start();
 
         IsBufferAction = false;
@@ -70,105 +78,105 @@ public class Buffer : BasePlayerStatus
 
     protected override void Update()
     {
-        //ƒvƒŒƒCƒ„[ƒLƒƒƒ‰‚ÌHP”•\¦
+        //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½HPï¿½ï¿½ï¿½\ï¿½ï¿½
         PlayerHPUGUI.text = $"{PlayerCurrentHP}/ {PlayerMaxHP}";
     }
 
     /// <summary>
-    /// ƒvƒŒƒCƒ„[‚Ìs“®I—¹‚µ‚½‚©iƒoƒbƒtƒ@[‚ªs“®‚µ‚½‚©j‚Ìƒtƒ‰ƒO‚ğƒŠƒZƒbƒg‚É‚·‚éƒƒ\ƒbƒh
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìsï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½iï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½jï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½gï¿½É‚ï¿½ï¿½éƒï¿½\ï¿½bï¿½h
     /// </summary>
     public override void ResetActionFlag()
     {
-        //ƒx[ƒX‚Ìƒƒ\ƒbƒh‚©‚çƒvƒŒƒCƒ„[s“®ƒtƒ‰ƒO‚ğƒŠƒZƒbƒg
+        //ï¿½xï¿½[ï¿½Xï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½sï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
         base.ResetActionFlag();
 
-        //ƒoƒbƒtƒ@[‚Ìs“®ƒtƒ‰ƒO‚àfalse
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìsï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½false
         IsBufferAction = false;
     }
 
     /// <summary>
-    /// ƒpƒ‰ƒ[ƒ^‚ğİ’è‚·‚éƒƒ\ƒbƒh
-    /// ƒvƒŒƒCƒ„[‚Ìƒf[ƒ^ƒx[ƒX‚©‚ç“Ç‚İ‚İ
+    /// ï¿½pï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½İ’è‚·ï¿½éƒï¿½\ï¿½bï¿½h
+    /// ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½Ìƒfï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
     /// </summary>
     protected override void SetPlayerParameters()
     {
 
-        // LINQ‚ğg‚¢AƒvƒŒƒCƒ„[ƒf[ƒ^ƒx[ƒX‚©‚çPlayerID‚Æˆê’v‚·‚éƒvƒŒƒCƒ„[î•ñ‚ğæ“¾
+        // LINQï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Aï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½fï¿½[ï¿½^ï¿½xï¿½[ï¿½Xï¿½ï¿½ï¿½ï¿½PlayerIDï¿½Æˆï¿½vï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½æ“¾
         var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p => p.PlayerNameData == PlayerID);
 
-        //ƒvƒŒƒCƒ„[‚ÌID‚Æ‡’v‚·‚ê‚Îƒpƒ‰ƒ[ƒ^‚ğİ’è
+        //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½IDï¿½Æï¿½ï¿½vï¿½ï¿½ï¿½ï¿½Îƒpï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½^ï¿½ï¿½İ’ï¿½
         if (playerData != null)
         {
-            //Å‘å‘Ì—Í‚Ìƒf[ƒ^‚ğ“Ç‚İ‚İ
+            //ï¿½Å‘ï¿½Ì—Í‚Ìƒfï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
             PlayerMaxHP = playerData.PlayerMaxHPData;
 
-            //ƒoƒbƒtƒ@[‚ÌŒ»İ‚ÌHP‚ğÅ‘å‚Éİ’è‚µ‚ÄHPƒo[‚àÅ‘å‚Éİ’è
+            //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ÌŒï¿½ï¿½İ‚ï¿½HPï¿½ï¿½ï¿½Å‘ï¿½Éİ’è‚µï¿½ï¿½HPï¿½oï¿½[ï¿½ï¿½ï¿½Å‘ï¿½Éİ’ï¿½
             PlayerCurrentHP = PlayerMaxHP;
             PlayerHPBar.maxValue = PlayerCurrentHP;
             PlayerHPBar.value = PlayerCurrentHP;
             PlayerHPBar.minValue = 0;
 
-            //HPBar‚ÌÅ¬‚Í‚O
+            //HPBarï¿½ÌÅï¿½ï¿½Í‚O
             PlayerHPBar.minValue = 0;
 
-            //UŒ‚—Í‚ğƒoƒbƒtƒ@[‚Ìƒf[ƒ^‚ÌUŒ‚—Í‚ğ“Ç‚İ‚Ş
+            //ï¿½Uï¿½ï¿½ï¿½Í‚ï¿½ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìƒfï¿½[ï¿½^ï¿½ÌUï¿½ï¿½ï¿½Í‚ï¿½Ç‚İï¿½ï¿½ï¿½
             AttackPower = playerData.PlayerAttackPowerData;
 
-            //‰ŠúUŒ‚—Í‚àƒAƒ^ƒbƒJ[‚ÌUŒ‚—Í‚Éİ’è
+            //ï¿½ï¿½ï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½Í‚ï¿½ï¿½Aï¿½^ï¿½bï¿½Jï¿½[ï¿½ÌUï¿½ï¿½ï¿½Í‚Éİ’ï¿½
             PlayerResetAttackPower = AttackPower;
 
-            //ƒoƒtƒf[ƒ^‚ğ“Ç‚İ‚İ
+            //ï¿½oï¿½tï¿½fï¿½[ï¿½^ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
             BuffPower = playerData.BuffPowerData;
 
-            //¶‘¶ó‘Ô‚É‚·‚é
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô‚É‚ï¿½ï¿½ï¿½
             IsAlive = true;
         }
     }
 
     /// <summary>
-    /// Jsonƒf[ƒ^‚ª‚ ‚é‚É“Ç‚İ‚İƒƒ\ƒbƒh
+    /// Jsonï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½ï¿½éï¿½É“Ç‚İï¿½ï¿½İƒï¿½ï¿½\ï¿½bï¿½h
     /// </summary>
-    /// <param name="data">•Û‘¶ƒf[ƒ^</param>
+    /// <param name="data">ï¿½Û‘ï¿½ï¿½fï¿½[ï¿½^</param>
     protected override void ApplySaveData(PlayerSaveData data)
     {
-        //Šî–{ƒf[ƒ^‚ÍeƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh‚ÅÀs
+        //ï¿½ï¿½{ï¿½fï¿½[ï¿½^ï¿½Íeï¿½Nï¿½ï¿½ï¿½Xï¿½Ìƒï¿½ï¿½\ï¿½bï¿½hï¿½Åï¿½ï¿½s
         base.ApplySaveData(data);
 
-        //ƒoƒt—Í‚ğƒZ[ƒuƒf[ƒ^‚©‚ç“Ç‚İ‚İ
+        //ï¿½oï¿½tï¿½Í‚ï¿½ï¿½Zï¿½[ï¿½uï¿½fï¿½[ï¿½^ï¿½ï¿½ï¿½ï¿½Ç‚İï¿½ï¿½ï¿½
         BuffPower = data.bufferBuffPower_saveData;
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚Ì’ÊíUŒ‚
+    /// ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ì’Êï¿½Uï¿½ï¿½
     /// </summary>
     public override void NormalAttack()
     {
-        //ƒvƒŒƒCƒ„[‚ª‘I‚ñ‚¾“G‚ğUŒ‚‘ÎÛ‚Éİ’è‚·‚é
+        //ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½Iï¿½ñ‚¾“Gï¿½ï¿½ï¿½Uï¿½ï¿½ï¿½ÎÛ‚Éİ’è‚·ï¿½ï¿½
         BaseEnemyStatus target = PlayerTargetSelect.Instance.GetAttackTargetEnemy();
 
         if (target != null)
         {
-            //ƒoƒbƒtƒ@‚Ì’ÊíUŒ‚‰¹Ä¶
+            //ï¿½oï¿½bï¿½tï¿½@ï¿½Ì’Êï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½Äï¿½
             PlayerSE.Instance.Play_BufferNormalAttackSE();
 
-            //ƒoƒbƒtƒ@‚Ì’ÊíUŒ‚‚ÌƒGƒtƒFƒNƒg‚ğ¶¬
+            //ï¿½oï¿½bï¿½tï¿½@ï¿½Ì’Êï¿½Uï¿½ï¿½ï¿½ÌƒGï¿½tï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½
             GameObject effectInstance = Instantiate(bufferNormalEffect, PlayerEffect_SpawnPoint.position, Quaternion.identity);
             GameObject textEffectInstance = Instantiate(bufferTextEffect, PlayerTextEfferct_SpawnPoint.position, Quaternion.identity);
 
-            //UŒ‚‚·‚é‘ÎÛ‚Ì“G‚Éƒ_ƒ[ƒW‚ğ—^‚¦‚é
+            //ï¿½Uï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÎÛ‚Ì“Gï¿½Éƒ_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½^ï¿½ï¿½ï¿½ï¿½
             target.EnemyOnDamage(AttackPower);
 
-            //ƒGƒtƒFƒNƒg‚ğÁ‹‚·‚é
-            Destroy(effectInstance,0.2f);
-            Destroy(textEffectInstance, 4);
+            //ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            Destroy(effectInstance, EFFECT_DESTROY_TIME_SHORT);
+            Destroy(textEffectInstance, EFFECT_DESTROY_TIME_LONG);
         }
 
-        //‚à‚µƒoƒtŒø‰Ê‚ª‚ ‚ê‚ÎUŒ‚—Í‚ğƒŠƒZƒbƒg
+        //ï¿½ï¿½ï¿½ï¿½ï¿½oï¿½tï¿½ï¿½ï¿½Ê‚ï¿½ï¿½ï¿½ï¿½ï¿½ÎUï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½Zï¿½bï¿½g
         if (HasBuff)
         {
             var playerData = PlayerDataBase.PlayerParameters.FirstOrDefault(p =>p.PlayerNameData == PlayerID);
 
-            //ƒoƒbƒtƒ@[‚ÌUŒ‚—Í‚ğƒf[ƒ^‚ÌUŒ‚—Í‚Éİ’è
+            //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ÌUï¿½ï¿½ï¿½Í‚ï¿½ï¿½fï¿½[ï¿½^ï¿½ÌUï¿½ï¿½ï¿½Í‚Éİ’ï¿½
             AttackPower = playerData.PlayerAttackPowerData;
 
             HasBuff = false;
@@ -178,17 +186,17 @@ public class Buffer : BasePlayerStatus
         {
             DebuffCount--;
 
-            //ƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚ª0‚É‚È‚Á‚½‚çƒtƒ‰ƒO‚ğfalseAƒeƒLƒXƒg‚ğ•\¦
+            //ï¿½fï¿½oï¿½tï¿½pï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½0ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½falseï¿½Aï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½\ï¿½ï¿½
             if (DebuffCount <= 0)
             {
                 AttackPower = PlayerResetAttackPower;
 
                 IsDebuff = false;
 
-                // JSONƒtƒ@ƒCƒ‹‚Åİ’è‚³‚ê‚½ƒAƒ^ƒbƒJ[‚Ìƒfƒoƒt‰ğœ’Ê’m‚ğ•\¦
+                // JSONï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Åİ’è‚³ï¿½ê‚½ï¿½Aï¿½^ï¿½bï¿½Jï¿½[ï¿½Ìƒfï¿½oï¿½tï¿½ï¿½ï¿½ï¿½ï¿½Ê’mï¿½ï¿½\ï¿½ï¿½
                 BattleActionTextManager.Instance.ShowBattleActionText("BufferOffDebuff");
 
-                // ƒfƒoƒt‰ğœ‚Ìó‹µƒeƒLƒXƒg‚ğ”ñ•\¦‚É‚·‚é
+                // ï¿½fï¿½oï¿½tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìó‹µƒeï¿½Lï¿½Xï¿½gï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
                 StartCoroutine(PlayerOffDebuffText());
             }
         }
@@ -197,14 +205,14 @@ public class Buffer : BasePlayerStatus
         {
             SpecialDebuffCount--;
 
-            //“ÁêƒfƒoƒtŒp‘±ƒJƒEƒ“ƒg‚ª0‚É‚È‚Á‚½‚çƒtƒ‰ƒO‚ğfalseAƒeƒLƒXƒg‚ğ•\¦
+            //ï¿½ï¿½ï¿½ï¿½fï¿½oï¿½tï¿½pï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½0ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½falseï¿½Aï¿½eï¿½Lï¿½Xï¿½gï¿½ï¿½\ï¿½ï¿½
             if (SpecialDebuffCount <= 0)
             {
                 AttackPower = PlayerResetAttackPower;
 
                 IsSpecialDebuff = false;
 
-                // JSONƒtƒ@ƒCƒ‹‚Åİ’è‚³‚ê‚½ƒAƒ^ƒbƒJ[‚Ì“Áêƒfƒoƒt‰ğœ’Ê’m‚ğ•\¦
+                // JSONï¿½tï¿½@ï¿½Cï¿½ï¿½ï¿½Åİ’è‚³ï¿½ê‚½ï¿½Aï¿½^ï¿½bï¿½Jï¿½[ï¿½Ì“ï¿½ï¿½ï¿½fï¿½oï¿½tï¿½ï¿½ï¿½ï¿½ï¿½Ê’mï¿½ï¿½\ï¿½ï¿½
                 BattleActionTextManager.Instance.ShowBattleActionText("BufferOffDebuff");
 
                 StartCoroutine(PlayerOffDebuffText());
@@ -215,11 +223,11 @@ public class Buffer : BasePlayerStatus
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚ÌƒXƒLƒ‹
+    /// ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ÌƒXï¿½Lï¿½ï¿½
     /// </summary>
     public override void PlayerSkill()
     {
-        //ƒoƒt‚·‚éƒ^[ƒQƒbƒg‚ğ‘I‘ğ‚·‚éƒEƒBƒ“ƒhƒE‚ğŠJ‚­
+        //ï¿½oï¿½tï¿½ï¿½ï¿½ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½Jï¿½ï¿½
         bufferTargetWindow.ShowBuffTargetWindow();
 
         if (IsDebuff)
@@ -256,34 +264,34 @@ public class Buffer : BasePlayerStatus
 
         IsUseSkill = true;
 
-        //ƒXƒLƒ‹§ŒÀƒJƒEƒ“ƒg‚ğ‚R‚Éİ’è
-        SkillLimitCount= 3;
+        //ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Rï¿½Éİ’ï¿½
+        SkillLimitCount = SKILL_LIMIT_TURNS;
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚Ì•KE‹Z
+    /// ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ì•Kï¿½Eï¿½Z
     /// </summary>
     public override void SpecialSkill()
     {
-        //‘SƒLƒƒƒ‰ƒoƒt‚µ‚½‚Ì‚Åƒtƒ‰ƒO‚ğtrue‚É
+        //ï¿½Sï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½tï¿½ï¿½ï¿½ï¿½ï¿½Ì‚Åƒtï¿½ï¿½ï¿½Oï¿½ï¿½trueï¿½ï¿½
         attacker.HasBuff = true;
         HasBuff = true;
         healer.HasBuff = true;
 
-        //ƒoƒbƒtƒ@[‚Ì•KEŒø‰Ê‰¹Ä¶
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ì•Kï¿½Eï¿½ï¿½ï¿½Ê‰ï¿½ï¿½Äï¿½
         PlayerSE.Instance.Play_bufferSpecialSE();
 
-        //¶¬‚µ‚½ƒGƒtƒFƒNƒg‚ğŠi”[‚·‚éƒŠƒXƒg
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½éƒŠï¿½Xï¿½g
         List<GameObject> specialEffects = new List<GameObject>();
 
-        //ŠeƒŠƒXƒg‚ğŠi”[‚µAŠeƒLƒƒƒ‰‚ÌêŠ‚ÉƒGƒtƒFƒNƒg‚ğ¶¬
+        //ï¿½eï¿½ï¿½ï¿½Xï¿½gï¿½ï¿½ï¿½iï¿½[ï¿½ï¿½ï¿½Aï¿½eï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ÌêŠï¿½ÉƒGï¿½tï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½
 
         if (attacker.IsAlive)
         { 
             specialEffects.Add(Instantiate(bufferSkillEffect, attacker_BuffEffect_SpawnPoint.position, Quaternion.identity));
         }
 
-        //©g‚ª¶‘¶‚µ‚Ä‚¢‚½‚çƒGƒtƒFƒNƒg‚ğ¶¬
+        //ï¿½ï¿½ï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½
         if (IsAlive)
         {
             specialEffects.Add(Instantiate(bufferSkillEffect, buffer_BuffEffect_SpawnPoint.position, Quaternion.identity));
@@ -295,14 +303,14 @@ public class Buffer : BasePlayerStatus
             specialEffects.Add(Instantiate(bufferSkillEffect, healer_BuffEffect_SpawnPoint.position, Quaternion.identity));
         }
 
-        //3•bŒã‘S‚Ä‚ÌƒGƒtƒFƒNƒg‚ğÁ‹
+        //3ï¿½bï¿½ï¿½Sï¿½Ä‚ÌƒGï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         foreach (var effect in specialEffects)
         {
-            Destroy(effect,3f);
+            Destroy(effect, EFFECT_DESTROY_TIME_MEDIUM);
         }
 
 
-        //‘SƒLƒƒƒ‰ƒoƒt‚·‚é
+        //ï¿½Sï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½oï¿½tï¿½ï¿½ï¿½ï¿½
         attacker.AttackPower += BuffPower;
         AttackPower += BuffPower;
         healer.AttackPower += BuffPower;
@@ -340,70 +348,70 @@ public class Buffer : BasePlayerStatus
         }
         IsUseSpecial = true;
 
-        //ƒoƒbƒtƒ@[‚Ìs“®ƒtƒ‰ƒO‚ğtrue
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìsï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½true
         IsBufferAction = true;
         IsPlayerAction = true;
 
-        //•KE§ŒÀƒJƒEƒ“ƒg‚ğ‚U‚Éİ’è
-        SpecialLimitCount = 6;
+        //ï¿½Kï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½ï¿½Uï¿½Éİ’ï¿½
+        SpecialLimitCount = SPECIAL_LIMIT_TURNS;
 
     }
 
     /// <summary>
-    /// ƒoƒtÀsƒƒ\ƒbƒh
+    /// ï¿½oï¿½tï¿½ï¿½ï¿½sï¿½ï¿½ï¿½\ï¿½bï¿½h
     /// </summary>
-    /// <param name="target">ƒvƒŒƒCƒ„[‚ğæ“¾‚·‚é</param>
+    /// <param name="target">ï¿½vï¿½ï¿½ï¿½Cï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½æ“¾ï¿½ï¿½ï¿½ï¿½</param>
     public void OnBuff(BasePlayerStatus target)
     {
-        //ƒoƒt‘ÎÛ‚ğ‘I‘ğ‚·‚éƒEƒBƒ“ƒhƒE‚ğ”ñ•\¦
+        //ï¿½oï¿½tï¿½ÎÛ‚ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Eï¿½Bï¿½ï¿½ï¿½hï¿½Eï¿½ï¿½ï¿½\ï¿½ï¿½
         bufferTargetWindow.HideBuffTargetWindow();
 
-        Debug.LogWarning(target.PlayerID + "‚ÌUŒ‚—Í" + target.AttackPower);
+        Debug.LogWarning(target.PlayerID + "ï¿½ÌUï¿½ï¿½ï¿½ï¿½" + target.AttackPower);
 
-        //ƒoƒtƒXƒLƒ‹Œø‰Ê‰¹Ä¶
+        //ï¿½oï¿½tï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½Ê‰ï¿½ï¿½Äï¿½
         PlayerSE.Instance.Play_BufferSkillSE();
 
-        //ƒoƒbƒtƒ@[‚ÌƒXƒLƒ‹ƒGƒtƒFƒNƒg‚ğ¶¬
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ÌƒXï¿½Lï¿½ï¿½ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ğ¶ï¿½
         GameObject effectInstance = Instantiate(bufferSkillEffect, target.transform.position,Quaternion.identity);
 
-        //ƒoƒt—Í‚ğƒ^[ƒQƒbƒg‚ÌUŒ‚—Í‚ğ‰ÁZ
+        //ï¿½oï¿½tï¿½Í‚ï¿½ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½ÌUï¿½ï¿½ï¿½Í‚ï¿½ï¿½ï¿½ï¿½Z
         target.AttackPower += BuffPower;
 
-        Debug.LogWarning($"{target.PlayerID} ƒoƒtŒã‚ÌUŒ‚—Í: {target.AttackPower} (InstanceID: {target.GetInstanceID()})");
+        Debug.LogWarning($"{target.PlayerID} ï¿½oï¿½tï¿½ï¿½ÌUï¿½ï¿½ï¿½ï¿½: {target.AttackPower} (InstanceID: {target.GetInstanceID()})");
 
-        //ƒGƒtƒFƒNƒg‚ğÁ‹
-        Destroy(effectInstance, 3f);
+        //ï¿½Gï¿½tï¿½Fï¿½Nï¿½gï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+        Destroy(effectInstance, EFFECT_DESTROY_TIME_MEDIUM);
 
-        //ƒoƒbƒtƒ@[‚ªs“®‚µ‚½‚Ì‚Åtrue‚É
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì‚ï¿½trueï¿½ï¿½
         IsBufferAction = true;
 
         IsPlayerAction = true;
 
-        //ƒoƒbƒtƒ@[‚Ìƒ^[ƒ“‚ªI—¹‚µ‚½‚çƒXƒLƒ‹§ŒÀ‚Æ•KE§ŒÀƒJƒEƒ“ƒg‚ÌUI‚ğ”ñ•\¦
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìƒ^ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½Iï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Xï¿½Lï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ•Kï¿½Eï¿½ï¿½ï¿½ï¿½ï¿½Jï¿½Eï¿½ï¿½ï¿½gï¿½ï¿½UIï¿½ï¿½ï¿½\ï¿½ï¿½
         if (IsBufferAction)
         {
             UIManager.Instance.SkillLimitCountText.SetActive(false);
             UIManager.Instance.SpecialLimitCountText.SetActive(false);
         }
 
-        //ƒ^[ƒQƒbƒg‚Ìƒoƒt‚µ‚½‚©‚Ìƒtƒ‰ƒO‚ğtrue‚É‚·‚é
+        //ï¿½^ï¿½[ï¿½Qï¿½bï¿½gï¿½Ìƒoï¿½tï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ìƒtï¿½ï¿½ï¿½Oï¿½ï¿½trueï¿½É‚ï¿½ï¿½ï¿½
         target.HasBuff = true;
     }
 
     /// <summary>
-    /// ƒ_ƒ[ƒWƒƒ\ƒbƒh
+    /// ï¿½_ï¿½ï¿½ï¿½[ï¿½Wï¿½ï¿½ï¿½\ï¿½bï¿½h
     /// </summary>
-    /// <param name="damage">“G‚ÌUŒ‚—Í</param>
+    /// <param name="damage">ï¿½Gï¿½ÌUï¿½ï¿½ï¿½ï¿½</param>
     public override void PlayerOnDamage(int damage)
     {
-        //ƒoƒbƒtƒ@[‚Ì‘Ì—Í‚ğ“GUŒ‚—Í•ªŒ¸‚ç‚·
+        //ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ì‘Ì—Í‚ï¿½Gï¿½Uï¿½ï¿½ï¿½Í•ï¿½ï¿½ï¿½ï¿½ç‚·
         PlayerCurrentHP -= damage;
         PlayerHPBar.value = PlayerCurrentHP;
 
-        //‚à‚µŒ»İ‚ÌHP‚ÆHPƒo[‚ª0‚É‚È‚Á‚½‚çIsAlive‚ğfalse
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½İ‚ï¿½HPï¿½ï¿½HPï¿½oï¿½[ï¿½ï¿½0ï¿½É‚È‚ï¿½ï¿½ï¿½ï¿½ï¿½IsAliveï¿½ï¿½false
         if(PlayerCurrentHP <= 0)
         {
-            //¶‘¶ƒtƒ‰ƒO‚ğfalse‚É
+            //ï¿½ï¿½ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½Oï¿½ï¿½falseï¿½ï¿½
             BaseBattleManager.Instance.AlivePlayers.Remove(this);
 
             PlayerCurrentHP = 0;
@@ -414,13 +422,13 @@ public class Buffer : BasePlayerStatus
     }
 
     /// <summary>
-    /// ƒoƒbƒtƒ@[‚ÌƒŒƒxƒ‹ƒAƒbƒvˆ—
+    /// ï¿½oï¿½bï¿½tï¿½@ï¿½[ï¿½Ìƒï¿½ï¿½xï¿½ï¿½ï¿½Aï¿½bï¿½vï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public override void LevelUP()
     {
         base.LevelUP();
 
-        //ƒoƒtƒpƒ[‚ğ100ƒvƒ‰ƒX‚µ‚ÄƒŒƒxƒ‹ƒAƒbƒv
-        BuffPower += 100;
+        //ï¿½oï¿½tï¿½pï¿½ï¿½ï¿½[ï¿½ï¿½100ï¿½vï¿½ï¿½ï¿½Xï¿½ï¿½ï¿½Äƒï¿½ï¿½xï¿½ï¿½ï¿½Aï¿½bï¿½v
+        BuffPower += LEVEL_UP_BUFF_POWER_INCREASE;
     }
 }

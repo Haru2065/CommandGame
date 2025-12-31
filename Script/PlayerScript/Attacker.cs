@@ -9,6 +9,16 @@ using UnityEngine;
 /// </summary>
 public class Attacker : BasePlayerStatus
 {
+    // Constants for magic numbers
+    private const float EFFECT_DESTROY_TIME_SHORTEST = 0.2f;
+    private const float EFFECT_DESTROY_TIME_SHORT = 2f;
+    private const float EFFECT_DESTROY_TIME_MEDIUM = 3f;
+    private const float EFFECT_DESTROY_TIME_LONG = 4f;
+    private const float EFFECT_DELAY_TIME = 0.3f;
+    private const int ATTACK_POWER_MULTIPLIER = 2;
+    private const int SKILL_LIMIT_TURNS = 3;
+    private const int SPECIAL_LIMIT_TURNS = 3;
+
     //アタッカーの行動が終了したか
     public bool IsAttackerAction;
 
