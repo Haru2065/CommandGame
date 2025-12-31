@@ -11,6 +11,15 @@ using UnityEngine.UI;
 /// </summary>
 public class Dragon : BaseEnemyStatus
 {
+    // Constants for magic numbers
+    private const int ATTACK_PATTERN_CYCLE = 3;
+    private const float WAIT_TIME_SHORT = 1f;
+    private const float WAIT_TIME_MEDIUM = 2f;
+    private const float EFFECT_DESTROY_TIME_MEDIUM = 2f;
+    private const float EFFECT_DESTROY_TIME_LONG = 3f;
+    private const float EFFECT_SCALE_MULTIPLIER = 2f;
+    private const int DEBUFF_DURATION_TURNS = 2;
+
     [SerializeField]
     [Tooltip("ドラゴンのHPBar")]
     private Slider DragonHPBar;
