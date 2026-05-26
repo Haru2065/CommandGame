@@ -2,6 +2,9 @@
 
 お借りしたツールはUniTaskとNewTonsoftjsonです。
 
+CommandGame_UnityProjectにはUnityで動作するファイルをすべて入れてます
+Unityhubでこのファイルを開いてもらうと、Unity内のデータを確認することができます。
+
 Scriptファイルの中にソースコードがすべて入っています
 
 各ファイルについて
