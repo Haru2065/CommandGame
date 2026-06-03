@@ -35,7 +35,6 @@
 |
 |       UIScript:UI関係がまとめたソースコードが入っています。
 |  
--Edge of Arcane Command(作品概要資料):作品の概要資料になります。
 - README
 ```
 
